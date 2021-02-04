@@ -1,7 +1,7 @@
 module.exports = {
   title: "Menlo' Notes",
   description: "Just playing around",
-  base: "/vuepress-notes/",
+  base: "/notes/",
   head: [
     [
       "link",
