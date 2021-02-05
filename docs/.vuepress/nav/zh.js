@@ -94,10 +94,19 @@ module.exports = [
           },
         ],
       },
+      {
+        text: "算法与数据结构",
+        items: [
+          {
+            text: "算法与数据结构",
+            link: "/frontend/algorithm/",
+          },
+        ],
+      },
     ],
   },
   {
     text: "随笔",
-    link: "/personal/"
+    link: "/personal/",
   },
 ];
