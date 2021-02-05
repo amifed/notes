@@ -21,7 +21,7 @@ module.exports = {
     ],
   ],
   themeConfig: {
-    repo: "/dingjinyang/vuepress-notes",
+    repo: "/dingjinyang/notes",
     sidebar: "auto",
     editLinks: true,
     smoothScroll: true,

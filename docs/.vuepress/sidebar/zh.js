@@ -1,16 +1,15 @@
-const { dir } = require("console");
 const fs = require("fs");
-const { dirname } = require("path");
 const path = require("path");
 
 /**
  * 获取绝对路径的文件夹下的文件名
  * @param {string} path 绝对路径
  */
-const getFolderFilenames = (path) =>
+const getFolderMdFilenames = (path) =>
   fs
-    .readdirSync(path)
-    .map((filename) => filename.substring(0, filename.lastIndexOf(".")));
+    .readdirSync(path, { withFileTypes: true })
+    .filter((f) => f.isFile() && f.name.endsWith("md"))
+    .map((f) => f.name.substring(0, f.name.lastIndexOf(".")));
 
 /**
  * 获取绝对路径下子文件夹名
@@ -36,7 +35,7 @@ const getAlgorithmSidebar = () => {
         `/algorithm/${dir.name}/`,
         [
           "",
-          ...getFolderFilenames(
+          ...getFolderMdFilenames(
             path.resolve(__dirname, `../../algorithm/${dir.name}`)
           ).filter((f) => f != "README"),
         ],
@@ -52,18 +51,46 @@ const getContestChildren = (dirname) => {
     .map((d) => d + "/");
 };
 
+const generator = (p, parentDirName = "") => {
+  const ds = fs
+    .readdirSync(p, { withFileTypes: true })
+    .filter((d) => d && !d.name.startsWith("."));
+  let t = [];
+  ds.map((d) => {
+    if (d.isFile() && d.name.endsWith("md")) {
+      const prefix = parentDirName ? parentDirName + "/" : "";
+      const name = d.name.substring(0, d.name.lastIndexOf("."));
+      t.push(prefix + name);
+    } else if (d.isDirectory() && d.name != "src")
+      t.push({
+        title: d.name,
+        collapsable: false,
+        children: generator(
+          path.join(p, d.name),
+          `${parentDirName ? parentDirName + "/" : ""}${d.name}`
+        ),
+      });
+  });
+  return t;
+};
+
 module.exports = {
   ...getAlgorithmSidebar(),
   "/contest/leetcode/": [
+    "",
     {
       title: "周赛",
       collapsable: false,
-      children: getContestChildren("leetcode").filter(f => !f.includes("biweekly")),
+      children: getContestChildren("leetcode").filter(
+        (f) => !f.includes("biweekly")
+      ),
     },
     {
       title: "双周赛",
       collapsable: true,
-      children: getContestChildren("leetcode").filter(f => f.includes("biweekly")),
+      children: getContestChildren("leetcode").filter((f) =>
+        f.includes("biweekly")
+      ),
     },
   ],
   "/contest/atcoder/": [
@@ -72,5 +99,11 @@ module.exports = {
       collapsable: false,
       children: getContestChildren("atcoder"),
     },
+  ],
+  "/solution/acwing/": [
+    "",
+    ...generator(path.resolve(__dirname, "../../solution/acwing")).filter(
+      (f) => f != "README"
+    ),
   ],
 };

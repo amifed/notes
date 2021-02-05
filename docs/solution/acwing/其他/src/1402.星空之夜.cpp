@@ -41,6 +41,7 @@ double getDist(PII a, PII b) {
     return sqrt(dx * dx + dy * dy);
 }
 
+// 计算每个联通块的hash值
 double getHash() {
     double s = 0;
     for (int i = 0; i < top; ++i) {
@@ -51,7 +52,8 @@ double getHash() {
     return s;
 }
 
-char getId(double key) {
+// 获取key
+char getKey(double key) {
     static double hash[30];
     static int idx = 0;
     for (int i = 0; i < idx; ++i) {
@@ -61,6 +63,7 @@ char getId(double key) {
     return idx - 1 + 'a';
 }
 
+// Flood Fill 寻找联通块
 void dfs(int r, int c) {
     q[top++] = {r, c};
     g[r][c] = '0';
@@ -83,7 +86,7 @@ int main() {
         for (int j = 0; j < n; ++j) {
             if (g[i][j] == '1') {
                 top = 0, dfs(i, j);
-                char c = getId(getHash());
+                char c = getKey(getHash());
                 for (int k = 0; k < top; ++k) g[q[k].x][q[k].y] = c;
             }
         }
