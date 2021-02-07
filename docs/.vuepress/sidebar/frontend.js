@@ -8,7 +8,7 @@ module.exports = {
     {
       title: "数据结构",
       collapsable: false,
-      children: ["/data-structure/stack"],
+      children: ["data-structure/stack"],
     },
   ],
 };
