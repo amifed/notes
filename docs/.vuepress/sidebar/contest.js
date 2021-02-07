@@ -1,11 +1,12 @@
 const fs = require("fs");
 const path = require("path");
-const { getChildFolders } = require("./util");
+const { getChildFolders, getFolderMdFilenames } = require("./util");
 
 const getContestChildren = (dirname) => {
   const p = path.resolve(__dirname, `../../contest/${dirname}`);
   return getChildFolders(p)
     .filter((d) => fs.existsSync(path.join(p, d, "README.md")))
+    .sort((a, b) => (a < b ? 1 : -1))
     .map((d) => d + "/");
 };
 
@@ -15,16 +16,16 @@ module.exports = {
     {
       title: "周赛",
       collapsable: false,
-      children: getContestChildren("leetcode").filter(
-        (f) => !f.includes("biweekly")
-      ),
+      children: getFolderMdFilenames(
+        path.resolve(__dirname, "../../contest/leetcode/")
+      ).filter((f) => f.startsWith("weekly")),
     },
     {
       title: "双周赛",
-      collapsable: true,
-      children: getContestChildren("leetcode").filter((f) =>
-        f.includes("biweekly")
-      ),
+      collapsable: false,
+      children: getFolderMdFilenames(
+        path.resolve(__dirname, "../../contest/leetcode/")
+      ).filter((f) => f.startsWith("biweekly")),
     },
   ],
   "/contest/atcoder/": [
