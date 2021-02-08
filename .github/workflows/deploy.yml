@@ -1,4 +1,3 @@
-# action 名字
 name: Vuepress Deploy
 
 on:
@@ -8,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2
@@ -16,7 +15,7 @@ jobs:
       - name: Install and Build
         run: |
           yarn
-          yarn docs:build
+          yarn run docs:build
 
       # 部署到 GitHub Pages
       - name: Deploy 🚀
