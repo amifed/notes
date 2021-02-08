@@ -9,13 +9,11 @@ const getContestChildren = (dirname) => {
     .sort((a, b) => (a < b ? 1 : -1))
     .map((d) => d + "/");
 };
-
 const getContestLeetCode = () => {
-  fs.readdirSync(path.resolve(__dirname, "../../contest/leetcode"), {
-    withFileTypes: true,
-  })
-    .filter((f) => f.isFile() && f.name.endsWith(".md"))
-    .map((f) => f.name.substring(0, f.name.lastIndexOf(".")));
+  return fs
+    .readdirSync(path.resolve(__dirname, "../../contest/leetcode"))
+    .filter((f) => f.endsWith(".md"))
+    .map((f) => f.match(/(\S*).md/)[1]);
 };
 
 module.exports = {

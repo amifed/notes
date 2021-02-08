@@ -15,7 +15,6 @@ jobs:
 
       - name: Install and Build
         run: |
-          npm install yarn
           yarn
           yarn docs:build
 
