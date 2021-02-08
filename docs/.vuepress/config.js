@@ -21,7 +21,7 @@ module.exports = {
     ],
   ],
   themeConfig: {
-    repo: "/dingjinyang/notes",
+    repo: "/mandaloo/notes",
     sidebar: "auto",
     editLinks: true,
     smoothScroll: true,

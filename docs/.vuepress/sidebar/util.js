@@ -9,7 +9,7 @@ module.exports = {
   getFolderMdFilenames: (path) =>
     fs
       .readdirSync(path, { withFileTypes: true })
-      .filter((f) => f.isFile() && f.name.endsWith("md"))
+      .filter((f) => f.isFile() && f.name.endsWith(".md"))
       .map((f) => f.name.substring(0, f.name.lastIndexOf("."))),
 
   /**
