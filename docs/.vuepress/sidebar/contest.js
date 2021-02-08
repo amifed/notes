@@ -11,7 +11,7 @@ const getContestChildren = (dirname) => {
 };
 const getContestLeetCode = () => {
   return fs
-    .readdirSync(path.join(process.cwd(), "docs/contest/leetcode"))
+    .readdirSync(path.join(process.cwd(), "/docs/contest/leetcode/"))
     .filter((f) => f.endsWith(".md"))
     .map((f) => f.match(/(\S*).md/)[1]);
 };
@@ -75,4 +75,3 @@ module.exports = {
   ],
 };
 console.log(JSON.stringify(getContestLeetCode()));
-console.log(path.join(process.cwd(), "docs/contest/leetcode"));
