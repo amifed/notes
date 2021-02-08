@@ -11,23 +11,23 @@ const getContestChildren = (dirname) => {
 };
 
 module.exports = {
-  "/contest/leetcode/": [
-    "",
-    {
-      title: "周赛",
-      collapsable: false,
-      children: getFolderMdFilenames(
-        path.resolve(__dirname, "../../contest/leetcode")
-      ).filter((f) => f.startsWith("weekly")),
-    },
-    {
-      title: "双周赛",
-      collapsable: false,
-      children: getFolderMdFilenames(
-        path.resolve(__dirname, "../../contest/leetcode")
-      ).filter((f) => f.startsWith("biweekly")),
-    },
-  ],
+  // "/contest/leetcode/": [
+  //   "",
+  //   {
+  //     title: "周赛",
+  //     collapsable: false,
+  //     children: getFolderMdFilenames(
+  //       path.resolve(__dirname, "../../contest/leetcode")
+  //     ).filter((f) => f.startsWith("weekly")),
+  //   },
+  //   {
+  //     title: "双周赛",
+  //     collapsable: false,
+  //     children: getFolderMdFilenames(
+  //       path.resolve(__dirname, "../../contest/leetcode")
+  //     ).filter((f) => f.startsWith("biweekly")),
+  //   },
+  // ],
   "/contest/atcoder/": [
     "",
     {
