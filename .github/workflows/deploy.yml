@@ -9,17 +9,13 @@ jobs:
   build-and-deploy:
     runs-on: macos-latest
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@master
 
-      - name: Install and Build
-        run: |
-          yarn
-          yarn run docs:build
-
-      # 部署到 GitHub Pages
-      - name: Deploy 🚀
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          personal_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/.vuepress/dist
+      - name: Build and Deploy
+        uses: JamesIves/github-pages-deploy-action@master
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: .vuepress/dist
+          BUILD_SCRIPT: yarn install && yarn run docs:build
