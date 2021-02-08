@@ -17,14 +17,14 @@ module.exports = {
       title: "周赛",
       collapsable: false,
       children: getFolderMdFilenames(
-        path.resolve(__dirname, "../../contest/leetcode/")
+        path.resolve(__dirname, "../../contest/leetcode")
       ).filter((f) => f.startsWith("weekly")),
     },
     {
       title: "双周赛",
       collapsable: false,
       children: getFolderMdFilenames(
-        path.resolve(__dirname, "../../contest/leetcode/")
+        path.resolve(__dirname, "../../contest/leetcode")
       ).filter((f) => f.startsWith("biweekly")),
     },
   ],
