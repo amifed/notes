@@ -11,7 +11,7 @@ const getContestChildren = (dirname) => {
 };
 
 const getContestLeetCode = () => {
-  fs.readdirSync(path.relative(__dirname, "../../contest/leetcode"), {
+  fs.readdirSync(path.resolve(__dirname, "../../contest/leetcode"), {
     withFileTypes: true,
   })
     .filter((f) => f.isFile() && f.name.endsWith(".md"))
