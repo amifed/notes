@@ -17,23 +17,23 @@ const getContestLeetCode = () => {
 };
 
 module.exports = {
-  // "/contest/leetcode/": [
-  //   "",
-  //   {
-  //     title: "周赛",
-  //     collapsable: false,
-  //     children: getFolderMdFilenames(
-  //       path.resolve(__dirname, "../../contest/leetcode")
-  //     ).filter((f) => f.startsWith("weekly")),
-  //   },
-  //   {
-  //     title: "双周赛",
-  //     collapsable: false,
-  //     children: getFolderMdFilenames(
-  //       path.resolve(__dirname, "../../contest/leetcode")
-  //     ).filter((f) => f.startsWith("biweekly")),
-  //   },
-  // ],
+  "/contest/leetcode/": [
+    "",
+    {
+      title: "周赛",
+      collapsable: false,
+      children: getFolderMdFilenames(
+        path.resolve(__dirname, "../../contest/leetcode")
+      ).filter((f) => f.startsWith("weekly")),
+    },
+    {
+      title: "双周赛",
+      collapsable: false,
+      children: getFolderMdFilenames(
+        path.resolve(__dirname, "../../contest/leetcode")
+      ).filter((f) => f.startsWith("biweekly")),
+    },
+  ],
   // "/contest/atcoder/": [
   //   "",
   //   {
@@ -42,37 +42,35 @@ module.exports = {
   //     children: getContestChildren("atcoder"),
   //   },
   // ],
-  "/contest/leetcode/": [
-    "",
-    {
-      title: "周赛",
-      collapsable: false,
-      children: [
-        "weekly-contest-210",
-        "weekly-contest-211",
-        "weekly-contest-212",
-        "weekly-contest-214",
-        "weekly-contest-220",
-        "weekly-contest-221",
-        "weekly-contest-222",
-        "weekly-contest-224",
-        "weekly-contest-227",
-      ],
-    },
-    {
-      title: "双周赛",
-      collapsable: false,
-      children: ["biweekly-contest-45"],
-    },
-  ],
-  "/contest/atcoder/": [
-    "",
-    {
-      title: "AtCoder Beginner Contest",
-      collapsable: false,
-      children: ["abc191/", "abc190/", "abc189/"],
-    },
-  ],
+  // "/contest/leetcode/": [
+  //   "",
+  //   {
+  //     title: "周赛",
+  //     collapsable: false,
+  //     children: [
+  //       "weekly-contest-210",
+  //       "weekly-contest-211",
+  //       "weekly-contest-212",
+  //       "weekly-contest-214",
+  //       "weekly-contest-220",
+  //       "weekly-contest-221",
+  //       "weekly-contest-222",
+  //       "weekly-contest-224",
+  //       "weekly-contest-227",
+  //     ],
+  //   },
+  //   {
+  //     title: "双周赛",
+  //     collapsable: false,
+  //     children: ["biweekly-contest-45"],
+  //   },
+  // ],
+  // "/contest/atcoder/": [
+  //   "",
+  //   {
+  //     title: "AtCoder Beginner Contest",
+  //     collapsable: false,
+  //     children: ["abc191/", "abc190/", "abc189/"],
+  //   },
+  // ],
 };
-console.log(process.env.NODE_ENV);
-// console.log(JSON.stringify(getContestLeetCode()));
