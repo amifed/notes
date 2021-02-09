@@ -10,9 +10,8 @@ const getContestChildren = (dirname) => {
     .map((d) => d + "/");
 };
 const getContest = (name) => {
-  const p = path.join(path.resolve(__dirname, `../../contest`), name);
   const files = fs
-    .readdirSync(p)
+    .readdirSync("../../contest/leetcode")
     .filter((f) => f.endsWith(".md"))
     .map((f) => f.match(/(\S*).md/)[1]);
   return files;
@@ -76,4 +75,4 @@ module.exports = {
   //   },
   // ],
 };
-// getContest("leetcode");
+getContest("leetcode");
