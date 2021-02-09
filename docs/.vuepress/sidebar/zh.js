@@ -3,7 +3,7 @@
 //   process.chdir("/home/runner/work/notes/notes");
 module.exports = {
   ...require("./algorithm"),
-  // ...require("./contest"),
+  ...require("./contest"),
   ...require("./solution"),
   ...require("./frontend"),
 };
