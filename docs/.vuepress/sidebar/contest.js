@@ -9,9 +9,9 @@ const getContestChildren = (dirname) => {
     .sort((a, b) => (a < b ? 1 : -1))
     .map((d) => d + "/");
 };
-const getContestLeetCode = () => {
+const getContest = (name) => {
   return fs
-    .readdirSync(path.resolve(__dirname, "../../contest/leetcode"))
+    .readdirSync(path.resolve(__dirname, `../../contest/${leetcode}`))
     .filter((f) => f.endsWith(".md"))
     .map((f) => f.match(/(\S*).md/)[1]);
 };
@@ -74,6 +74,6 @@ module.exports = {
   //   },
   // ],
 };
-if (process.env.NODE_ENV == "production")
-  process.chdir("/home/runner/work/notes/notes");
-console.log(getContestLeetCode());
+// if (process.env.NODE_ENV == "production")
+//   process.chdir("/home/runner/work/notes/notes");
+console.log(getContest());
