@@ -74,4 +74,5 @@ module.exports = {
     },
   ],
 };
-console.log(JSON.stringify(getContestLeetCode()));
+console.log(process.env.NODE_ENV);
+// console.log(JSON.stringify(getContestLeetCode()));

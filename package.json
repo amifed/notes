@@ -6,8 +6,8 @@
   "author": "Menlo Ding",
   "license": "MIT",
   "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:dev": "cross-env NODE_ENV=development vuepress dev docs",
+    "docs:build": "cross-env NODE_ENV=production vuepress build docs"
   },
   "devDependencies": {
     "@iktakahiro/markdown-it-katex": "^4.0.1",
@@ -15,7 +15,8 @@
     "@vuepress/plugin-back-to-top": "^1.8.0",
     "@vuepress/plugin-medium-zoom": "^1.8.0",
     "@vuepress/plugin-nprogress": "^1.8.0",
-    "vuepress-plugin-code-copy": "^1.0.6",
-    "vuepress": "^1.8.0"
+    "cross-env": "^7.0.3",
+    "vuepress": "^1.8.0",
+    "vuepress-plugin-code-copy": "^1.0.6"
   }
 }
