@@ -11,7 +11,7 @@ const getContestChildren = (dirname) => {
 };
 const getContest = (name) => {
   return fs
-    .readdirSync(path.resolve(__dirname, `../../contest/${leetcode}`))
+    .readdirSync(path.resolve(__dirname, `../../contest/${name}`))
     .filter((f) => f.endsWith(".md"))
     .map((f) => f.match(/(\S*).md/)[1]);
 };
@@ -19,20 +19,20 @@ const getContest = (name) => {
 module.exports = {
   "/contest/leetcode/": [
     "",
-    {
-      title: "周赛",
-      collapsable: false,
-      children: getFolderMdFilenames(
-        path.resolve(__dirname, "../../contest/leetcode")
-      ).filter((f) => f.startsWith("weekly")),
-    },
-    {
-      title: "双周赛",
-      collapsable: false,
-      children: getFolderMdFilenames(
-        path.resolve(__dirname, "../../contest/leetcode")
-      ).filter((f) => f.startsWith("biweekly")),
-    },
+    // {
+    //   title: "周赛",
+    //   collapsable: false,
+    //   children: getFolderMdFilenames(
+    //     path.resolve(__dirname, "../../contest/leetcode")
+    //   ).filter((f) => f.startsWith("weekly")),
+    // },
+    // {
+    //   title: "双周赛",
+    //   collapsable: false,
+    //   children: getFolderMdFilenames(
+    //     path.resolve(__dirname, "../../contest/leetcode")
+    //   ).filter((f) => f.startsWith("biweekly")),
+    // },
   ],
   // "/contest/atcoder/": [
   //   "",
@@ -76,4 +76,7 @@ module.exports = {
 };
 // if (process.env.NODE_ENV == "production")
 //   process.chdir("/home/runner/work/notes/notes");
-console.log(getContest());
+console.log(getContest("leetcode"));
+fs.readdirSync(path.resolve(__dirname, "../../algorithm"), {
+  withFileTypes: true,
+});
