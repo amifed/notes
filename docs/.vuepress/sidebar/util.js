@@ -25,10 +25,3 @@ module.exports = {
     } catch (error) {}
   },
 };
-
-
-var process = require('process');
-console.log(process.cwd());
-process.chdir('/Users/jinyang/Code/notes/docs');
-console.log(process.cwd());
-console.log(process.env.PWD);
