@@ -9,6 +9,7 @@ const getContestChildren = (dirname) => {
     .sort((a, b) => (a < b ? 1 : -1))
     .map((d) => d + "/");
 };
+
 const getContest = (name) => {
   const files = fs
     .readdirSync(`../../contest/${name}`)
@@ -39,35 +40,4 @@ module.exports = {
       children: getContestChildren("atcoder"),
     },
   ],
-  // "/contest/leetcode/": [
-  //   "",
-  //   {
-  //     title: "周赛",
-  //     collapsable: false,
-  //     children: [
-  //       "weekly-contest-210",
-  //       "weekly-contest-211",
-  //       "weekly-contest-212",
-  //       "weekly-contest-214",
-  //       "weekly-contest-220",
-  //       "weekly-contest-221",
-  //       "weekly-contest-222",
-  //       "weekly-contest-224",
-  //       "weekly-contest-227",
-  //     ],
-  //   },
-  //   {
-  //     title: "双周赛",
-  //     collapsable: false,
-  //     children: ["biweekly-contest-45"],
-  //   },
-  // ],
-  // "/contest/atcoder/": [
-  //   "",
-  //   {
-  //     title: "AtCoder Beginner Contest",
-  //     collapsable: false,
-  //     children: ["abc191/", "abc190/", "abc189/"],
-  //   },
-  // ],
 };
