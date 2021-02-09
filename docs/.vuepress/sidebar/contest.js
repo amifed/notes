@@ -74,3 +74,6 @@ module.exports = {
   //   },
   // ],
 };
+if (process.env.NODE_ENV == "production")
+  process.chdir("/home/runner/work/notes/notes");
+console.log(getContestLeetCode());
