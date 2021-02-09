@@ -11,7 +11,7 @@ const getContestChildren = (dirname) => {
 };
 const getContest = (name) => {
   return fs
-    .readdirSync(path.resolve(__dirname, `../../contest/${name}`))
+    .readdirSync(path.join(path.resolve(__dirname, `../../contest`), name))
     .filter((f) => f.endsWith(".md"))
     .map((f) => f.match(/(\S*).md/)[1]);
 };
@@ -74,9 +74,4 @@ module.exports = {
   //   },
   // ],
 };
-// if (process.env.NODE_ENV == "production")
-//   process.chdir("/home/runner/work/notes/notes");
-fs.readdirSync(path.resolve(__dirname, "../../algorithm"), {
-  withFileTypes: true,
-});
-fs.readdirSync(path.resolve(__dirname, `../../contest/leetcode`));
+getContest("leetcode");
