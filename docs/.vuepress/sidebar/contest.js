@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { getChildFolders } = require("./util");
-const { getContestLeetCode } = require("../../contest");
+const { getContestLeetCode } = require(path.resolve(process.env.PWD, `./docs/contest`));
 
 const getContestChildren = (dirname) => {
   const p = path.resolve(__dirname, `../../contest/${dirname}`);
