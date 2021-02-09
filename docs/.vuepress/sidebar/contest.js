@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { getChildFolders } = require("./util");
-const { getContestLeetCode } = require("../../contest/index");
+const { getContestLeetCode } = require("../../contest");
 
 const getContestChildren = (dirname) => {
   const p = path.resolve(__dirname, `../../contest/${dirname}`);
@@ -17,12 +17,12 @@ module.exports = {
     {
       title: "周赛",
       collapsable: false,
-      children: getContestLeetCode.filter((f) => f.startsWith("weekly")),
+      children: getContestLeetCode().filter((f) => f.startsWith("weekly")),
     },
     {
       title: "双周赛",
       collapsable: false,
-      children: getContestLeetCode.filter((f) => f.startsWith("biweekly")),
+      children: getContestLeetCode().filter((f) => f.startsWith("biweekly")),
     },
   ],
   "/contest/atcoder/": [
