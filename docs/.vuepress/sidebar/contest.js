@@ -11,12 +11,11 @@ const getContestChildren = (dirname) => {
 };
 const getContest = (name) => {
   const p = path.join(path.resolve(__dirname, `../../contest`), name);
-  return [
-    ...fs
-      .readdirSync(p)
-      .filter((f) => f.endsWith(".md"))
-      .map((f) => f.match(/(\S*).md/)[1]),
-  ];
+  const files = fs
+    .readdirSync(p)
+    .filter((f) => f.endsWith(".md"))
+    .map((f) => f.match(/(\S*).md/)[1]);
+  return files;
 };
 
 module.exports = {
