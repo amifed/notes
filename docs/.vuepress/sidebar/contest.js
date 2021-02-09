@@ -10,8 +10,9 @@ const getContestChildren = (dirname) => {
     .map((d) => d + "/");
 };
 const getContest = (name) => {
+  const p = path.join(path.resolve(__dirname, `../../contest`), name);
   return fs
-    .readdirSync(path.join(path.resolve(__dirname, `../../contest`), name))
+    .readdirSync(p)
     .filter((f) => f.endsWith(".md"))
     .map((f) => f.match(/(\S*).md/)[1]);
 };
