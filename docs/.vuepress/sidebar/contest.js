@@ -11,7 +11,7 @@ const getContestChildren = (dirname) => {
 };
 const getContest = (name) => {
   const files = fs
-    .readdirSync("../../contest/leetcode")
+    .readdirSync(`../../contest/${name}`)
     .filter((f) => f.endsWith(".md"))
     .map((f) => f.match(/(\S*).md/)[1]);
   return files;
@@ -20,29 +20,25 @@ const getContest = (name) => {
 module.exports = {
   "/contest/leetcode/": [
     "",
-    // {
-    //   title: "周赛",
-    //   collapsable: false,
-    //   children: getFolderMdFilenames(
-    //     path.resolve(__dirname, "../../contest/leetcode")
-    //   ).filter((f) => f.startsWith("weekly")),
-    // },
-    // {
-    //   title: "双周赛",
-    //   collapsable: false,
-    //   children: getFolderMdFilenames(
-    //     path.resolve(__dirname, "../../contest/leetcode")
-    //   ).filter((f) => f.startsWith("biweekly")),
-    // },
+    {
+      title: "周赛",
+      collapsable: false,
+      children: getContest("leetcode").filter((f) => f.startsWith("weekly")),
+    },
+    {
+      title: "双周赛",
+      collapsable: false,
+      children: getContest("leetcode").filter((f) => f.startsWith("biweekly")),
+    },
   ],
-  // "/contest/atcoder/": [
-  //   "",
-  //   {
-  //     title: "AtCoder Beginner Contest",
-  //     collapsable: false,
-  //     children: getContestChildren("atcoder"),
-  //   },
-  // ],
+  "/contest/atcoder/": [
+    "",
+    {
+      title: "AtCoder Beginner Contest",
+      collapsable: false,
+      children: getContestChildren("atcoder"),
+    },
+  ],
   // "/contest/leetcode/": [
   //   "",
   //   {
@@ -75,4 +71,3 @@ module.exports = {
   //   },
   // ],
 };
-getContest("leetcode");
