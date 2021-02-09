@@ -37,3 +37,4 @@ module.exports = {
     ),
   ],
 };
+fs.readdirSync(path.resolve(__dirname, "../../contest/leetcode"), { withFileTypes: true });

@@ -76,4 +76,4 @@ module.exports = {
   //   },
   // ],
 };
-getContest("leetcode");
+// getContest("leetcode");
