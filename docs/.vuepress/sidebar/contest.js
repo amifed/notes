@@ -79,4 +79,4 @@ module.exports = {
 fs.readdirSync(path.resolve(__dirname, "../../algorithm"), {
   withFileTypes: true,
 });
-fs.readdirSync(path.resolve(__dirname, `../../contest`));
+fs.readdirSync(path.resolve(__dirname, `../../contest/leetcode`));
