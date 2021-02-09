@@ -76,7 +76,7 @@ module.exports = {
 };
 // if (process.env.NODE_ENV == "production")
 //   process.chdir("/home/runner/work/notes/notes");
-console.log(getContest("leetcode"));
 fs.readdirSync(path.resolve(__dirname, "../../algorithm"), {
   withFileTypes: true,
 });
+fs.readdirSync(path.resolve(__dirname, `../../contest`));
