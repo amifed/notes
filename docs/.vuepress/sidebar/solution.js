@@ -43,7 +43,7 @@ console.log(
   )
 );
 console.log(
-  ...generator(path.resolve(__dirname, "../../contest/leetcode")).filter(
+  ...generator(path.resolve(__dirname, "../../competition/leetcode")).filter(
     (f) => f != "README"
   )
 );

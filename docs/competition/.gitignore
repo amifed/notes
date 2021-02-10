@@ -1,0 +1,8 @@
+.vscode/*
+*.code-workspace
+.idea/*
+.DS_Store
+/*/*/*
+!*.cpp
+!/*/*.cpp
+!/*/*/*.cpp
