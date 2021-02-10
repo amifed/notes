@@ -19,6 +19,7 @@ const getAlgorithmSidebar = () => {
         ],
       ];
     });
+  const f = fs.readdirSync(path.resolve(__dirname, "../../contest/leetcode"));
   return Object.fromEntries(new Map(files));
 };
 
