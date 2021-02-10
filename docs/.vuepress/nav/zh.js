@@ -57,11 +57,11 @@ module.exports = [
     items: [
       {
         text: "LeetCode",
-        link: "/contest/leetcode/",
+        link: "/competition/leetcode/",
       },
       {
         text: "AtCoder",
-        link: "/contest/atcoder/",
+        link: "/competition/atcoder/",
       },
     ],
   },

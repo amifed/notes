@@ -1,5 +1,5 @@
 module.exports = {
-  // ...require("./contest"),
+  ...require("./competition"),
   ...require("./algorithm"),
   ...require("./solution"),
   ...require("./frontend"),

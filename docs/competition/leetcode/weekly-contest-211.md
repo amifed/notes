@@ -1,4 +1,4 @@
-# [第 211 场周赛]
+# [第 211 场周赛题解](https://leetcode-cn.com/contest/weekly-contest-211/)
 
 ## [A]
 ```cpp

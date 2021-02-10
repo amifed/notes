@@ -37,13 +37,3 @@ module.exports = {
     ),
   ],
 };
-console.log(
-  ...generator(path.resolve(__dirname, "../../frontend/algorithm")).filter(
-    (f) => f != "README"
-  )
-);
-console.log(
-  ...generator(path.resolve(__dirname, "../../competition/leetcode")).filter(
-    (f) => f != "README"
-  )
-);

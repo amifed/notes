@@ -1,4 +1,4 @@
-# Leetcode 第221场周赛题解
+# [第 221 场周赛题解](https://leetcode-cn.com/contest/weekly-contest-221/)
 
 ## A. [判断字符串的两半是否相似](https://leetcode-cn.com/problems/determine-if-string-halves-are-alike/)
 

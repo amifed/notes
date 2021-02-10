@@ -1,4 +1,4 @@
-# Leetcode 第220场周赛题解
+# [第 220 场周赛题解](https://leetcode-cn.com/contest/weekly-contest-220/)
 
 ## A. [重新格式化电话号码](https://leetcode-cn.com/problems/reformat-phone-number/)
 
