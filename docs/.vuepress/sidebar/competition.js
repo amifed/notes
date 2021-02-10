@@ -25,7 +25,7 @@ module.exports = {
     {
       title: "双周赛",
       collapsable: false,
-      children: getContestLeetCode().filter((f) => f.startsWith("biweekly")),
+      children: getLeetCode().filter((f) => f.startsWith("biweekly")),
     },
   ],
   "/competition/atcoder/": [
