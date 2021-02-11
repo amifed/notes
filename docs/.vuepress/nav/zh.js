@@ -71,11 +71,11 @@ module.exports = [
       {
         text: "面试指南",
         items: [
-          { text: "HTML", link: "/frontend/interview/" },
-          { text: "CSS", link: "" },
-          { text: "JavaScript", link: "" },
-          { text: "计算机网络", link: "" },
-          { text: "其他", link: "" },
+          { text: "HTML", link: "/frontend/interview/html/html" },
+          { text: "CSS", link: "/frontend/interview/css/css" },
+          { text: "JavaScript", link: "/frontend/interview/js/js" },
+          { text: "计算机网络", link: "/frontend/interview/network/network" },
+          { text: "其他", link: "/frontend/interview/other/other" },
         ],
       },
       {
@@ -118,5 +118,9 @@ module.exports = [
   {
     text: "随笔",
     link: "/personal/",
+  },
+  {
+    text: "关于我",
+    link: "/me/",
   },
 ];
