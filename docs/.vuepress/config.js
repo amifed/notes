@@ -43,10 +43,16 @@ module.exports = {
   },
   plugins: [
     "@vuepress/back-to-top",
-    "@vuepress/active-header-links",
     "@vuepress/last-updated",
     "@vuepress/medium-zoom",
     "@vuepress/nprogress",
     ["vuepress-plugin-code-copy", true],
+    [
+      "@vuepress/active-header-links",
+      {
+        sidebarLinkSelector: ".sidebar-link",
+        headerAnchorSelector: ".header-anchor",
+      },
+    ],
   ],
 };
