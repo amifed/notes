@@ -37,3 +37,8 @@ module.exports = {
     ),
   ],
 };
+console.log(
+  generator(path.resolve(__dirname, "../../solution/acwing")).filter(
+    (f) => f != "README"
+  )
+);

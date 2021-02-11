@@ -1,10 +1,15 @@
+const path = require("path");
+const { generator } = require("./util");
+
 module.exports = {
+  "/frontend/interview/": [
+    "",
+    ...generator(path.resolve(__dirname, "../../frontend/interview")).filter(
+      (f) => f !== "README"
+    ),
+  ],
   "/frontend/algorithm/": [
-    {
-      title: "算法",
-      collapsable: false,
-      children: [""],
-    },
+    "",
     {
       title: "数据结构",
       collapsable: false,
@@ -12,3 +17,9 @@ module.exports = {
     },
   ],
 };
+
+console.log(
+  generator(path.resolve(__dirname, "../../frontend/interview")).filter(
+    (f) => f !== "README"
+  )
+);

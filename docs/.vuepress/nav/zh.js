@@ -69,6 +69,16 @@ module.exports = [
     text: "前端",
     items: [
       {
+        text: "面试指南",
+        items: [
+          { text: "HTML", link: "/frontend/interview/" },
+          { text: "CSS", link: "" },
+          { text: "JavaScript", link: "" },
+          { text: "计算机网络", link: "" },
+          { text: "其他", link: "" },
+        ],
+      },
+      {
         text: "基础知识",
         items: [
           {
