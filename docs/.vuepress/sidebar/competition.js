@@ -3,7 +3,7 @@ const path = require("path");
 const { getChildFolders, getFolderMdFilenames } = require("./util");
 
 const getContestChildren = (dirname) => {
-  const p = path.resolve(__dirname, `../../competition/${dirname}`);
+  const p = path.resolve(__dirname, `../../competition/${dirname}/`);
   return getChildFolders(p)
     .filter((d) => fs.existsSync(path.join(p, d, "README.md")))
     .sort((a, b) => (a < b ? 1 : -1))
@@ -17,6 +17,14 @@ const getLeetCode = () => {
 };
 
 module.exports = {
+  "/competition/atcoder/": [
+    "",
+    {
+      title: "AtCoder Beginner Contest",
+      collapsable: false,
+      children: getContestChildren("atcoder"),
+    },
+  ],
   "/competition/leetcode/": [
     "",
     {
@@ -30,13 +38,6 @@ module.exports = {
       children: getLeetCode().filter((f) => f.startsWith("biweekly")),
     },
   ],
-  "/competition/atcoder/": [
-    "",
-    {
-      title: "AtCoder Beginner Contest",
-      collapsable: false,
-      children: getContestChildren("atcoder"),
-    }, 
-  ],
 };
+
 console.log(getContestChildren("atcoder"));
