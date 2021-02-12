@@ -37,3 +37,4 @@ module.exports = {
     },
   ],
 };
+console.log(getContestChildren("atcoder"));

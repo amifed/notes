@@ -30,22 +30,23 @@ const double EPS = 1e-6;
 const int MOD = 1e9 + 7;
 const int INF = 0x3f3f3f3f;
 const int N = 1e1 + 7;
+const int M = 2e4 + 7;
 
 int n, m;
 int p[N][N];
 int can[N];
 int tk[N], vt[N];
-int cnt, ans[N][N];
+int cnt, ans[M][N];
 
 bool check() {
     for (int i = 0; i < m; ++i) {
-        int x = 1;
-        for (int j = 0; j < n; ++j) {
-            if (tk[j] == p[i][x]) ++x;
+        int k = 1;
+        for (int j = 0; j < n && k <= p[i][0]; ++j) {
+            if (tk[j] == p[i][k]) ++k;
         }
-        if (x == p[i][0] + 1 && !can[i])
+        if (k == p[i][0] + 1 && !can[i])
             return 0; // 第 i 个预测序列错误，但相对序列对得上
-        if (x != p[i][0] + 1 && can[i])
+        if (k != p[i][0] + 1 && can[i])
             return 0; // 第 i 个预测序列正确，但相对序列对不上
     }
     return 1;
@@ -68,25 +69,22 @@ void dfs(int idx) {
 }
 
 int main() {
-    // ios::sync_with_stdio(false);
-    // cin.tie(nullptr);
-    // cout.tie(nullptr);
+    scanf("%d%d", &n, &m);
 
-    cin >> n >> m;
     for (int i = 0; i < m; ++i) {
-        cin >> p[i][0];
+        scanf("%d", &p[i][0]);
         for (int j = 1; j <= p[i][0]; ++j)
-            cin >> p[i][j];
-        cin >> can[i];
+            scanf("%d", &p[i][j]);
+        scanf("%d", &can[i]);
     }
 
     dfs(0);
-    cout << cnt << '\n';
+    printf("%d\n", cnt);
     for (int i = 0; i < cnt; ++i) {
         for (int j = 0; j < n; ++j) {
-            cout << ans[i][j] << ' ';
+            printf("%d ", ans[i][j]);
         }
-        cout << '\n';
+        puts("");
     }
     return 0;
 }

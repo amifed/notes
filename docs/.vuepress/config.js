@@ -54,5 +54,6 @@ module.exports = {
         headerAnchorSelector: ".header-anchor",
       },
     ],
+    "code-switcher",
   ],
 };
