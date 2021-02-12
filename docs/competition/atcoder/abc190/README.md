@@ -6,7 +6,7 @@
 - $C = 1$，$A ≥ B$ Takahashi 赢。
 
 ::: details 参考代码（C++）
-<<< @/docs/contest/atcoder/abc190/a.cpp
+<<< @/docs/competition/atcoder/abc190/a.cpp
 :::
 
 ## [B - Magic 3](https://atcoder.jp/contests/abc190/tasks/abc190_b)
@@ -14,7 +14,7 @@
 检查是否存在 $X_i < s$ 且 $Y_i > d$
 
 ::: details 参考代码（C++）
-<<< @/docs/contest/atcoder/abc190/b.cpp
+<<< @/docs/competition/atcoder/abc190/b.cpp
 :::
 
 ## [C - Bowls and Dishes](https://atcoder.jp/contests/abc190/tasks/abc190_c)
@@ -24,5 +24,5 @@
 由 $1 ≤ K ≤ 16$，枚举使用二进制位运算，每一位的 $0$ 或 $1$ 代表选择盘子 $C$ 或 $D$。
 
 ::: details 参考代码（C++）
-<<< @/docs/contest/atcoder/abc190/c.cpp
+<<< @/docs/competition/atcoder/abc190/c.cpp
 :::
