@@ -2,12 +2,3 @@
 *.code-workspace
 .idea/*
 .DS_Store
-/*/*/*
-!*.cpp
-!/*/*.cpp
-!/*/*/*.cpp
-!*.md
-!/*/*.md
-!/*/*/*.md
-!/*/*/*/*.md
-!/*/*/*/*/*.md
