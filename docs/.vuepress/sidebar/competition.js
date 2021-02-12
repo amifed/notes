@@ -22,8 +22,9 @@ module.exports = {
     {
       title: "AtCoder Beginner Contest",
       collapsable: false,
-      children: getContestChildren("atcoder"),
-    },
+      children: getFolderMdFilenames(
+        path.resolve(__dirname, "../../competition/atcoder")).filter(f => f !== "README"),
+      }
   ],
   "/competition/leetcode/": [
     "",
@@ -39,5 +40,3 @@ module.exports = {
     },
   ],
 };
-
-console.log(getContestChildren("atcoder"));

@@ -1,1 +1,0 @@
-# [ABC-181 题解](https://atcoder.jp/contests/abc181) 
