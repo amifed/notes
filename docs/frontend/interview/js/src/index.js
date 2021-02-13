@@ -1,4 +1,14 @@
-const object = { a: 1, b: "c" };
-const cloned = {...object};
-console.log(cloned);
-console.log(cloned == object);
+function ajax_post(url, data) {
+  const ajax = new XMLHttpRequest();
+  ajax.open("post", url);
+  ajax.setRequestHeader("Content-type", "text/plain");
+
+  if (data) ajax.send(data);
+  else ajax.send();
+
+  ajax.onreadystatechange = () => {
+    if (ajax.readyState === 4 && ajax.status === 200) {
+      console.log(ajax.responseText);
+    }
+  };
+}

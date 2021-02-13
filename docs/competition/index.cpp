@@ -1,14 +1,17 @@
 #include <iostream>
 using namespace std;
+const int N = 30;
 
-int n;
+int n, m;
+char s[N];
+
 int main() {
-    cin >> n;
-    for (int x = 0; x < 1 << n; ++x) {
-        for (int i = 0; i < n; ++i) {
-            if (x & 1 << i) cout << i+1 << ' ';
-        }
-        cout << endl;
+    cin >> n >> m;
+    for (int i = 0; i < n; ++i) {
+        for (int j = i, k = 0; j >= 0; --j, ++k) s[j] = 'A' + k;
+        for (int j = i, k = 0; j < m; ++j, ++k) s[j] = 'A' + k;
+        for (int j = 0; j < m; ++j) cout << s[j];
+        cout << '\n';
     }
     return 0;
 }
