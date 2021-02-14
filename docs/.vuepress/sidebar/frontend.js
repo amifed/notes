@@ -17,9 +17,3 @@ module.exports = {
     },
   ],
 };
-
-console.log(
-  generator(path.resolve(__dirname, "../../frontend/interview")).filter(
-    (f) => f !== "README"
-  )
-);
