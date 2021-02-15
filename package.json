@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "personal notes build by vuepress",
   "main": "index.js",
-  "private":"true",
+  "private": "true",
   "author": "Menlo Ding",
   "license": "MIT",
   "scripts": {
@@ -20,7 +20,6 @@
     "@vuepress/plugin-back-to-top": "^1.8.0",
     "@vuepress/plugin-medium-zoom": "^1.8.0",
     "@vuepress/plugin-nprogress": "^1.8.0",
-    "husky": "^5.0.9",
     "vuepress": "^1.8.0",
     "vuepress-plugin-code-copy": "^1.0.6",
     "vuepress-plugin-code-switcher": "^1.0.5"
