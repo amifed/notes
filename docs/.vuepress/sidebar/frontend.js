@@ -10,10 +10,8 @@ module.exports = {
   ],
   "/frontend/algorithm/": [
     "",
-    {
-      title: "数据结构",
-      collapsable: false,
-      children: ["data-structure/stack"],
-    },
+    ...generator(path.resolve(__dirname, "../../frontend/algorithm")).filter(
+      (f) => f !== "README"
+    ),
   ],
 };
