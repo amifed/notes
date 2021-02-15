@@ -22,6 +22,8 @@ const { ...cloned } = object;
 const cloned = Object.assign({}, object);
 ```
 
+> [Object.assign](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) 会同时复制字符串和 symbol 属性
+
 ## 深拷贝
 
 ```js

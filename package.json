@@ -7,14 +7,23 @@
   "license": "MIT",
   "scripts": {
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "encrypt": "encrypt encrypt --source-dir docs --key-file keys.json --temp .temp-encrypt",
+    "decrypt": "encrypt decrypt --source-dir docs --key-file keys.json --temp .temp-encrypt"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn encrypt"
+    }
   },
   "devDependencies": {
     "@iktakahiro/markdown-it-katex": "^4.0.1",
+    "@oak-tree-house/vuepress-plugin-encrypt": "^1.0.1",
     "@vuepress/plugin-active-header-links": "^1.8.0",
     "@vuepress/plugin-back-to-top": "^1.8.0",
     "@vuepress/plugin-medium-zoom": "^1.8.0",
     "@vuepress/plugin-nprogress": "^1.8.0",
+    "husky": "^5.0.9",
     "vuepress": "^1.8.0",
     "vuepress-plugin-code-copy": "^1.0.6",
     "vuepress-plugin-code-switcher": "^1.0.5"

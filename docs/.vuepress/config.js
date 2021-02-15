@@ -55,5 +55,23 @@ module.exports = {
       },
     ],
     "code-switcher",
+    [
+      "@oak-tree-house/encrypt",
+      {
+        contentTitle: "加密的内容",
+        unencryptedText:
+          "内容如下所示",
+        encryptedText:
+          "这部分内容是加密的。要查看它，您需要在下面的输入字段中输入正确的密钥。",
+        decryptedText:
+          "加密的内容被成功解密并显示如下。",
+        decryptButtonText: "Decrypt",
+        decryptFailText: "Failed to decrypt!",
+        unencryptedIcon: undefined,
+        encryptedIcon: undefined,
+        decryptedIcon: undefined,
+      },
+    ],
   ],
 };
+  
