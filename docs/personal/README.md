@@ -3,5 +3,5 @@
 记录生活
 
 ::: encrypt encrypted key=key owners=me
-丁金洋喜欢张青青，加密测试
+丁金洋喜欢张青青，加密测试1
 :::
