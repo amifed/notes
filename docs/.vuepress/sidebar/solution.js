@@ -30,6 +30,12 @@ const generator = (p, parentDirName = "") => {
 };
 
 module.exports = {
+  "/solution/leetcode/": [
+    "",
+    ...generator(path.resolve(__dirname, "../../solution/leetcode")).filter(
+      (f) => f != "README"
+    ),
+  ],
   "/solution/acwing/": [
     "",
     ...generator(path.resolve(__dirname, "../../solution/acwing")).filter(
@@ -37,8 +43,3 @@ module.exports = {
     ),
   ],
 };
-console.log(
-  generator(path.resolve(__dirname, "../../solution/acwing")).filter(
-    (f) => f != "README"
-  )
-);
