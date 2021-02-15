@@ -13,7 +13,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn encrypt"
+      "pre-commit": "echo \"this should fail\" && exit 1"
     }
   },
   "devDependencies": {
