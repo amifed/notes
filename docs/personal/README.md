@@ -2,8 +2,6 @@
 
 记录生活
 
-::: encrypt encrypted key=key owners=me
-/P0fdZpxvTBa37a25wtG3tZZyKyzhM3Y4Z4f4avo0Z8ucvMEwhagxOrRdD0r/Ynf732ngI1qjbHNeev
-WfDgyYe9AOW//8Lga6xv/dbnkZBYNHkiXIoH2VkjcSOVAAP3mlixlVChUWBugCL1wzeBTMC0CXM5Kry
-ZuZsgBDu0pl9RKO6O0IVBPJNRkBWJVGjTv3Q**
+::: encrypt key=key owners=me
+丁金洋喜欢张青青，加密测试1
 :::
