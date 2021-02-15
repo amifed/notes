@@ -48,6 +48,10 @@ module.exports = [
             text: "小贴士",
             link: "/others/tips",
           },
+          {
+            text: "Latex",
+            link: "/others/latex",
+          },
         ],
       },
     ],
