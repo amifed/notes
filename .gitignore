@@ -2,7 +2,6 @@
 node_modules
 /docs/.vuepress/dist
 /doc
-/keys.json
 /.temp-encrypt
 
 # local env files

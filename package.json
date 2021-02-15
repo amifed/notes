@@ -9,7 +9,6 @@
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "postinstall": "husky install",
     "encrypt": "encrypt encrypt --source-dir docs --key-file keys.json --temp .temp-encrypt",
     "decrypt": "encrypt decrypt --source-dir docs --key-file keys.json --temp .temp-encrypt"
   },
