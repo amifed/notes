@@ -34,9 +34,12 @@ sidebar: auto
 
 `\pm`，$\pm$
 
+`\sum_n^m`，$\sum_n^m$
+
 ## 上下标
 
 `A_n^m`，$A_n^m$
+`\displaystyle\sum_n^m`, $\displaystyle\sum_n^m$
 
 ## 省略号
 
