@@ -165,5 +165,49 @@ obj?.a?.b?.c?.d;
 obj.a?.b?.[0]?.c.d?.[0];
 ```
 
+## 随机排序
 
+- 使用 `sort` 函数
+
+```js
+function randomSort(a, b) {
+  return Math.random() > 0.5 ? -1 : 1;
+}
+```
+
+缺点：每个元素被派到新数组的位置不是随机的，原因是 sort() 方法是依次比较的。
+
+- 随机抽取元素加入新数组
+
+```js
+function randomSort(arr) {
+  let result = [];
+  
+  while (arr.length > 0) {
+    var randomIndex = Math.floor(Math.random() * arr.length);
+    result.push(arr[randomIndex]);
+    arr.splice(randomIndex, 1);
+  }
+
+  return result;
+}
+```
+
+- 随机交换数组内的元素
+
+```js
+function randomSort(array) {
+  let length = array.length;
+
+  if (!Array.isArray(array) || length <= 1) return;
+
+  for (let index = 0; index < length - 1; index++) {
+    let randomIndex = Math.floor(Math.random() * (length - index)) + index;
+
+    [array[index], array[randomIndex]] = [array[randomIndex], array[index]];
+  }
+
+  return array;
+}
+```
 

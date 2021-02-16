@@ -32,6 +32,8 @@ sidebar: auto
 
 `\le`，$\le$
 
+`\pm`，$\pm$
+
 ## 上下标
 
 `A_n^m`，$A_n^m$
@@ -43,3 +45,4 @@ sidebar: auto
 `\cdots`，$a,\cdots,b$
 
 `\vdots`，$\vdots$
+

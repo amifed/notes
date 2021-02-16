@@ -1,6 +1,6 @@
 # JavaScript 面试问题
 
-### js 的基本数据类型
+#### js 的基本数据类型
 
 JavaScript 中有八种基本的数据类型（译注：前七种为基本数据类型，也称为原始数据类型，而 `object` 为复杂数据类型，也称引用数据类型）。
 
@@ -8,13 +8,13 @@ JavaScript 中有八种基本的数据类型（译注：前七种为基本数据
 
 ES6 中新增 `Symbol`，用于唯一的标识符，创建后独一无二且不可变，可以解决可能出现的全局变量冲突问题。
 
-ES10 中新增 `BigInt`，可以表示任意长度的整数，可以安全的存储和运算大整数
+ES10 中新增 `BigInt`，可以表示任意长度的整数，可以安全的存储和运算大整数÷
 
-### 数据类型及存储
+#### 数据类型及存储
 
 - 栈：原始数据类型（`number` 、`bigint`、`string` 、`boolean`、`null` 、`undefined` 、`symbol`）
 
-- 堆：引用数据类型（`object`)
+- 堆：引用数据类型（`object`）
 
 原始数据类型是存储在栈（stack）中的简单数据段，占据空间小、大小固定，属于被频繁使用的数据，所以放在栈中存储。
 
@@ -24,7 +24,7 @@ ES10 中新增 `BigInt`，可以表示任意长度的整数，可以安全的存
 >
 > 堆区内存一般由程序员分配释放，若程序员不释放，程序结束时可能由垃圾回收机制回收。
 
-### 内部属性 [[Class]]
+#### 内部属性 [[Class]]
 
 所有 `typeof` 返回值为 `object` 的对象都包含一个内部属性 [[Class]]（可以将它看作一个内部分类，而非传统面向对象意义上的类）。这个属相无法直接访问，一般通过 `Object.prototype.toString()` 来查看。
 
@@ -45,7 +45,7 @@ let user = {
 {}.toString.call(user); // [object User]
 ```
 
-### JS 三大对象
+#### JS 三大对象
 
 JavaScript 有三大对象，分别是 本地对象、内置对象和宿主对象。
 
@@ -74,13 +74,13 @@ JavaScript 有三大对象，分别是 本地对象、内置对象和宿主对�
 
 参考链接：[JavaScript 标准内置对象](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects)，[JS 所有内置对象属性和方法汇总](https://segmentfault.com/a/1190000011467723)
 
-### undefined 与 undeclared 的区别？
+#### undefined 与 undeclared 的区别？
 
 已在作用域中声明但还没有赋值的变量，是 `undefined` 的。相反，还没有在作用域中声明过的变量，是 undeclared 的。
 
 对于 undeclared 变量的引用，浏览器会报引用错误，如 `ReferenceError: XX is not defined` 。但是我们可以使用 `typeof` 的安全防范机制来避免报错，因为对于 undeclared（或者 not defined ）变量，`typeof` 会返回 `undefined`。
 
-### null 和 undefined 的区别？
+#### null 和 undefined 的区别？
 
 首先 Undefined 和 Null 都是基本数据类型，这两个基本数据类型分别都只有一个值，就是 `undefined` 和 `null`。
 
@@ -102,7 +102,7 @@ null === undefined; // false
 
 参考文章：[JavaScript 深入理解之 undefined 与 null](http://cavszhouyou.top/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E4%B9%8Bundefined%E4%B8%8Enull.html)
 
-### JavaScript 基本规范
+#### JavaScript 基本规范
 
 尽量使用严格相等符`===`或`!==`
 
@@ -110,9 +110,9 @@ null === undefined; // false
 
 `for`、`if` 等代码块必须用大括号
 
-### JavaScript 对象
+#### JavaScript 对象
 
-#### 属性存在性测试，“in” 操作符
+##### 属性存在性测试，“in” 操作符
 
 **能够被访问任何属性。即使属性不存在也不会报错！**
 
@@ -146,7 +146,7 @@ for (let key in object) {
 ```
 > 如果只想得到本身（非继承）的属性，可使用 `obj.hasOwnProperty(key)` 来判断，也可通过 `Objcet.keys()` 方法获取对象自身的属性。
 
-#### 对象比较
+##### 对象比较
 
 ```js
 let a = {};
@@ -159,7 +159,7 @@ let d = {};
 c == d; // false
 ```
 
-#### 对象 — 原始值转换
+##### 对象 — 原始值转换
 
 对象到原始值的转换，是由许多期望以原始值作为值的内建函数和运算符自动调用的。
 
@@ -173,7 +173,7 @@ c == d; // false
 
 转换算法是：
 
-1. 调用 `obj\[Symbol.toPrimitive](hint)` 如果这个方法存在，
+1. 调用 `obj[Symbol.toPrimitive](hint)` 如果这个方法存在，
 2. 否则，如果 hint 是 `"string"`
    - 尝试 `obj.toString()` 和 `obj.valueOf()`，无论哪个存在。
 3. 否则，如果 hint 是 "number" 或者 `"default"`
@@ -183,19 +183,106 @@ c == d; // false
 
 - [现代 JavaScript 教程 - 对象 — 原始值转换](https://zh.javascript.info/object-toprimitive)
 
-### 原型、原型链
+#### 原型、原型链
 
-#### [[Prototype]]
+##### [[Prototype]]
+
 在 JavaScript 中，对象有一个特殊的隐藏属性 `[[Prototype]]`（如规范中所命名的），它要么为 `null`，要么就是对另一个对象的引用。该对象被称为“原型”。
 
 当我们从 `object` 中读取一个缺失的属性或方法时，JavaScript 会自动从原型中获取。
 
 属性 `[[Prototype]]` 是内部的而且是隐藏的，有很多方式访问并设置它。
 
-##### `__proto__`
+-  `__proto__`，指向 `[[Prototype]]`
+-  [`Object.getPrototypeOf(o)`](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf)，返回对象 `obj` 的 `[[Prototype]]`（与 `__proto__` 的 getter 相同）
+
+- [`Object.create(proto,[descriptors])`](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/create)，利用给定的 `proto` 作为 `[[Prototype]]`（可以是 `null`）和可选的属性描述来创建一个空对象。
+-  [`Object.setPrototypeOf(o, proto)`](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf)，将对象 `obj` 的 `[[Prototype]]` 设置为 `proto`（与 `__proto__` 的 setter 相同）。
+
+##### F.prototype
+
+为通过构造函数创建的对象设置 `[[Prototype]]` ，可使用 `F.prototype`，它是只有函数才有的属性。
+
+默认情况下，所有函数都有 `F.prototype = {constructor：F}`；
+
+- `F.prototype` 的值要么是一个对象，要么就是 `null`：其他值都不起作用。
+
+- `F.prototype` 属性（不要把它与 `[[Prototype]]` 弄混了）在 `new F` 被调用时为新对象的 `[[Prototype]]` 赋值。
+- `"prototype"` 属性仅在设置了一个构造函数（constructor function），并通过 `new` 调用时，才有作用
+
+###### 原生的原型
+
+`Object` 就是一个内建的对象构造函数，其自身的 `prototype` 指向一个的是 `Object.prototype` （一个带有 `toString()` 等对象方法的巨大对象）
+
+其他内建对象，如 `Array`、`Data`、`Function` 等都在 prototype 上挂载了方法。
+
+按照规范，所有的内建原型顶端都是 `Object.prototype`。这就是为什么有人说“一切都从对象继承而来”。
+
+![native-prototypes-classes](https://raw.githubusercontent.com/javascript-tutorial/zh.javascript.info/000e1fd0f5bce342284c128487af79fb21950f79/1-js/08-prototypes/03-native-prototypes/native-prototypes-classes.svg)
+
+> 图片来源：[现代 JavaScript 教程 - 原生的原型](https://zh.javascript.info/native-prototypes)
+
+#### 在 js 中不同进制数字的表示方式
+
+- 以 0X、0x 开头的表示为十六进制。
+- 以 0、0O、0o 开头的表示为八进制。
+- 以 0B、0b 开头的表示为二进制格式。
+
+####  js 中整数的安全范围是多少？
+
+安全整数指的是，在这个范围内的整数转化为二进制存储的时候不会出现精度丢失，能够被“安全”呈现的整数是 $ \pm 2^{53} - 1$。在 ES6中被定义为 `Number.MAX_SAFE_INTEGER`，最小整数被定义为`Number.MIN_SAFE_INTEGER`。
+
+如果某次计算的结果得到一个超过数值范围的值，那么这个值会被自动转换为特殊的 `Infinity` 值，正负 `Infinity `无法参与运算。一个数是否有穷可使用函数 `isFinite()` 来判断。
+
+####  typeof NaN 的结果是什么？
+
+`NaN`，意指 Not a Number。`NaN` 是一个“警戒值”（sentinel value，有特殊用途的常规值），用于指出数字类型中的错误情况。`NaN` 是个特殊值，和自身不相等。
 
 ```js
-let user = {};
-let admin = {};
-admin.__proto__ = user;
+typeof NaN // "number"
+NaN == NaN // false
 ```
+
+#### 什么是假值对象？
+
+浏览器在某些特定情况下，在常规 JavaScript 语法基础上自己创建了一些外来值，这些就是“假值对象”。假值对象看起来和普通对象并无二致（都有属性，等等），但将它们强制类型转换为布尔值时结果为 false 最常见的例子是 `document.all`，它是一个类数组对象，包含了页面上的所有元素，由 DOM（而不是 JavaScript 引擎）提供给 JavaScript 程序使用。
+
+#### This 对象
+
+`this` 是执行上下文中的一个属性，它指向最后一次调用这个方法的对象。在实际开发中，`this` 的指向可以通过四种调用模式来判断（按优先级排列）。
+
+- 构造器调用模式，一个函数使用 `new` 调用时，函数执行前会创建一个对象，`this` 指向这个新创建的对象；
+- `apply`、`call`、`bind`调用模式，显示制定调用函数的 `this` 指向；
+- 方法调用模式，一个函数作为对象的方法调用时，`this` 指向该对象；
+- 函数调用模式，函数直接调用时，`this` 指向全局对象
+
+#### DOM，BOM
+
+DOM，文档对象模型，是 HTML 和 XML 文档的编程接口。即将文档当作一个对象来对待，该对象提供了处理网页内容的方法和接口。
+
+BOM，浏览器对象墨模型，提供了与网页无关的浏览器功能对象。即将浏览器当作一个对象来对待，该对象提供了与浏览器交互的方法和接口。BOM 的核心是 window 对象，表示浏览器的实例。window 对象在浏览器中有两重身份，一个是 ECMAScript 中的 Global 对象，另一个就是浏览器窗口的 JavaScript 接口。这意味着网页中定义的所有对象、变量和函数都以 window 作为其 Global 对象，都可以访问其上定义的 `parseInt()` 等全局方法。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
