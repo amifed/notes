@@ -69,7 +69,7 @@ function throttle(func, ms) {
 
 ::: details 参考代码
 
-<<< @/docs/frontend/interview/js/src/event-delegation/index.html
+<<< @/docs/frontend/interview/js/src/event/event-delegation.html
 
 :::
 
@@ -115,3 +115,10 @@ function ajax_post(url, data) {
 ::: details 参考代码
 <<< @/docs/frontend/interview/js/src/num-progress/index.html
 :::
+
+## 常用的事件监听函数
+
+:::details 参考代码
+<<< @/docs/frontend/interview/js/src/event/eventUtil.js
+:::
+
