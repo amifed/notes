@@ -121,4 +121,3 @@ function ajax_post(url, data) {
 :::details 参考代码
 <<< @/docs/frontend/interview/js/src/event/eventUtil.js
 :::
-
