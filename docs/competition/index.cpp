@@ -1,26 +1,21 @@
 #include <iostream>
 using namespace std;
-const int N = 17;
+const int N = 17, M = 1e4;
 
-int n, p[N];
-
-void dfs(int k) {
-    if (k == n) {
-        for (int i = 0; i < n; ++i)
-            cout << p[i] << ' ';
-        cout << '\n';
-        return;
-    }
-    for (int i = k; i < n; ++i) {
-        swap(p[k], p[i]);
-        dfs(k + 1);
-        swap(p[k], p[i]);
-    }
+int h;
+int val[N], nex[N], idx;
+void init() {
+    h = 0, idx = 0;
+}
+void add(int x) {
+    val[idx] = x, nex[idx] = h, h = idx++; 
 }
 
 int main() {
-    cin >> n;
-    for (int i = 0; i < n; ++i) p[i] = i + 1;
-    dfs(0);
+    init();
+    add(3), add(5), add(7);
+    for (int i = h; i != -1; i = nex[i]) {
+        cout << val[i];
+    }
     return 0;
 }

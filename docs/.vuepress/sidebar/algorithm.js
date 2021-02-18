@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { getFolderMdFilenames } = require("./util");
+const { generator, getFolderMdFilenames } = require("./util");
 
 const getAlgorithmSidebar = () => {
   const files = fs
@@ -25,3 +25,4 @@ const getAlgorithmSidebar = () => {
 module.exports = {
   ...getAlgorithmSidebar(),
 };
+console.log(generator(path.resolve(__dirname, "../../algorithm/")));

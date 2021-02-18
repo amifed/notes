@@ -103,6 +103,35 @@ Function.prototype._bind = function(obj, ...args) {
 
 ## 实现 `new`
 
+1. 创建一个新的空对象，其原型设置为构造函数的 `prototype` 对象；
+2. 让函数的 `this` 指向这个对象，执行构造函数；
+3. 判断函数的返回值：
+   - 原始类型，返回创建的对象；
+   - 引用类型，返回这个引用类型。
+
+```js
+function _new(F, ...args) {
+  if (typeof F !== "function") throw new TypeError();
+  let obj = Object.create(F.prototype);
+  const ans = F.apply(obj, args);
+  return typeof ans === "object" || typeof ans === "function" ? ans : obj;
+}
+```
+
 ## 实现 `instanceof`
+
+**`instanceof`** **运算符**用于检测构造函数的 `prototype` 属性是否出现在某个实例对象的原型链上。
+
+```js
+function _instanceof (obj, F) {
+  let proto = Object.getPrototypeOf(obj);
+  const prototype = F.prototype;
+  while (proto) {
+    if (proto === prototype) return true;
+    proto = Object.getPrototypeOf(proto);
+  }
+  return false;
+}
+```
 
 ## 实现 `Promise.all()`

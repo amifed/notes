@@ -91,24 +91,32 @@ function loadScript(src) {
 }
 ```
 
-## **用 $ajax$ 原生实现一个 `post` 请求**
+## AJAX 
 
-```js
-function ajax_post(url, data) {
-  const ajax = new XMLHttpRequest();
-  ajax.open("post", url);
-  ajax.setRequestHeader("Content-type", "text/plain");
+$Asynchronous\ JavaScript\ and\ XML $，通过 JavaScript 的异步通信方案，向服务端发送 HTTP  通信，从服务端返回的 XML 文档中提取数据，更新网页的相应部分，而不用刷新整个页面。
 
-  if (data) ajax.send(data);
-  else ajax.send();
+1. 创建 `XMLHttpRequest` 对象；
+2. 创建一个新的 HTTP 请求，指定请求方法、URL及验证信息；
+3. 设置响应 HTTP 请求的状态变化函数；
+4. 发送 HTTP 请求；
+5. 获取异步调用返回的数据；
+6. 使用 JavaScript 和 DOM 实现局部更新。
 
-  ajax.onreadystatechange = () => {
-    if (ajax.readyState === 4 && ajax.status === 200) {
-      console.log(ajax.responseText);
-    }
-  };
-}
-```
+**GET 请求一般实现**
+
+:::details 参考代码
+
+<<< @/docs/frontend/interview/js/src/ajax/ajax_get.js
+
+:::
+
+**POST 请求一般实现**
+
+:::details 参考代码
+
+<<< @/docs/frontend/interview/js/src/ajax/ajax_post.js
+
+:::
 
 ## 实现数字增长效果
 
@@ -121,3 +129,4 @@ function ajax_post(url, data) {
 :::details 参考代码
 <<< @/docs/frontend/interview/js/src/event/eventUtil.js
 :::
+
