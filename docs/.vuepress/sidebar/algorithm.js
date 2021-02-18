@@ -25,4 +25,3 @@ const getAlgorithmSidebar = () => {
 module.exports = {
   ...getAlgorithmSidebar(),
 };
-console.log(generator(path.resolve(__dirname, "../../algorithm/")));
