@@ -1,4 +1,4 @@
-# JavaScript 原理代码
+# 原理代码
 
 ## 浅拷贝 ( shallow copy )
 
@@ -37,9 +37,7 @@ let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescr
 ```js
 const deepClone = (obj) => {
   if (!obj || typeof obj !== "object") return obj;
-  let ans;
-  if (obj instanceof Array) ans = [];
-  else ans = {};
+  let ans = Array.isArray(obj) ? [] : {};
   for (let k in obj) {
     if (obj.hasOwnProperty(k)) {
       ans[k] = deepClone(obj[k]);
@@ -48,6 +46,10 @@ const deepClone = (obj) => {
   return ans;
 };
 ```
+
+## 实现 call 函数
+
+## 实现 apply 函数
 
 ## 实现 bind 函数
 
@@ -134,4 +136,23 @@ function _instanceof (obj, F) {
 }
 ```
 
-## 实现 `Promise.all()`
+## 实现 `Promise`
+
+## 柯里化
+
+柯里化是一种函数的转换，它是指将一个函数从可调用的 `f(a, b, c)` 转换为可调用的 `f(a)(b)(c)`。
+
+```js
+function curry(f) {
+  return function curried(...args) {
+    if (args.length >= f.length) {
+      return f.apply(this, args);
+    } else {
+      return function(..._args) {
+        return curried.apply(this, args.concat(_args));
+      };
+    }
+  };
+}
+```
+

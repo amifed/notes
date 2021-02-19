@@ -1,6 +1,8 @@
-# JavaScript 应用代码
+# 应用代码
 
 ## 防抖
+
+会在“冷却（cooldown）”期后运行函数一次。即事件被触发 ms 毫秒后才执行回调函数，如果在这 ms 毫秒内事件再次触发则重新计时。
 
 ```js
 function debounce(func, ms) {
@@ -15,6 +17,8 @@ function debounce(func, ms) {
 [现代 JavaScript 教程 - 防抖装饰器](https://zh.javascript.info/task/debounce)
 
 ## 节流
+
+当被多次调用时，它会在每 `ms` 毫秒最多将调用传递给 `f` 一次。节流可以使用在 scroll 是事件监听上。
 
 ```js
 function throttle(func, ms) {
@@ -129,4 +133,24 @@ $Asynchronous\ JavaScript\ and\ XML $，通过 JavaScript 的异步通信方案�
 :::details 参考代码
 <<< @/docs/frontend/interview/js/src/event/eventUtil.js
 :::
+
+## 使用 setTimeout 实现 setInterval
+
+```js
+function _setInterval (f, ms) {
+  let timer = {flag : true};
+  function interval() {
+    if (timer.flag) {
+      f();
+      setTimeout(interval, ms);
+    }
+  }
+  setTimeout(interval, ms);
+  return timer;
+}
+```
+
+setInterval 的作用是每隔一段指定时间执行一个函数，但是这个执行不是真的到了时间立即执行，它真正的作用是每隔一段时间将事件加入事件队列中去，只有当当前的执行栈为空的时候，才能去从事件队列中取出事件执行。所以可能会出现这样的情况，就是当前执行栈执行的时间很长，导致事件队列里边积累多个定时器加入的事件，当执行栈结束的时候，这些事件会依次执行，因此就不能到间隔一段时间执行的效果。
+
+针对 setInterval 的这个缺点，我们可以使用 setTimeout 递归调用来模拟 setInterval，这样我们就确保了只有一个事件结束了，我们才会触发下一个定时器事件，这样解决了 setInterval 的问题。
 

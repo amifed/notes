@@ -79,11 +79,11 @@ module.exports = [
           { text: "CSS", link: "/frontend/interview/css/css" },
           { text: "JavaScript", link: "/frontend/interview/js/js" },
           { text: "计算机网络", link: "/frontend/interview/network/network" },
-          { text: "其他", link: "/frontend/interview/other/other" },
+          { text: "框架", link: "/frontend/interview/other/other" },
         ],
       },
       {
-        text: "基础知识",
+        text: "博客文章",
         items: [
           {
             text: "HTML",
@@ -97,11 +97,6 @@ module.exports = [
             text: "JavaScript",
             link: "",
           },
-        ],
-      },
-      {
-        text: "框架",
-        items: [
           {
             text: "Vue.js",
             link: "",

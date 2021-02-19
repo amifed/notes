@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: ./hero.jpeg
+heroImage: ./code.jpg
 # actionText: Get Start →
 # actionLink: /algorithm/
 features:
