@@ -59,29 +59,27 @@ int main() {
 适用于稀疏图，时间复杂度$O(n^2)$
 
 ```cpp
-#include <algorithm>
+#include <iostream>
 #include <cstring>
 using namespace std;
 
+const int N = 2e5 + 7;
 const int INF = 0x3f3f3f3f;
 
-const int N = 507;
-const int M = 1e5 + 7;
-int h[N], w[M], e[M], ne[M], idx;
+int h[N], e[N], w[N], ne[N], idx;
 int n, m, d[N], vt[N];
-void add(int u, int v, int x) {
-    e[idx] = v, w[idx] = x, ne[idx] = h[u], h[u] = idx++;
+
+void add(int a, int b, int c) {
+    e[idx] = b, w[idx] = c, ne[idx] = h[a], h[a] = idx++;
 }
+
 void dijkstra(int s) {
-    memset(vt, 0, sizeof vt);
     memset(d, 0x3f, sizeof d);
     d[s] = 0;
-    for (int i = 0; i < n; i++) {
-        int u, minn = INF;
-        for (int j = 1; j <= n; j++) {
-            if (!vt[j] && d[j] < minn) {
-                u = j, minn = d[j];
-            }
+    for (int i = 0; i < n; ++i) {
+        int u, mi = INF;
+        for (int j = 1; j <= n; ++j) {
+            if (!vt[j] && d[j] < mi) u = j, mi = d[j];
         }
         vt[u] = 1;
         for (int j = h[u]; j != -1; j = ne[j]) {
@@ -92,16 +90,15 @@ void dijkstra(int s) {
 }
 
 int main() {
-    scanf("%d %d", &n, &m);
-    idx = 0;
     memset(h, -1, sizeof h);
-    int u, v, x;
-    for (int i = 0; i < m; i++) {
-        scanf("%d %d %d", &u, &v, &x);
-        add(u, v, x);
+    scanf("%d%d", &n, &m);
+    for (int i = 0; i < m; ++i) {
+        int a, b, c;
+        scanf("%d%d%d", &a, &b, &c);
+        add(a, b, c);
     }
     dijkstra(1);
-    printf("%d\n", d[n] == INF ? -1 : d[n]);
+    printf("%d", d[n] == INF ? -1 : d[n]);
     return 0;
 }
 ```
@@ -119,9 +116,9 @@ void dijkstra(int s) {
     d[s] = 0;
     pq.push({0, s}); //将 起点入队，{距离，结点编号}
     while (!pq.empty()) {
-        auto t = pq.top(); //起点出发到达的距离最短结点
+        auto p = pq.top(); //起点出发到达的距离最短结点
         pq.pop();
-        int u = t.second, dist = t.first;
+        int u = p.second, dist = p.first;
         if (vt[u]) continue; //之前更新过，冗余
         vt[u] = 1;
         for (int i = h[u]; i != -1; i = ne[i]) {
@@ -148,10 +145,10 @@ void dijkstra(int s) {
 using namespace std;
 using PII = pair<int, int>;
 const int INF = 0x3f3f3f3f;
-const int N = 501;
+const int N = 507;
 const int M = 1e5 + 7;
 int h[N], e[M], w[M], ne[M], idx;
-int d[N], vt[N] = {0}, pre[N];
+int d[N], vt[N], pre[N];
 int n, m, st, ed;
 void add(int x, int y, int z) {
     e[idx] = y, w[idx] = z, ne[idx] = h[x], h[x] = idx++;
@@ -307,9 +304,7 @@ int bellman_ford(int s) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
             int u = edges[j].u, v = edges[j].v, w = edges[j].w;
-            if (d[v] > d[u] + w) {
-                d[v] = d[u] + w;
-            }
+            if (d[v] > d[u] + w) d[v] = d[u] + w;
         }
     }
     if (d[n] > INF / 2) return -1;
