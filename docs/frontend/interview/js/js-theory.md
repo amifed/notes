@@ -138,6 +138,8 @@ function _instanceof (obj, F) {
 
 ## 实现 `Promise`
 
+
+
 ## 柯里化
 
 柯里化是一种函数的转换，它是指将一个函数从可调用的 `f(a, b, c)` 转换为可调用的 `f(a)(b)(c)`。
