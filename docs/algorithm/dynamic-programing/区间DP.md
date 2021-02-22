@@ -1,3 +1,10 @@
+# 区间 DP
+
+区间 DP 需要从 区间长度从小到大来循环
+
+## 石子合并
+
+```cpp
 #include <algorithm>
 #include <iostream>
 using namespace std;
@@ -25,3 +32,4 @@ int main() {
     printf("%d", f[1][n]);
     return 0;
 }
+```
