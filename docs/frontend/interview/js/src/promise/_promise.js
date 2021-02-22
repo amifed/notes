@@ -19,6 +19,8 @@ class _Promise {
     this.rejectFns = [];
 
     const resolve = (val) => {
+      // console.log("resolveFns: ", this.resolveFns);
+
       setTimeout(() => {
         this.stauts = STATUS.RESOLVE;
         this.value = val;
@@ -30,7 +32,7 @@ class _Promise {
       setTimeout(() => {
         this.stauts = STATUS.REJECT;
         this.error = err;
-        this.rejectFns.forEach(({ fn, resolve, reject }) => reject(fn(val)));
+        this.rejectFns.forEach(({ fn, resolve, reject }) => reject(err));
       });
     };
 
@@ -60,10 +62,16 @@ class _Promise {
   }
 }
 
-_Promise
-  .resolve(10)
-  .then((o) => o * 10)
-  .then((o) => o + 10)
-  .then((o) => {
-    console.log(o);
-  });
+const p = new _Promise((resolve, reject) => {
+  setTimeout(() => resolve(1), 2000);
+});
+
+p.then((v) => {
+  console.log(v);
+  return 2;
+})
+  .then((v) => {
+    setTimeout(() => console.log(v));
+    return 3;
+  })
+  .then((v) => console.log(v));
