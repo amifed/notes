@@ -1,32 +1,22 @@
-#include <algorithm>
 #include <iostream>
 using namespace std;
 
-const int N = 1e5 + 7;
-const int INF = 0x3f3f3f3f;
+const int N = 1e3 + 7;
+const int MOD = 1e9 + 7;
 
 int n;
-int p[N], dp[N];
-
-// 最优子结构
-// 无后续性
-// 重复子问题
+int f[N][N];
 
 int main() {
-    while (cin >> n) {
-        for (int i = 0; i < n; ++i) cin >> p[i];
-        dp[0] = p[0];
-        for (int i = 1; i < n; ++i) {
-            dp[i] = max(dp[i - 1] + p[i], p[i]);
+    cin >> n;
+    f[0][0] = 1;
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= i; ++j) {
+            f[i][j] = (f[i - 1][j - 1] + f[i - j][j]) % MOD;
         }
-        cout << *max_element(dp, dp + n) << endl;
     }
+    int ans = 0;
+    for (int i = 1; i <= n; ++i) ans = (ans + f[n][i]) % MOD;
+    cout << ans;
     return 0;
 }
-// 背包问题
-// 线性 DP
-// 区间 DP
-// 计数 DP
-// 状态压缩 DP
-// 树形 DP
-// 记忆化搜索
