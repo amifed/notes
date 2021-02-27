@@ -329,3 +329,14 @@ margin的'auto'用来计算元素对应方向应该获得的剩余间距大小�
 ## 层叠上下文
 
 层叠上下文，英文称作stacking context，是HTML中的一个三维的概念。如果一个元素含有层叠上下文，我们可以理解为这个元素在z轴上就“高人一等”。
+
+## 隐藏元素的方式
+
+- `display: none`
+- `visibility: hidden`
+- `opacity: 0`
+- 绝对定位移除可视区域
+- `z-index` 设置为负值
+- `transform: scale(0, 0)`
+
+参考文章：[《CSS 隐藏元素的八种方法》](https://juejin.im/post/584b645a128fe10058a0d625#heading-2)

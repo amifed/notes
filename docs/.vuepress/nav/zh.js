@@ -79,7 +79,7 @@ module.exports = [
           { text: "CSS", link: "/frontend/interview/css/css" },
           { text: "JavaScript", link: "/frontend/interview/js/js" },
           { text: "计算机网络", link: "/frontend/interview/network/network" },
-          { text: "框架", link: "/frontend/interview/other/other" },
+          { text: "Vue", link: "/frontend/interview/vuejs/vue" },
         ],
       },
       {
