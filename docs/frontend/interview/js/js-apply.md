@@ -95,9 +95,9 @@ function loadScript(src) {
 }
 ```
 
-## AJAX 
+## AJAX
 
-$Asynchronous\ JavaScript\ and\ XML $，通过 JavaScript 的异步通信方案，向服务端发送 HTTP  通信，从服务端返回的 XML 文档中提取数据，更新网页的相应部分，而不用刷新整个页面。
+$\text{Asynchronous JavaScript and XML}$，通过 JavaScript 的异步通信方案，向服务端发送 HTTP  通信，从服务端返回的 XML 文档中提取数据，更新网页的相应部分，而不用刷新整个页面。
 
 1. 创建 `XMLHttpRequest` 对象；
 2. 创建一个新的 HTTP 请求，指定请求方法、URL及验证信息；

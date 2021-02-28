@@ -215,3 +215,10 @@ VNode 就是一个 JavaScript 对象，用 JavaScript 对象的属性来描述�
 
 ### generate
 
+## patch 机制中的 Diff 算法
+
+在对 model 进行操作时，会触发对应的 Dep 中的 Watcher 对象，Watcher 对象调用 update 来修改视图，修改视图主要是将新产生的 VNode 节点与旧 VNode节点进行 patch 的过程，对比其中的「差异」，核心为 Diff 算法。
+
+
+## 批量异步更新策略，nextTick
+
