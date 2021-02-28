@@ -1,6 +1,6 @@
 # 计数 DP
 
-## 整数划分
+## [AcWing 900. 整数划分](https://www.acwing.com/problem/content/902/)
 
 ### 解法一
 

@@ -89,7 +89,7 @@ function defineReactive(obj, key, val) {
     },
     set(newVal) {
       if (newVal === val) return;
-      val = newVal
+      val = newVal;
       dep.notify();
     },
   });
@@ -146,6 +146,7 @@ class VNode {
 ```
 
 新建 VNode 的节点代码为
+
 ```js
 function render() {
   return new VNode(
@@ -169,6 +170,7 @@ function render() {
 ```
 
 转换成的 VNode 节点
+
 ```js
 {
   tag: "div",
@@ -199,6 +201,17 @@ VNode 就是一个 JavaScript 对象，用 JavaScript 对象的属性来描述�
 
 ## template 模版的 Compile 编译过程
 
-### Compile
-
 `compile` 编译可以分为 `parse`、`optimize` 和 `generate` 三个阶段，最终得到 render function。
+
+### parse
+
+`parse` 过程是通过正则表达式来解析 HTML 字符串，从而转化为 AST 的过程
+
+### optimize
+
+标记静态节点，在后边对比节点差异时跳过静态节点，起到优化的作用。
+
+经过 `optimize` 处理后，AST 上每个节点会加上 `static` 属性，用来标记是否是静态的。
+
+### generate
+

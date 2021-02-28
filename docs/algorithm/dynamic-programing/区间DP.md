@@ -2,7 +2,7 @@
 
 区间 DP 需要从 区间长度从小到大来循环
 
-## [石子合并]()
+## [AcWing 282. 石子合并](https://www.acwing.com/problem/content/284/)
 
 ```cpp
 #include <algorithm>
