@@ -1,3 +1,7 @@
-const a = [1, 2, 3, 4, 5];
+const a = [
+  [0, 0],
+  [-1, 1],
+  [-2, 2],
+];
 
-console.log(a.reduce((sum, x) => (sum += x), 0));
+console.log(Math.max(a.map(([a, b]) => b - a)));
