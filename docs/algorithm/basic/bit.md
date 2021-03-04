@@ -35,4 +35,26 @@ do {
 } while (sub != k);
 ```
 
-相关题目：[LeetCode 1178. 猜字谜](https://leetcode-cn.com/problems/number-of-valid-words-for-each-puzzle/)
+**相关题目：**[LeetCode 1178. 猜字谜](https://leetcode-cn.com/problems/number-of-valid-words-for-each-puzzle/)
+
+## 二进制状态压缩
+
+指将一个长度为 $m$ 的 `bool` 数组用一个 $m$ 位二进制整数表示并存储的方法。
+
+下列位运算操作实现原 `bool` 数组中对应下标元素的存取：
+
+| 操作           | 运算    |
+| :---------- | :-------------- |
+| 取出整数 $n$ 在二进制表示下的第 $k$ 位 | `(n >> k) & 1​` |
+| 取出整数 $n$ 在二进制表示下的第 $0 \sim k-1$ 位（后 $k$ 位） | `n & ((1 << k) - 1)` |
+| 把整数 $n$ 在二进制表示下的第 $k$ 位取反 | `n ^ (1 << k)` |
+| 对整数 $n$ 在二进制表示下的第 $k$ 位赋值 $1$ | `n | (1 << k)` |
+| 对整数 $n$ 在二进制表示下的第 $k$ 位赋值 $0$ | `n & (~(1 << k))` |
+
+> 当 m 较大时，可使用 C++ STL 中的 bitset 实现。
+
+**相关题目：**
+
+- [最短Hamilton路径](https://www.acwing.com/problem/content/93/)
+- [LeetCode 1349. 参加考试的最大学生数](https://leetcode-cn.com/problems/maximum-students-taking-exam/)
+
