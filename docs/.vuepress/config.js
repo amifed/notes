@@ -1,7 +1,6 @@
 module.exports = {
   title: "Manlo's Notes",
   description: "Just Be Yourself",
-  // base: "/notes/",
   head: [
     [
       "link",
@@ -21,7 +20,7 @@ module.exports = {
     ],
   ],
   themeConfig: {
-    repo: "/mandaloo/notes",
+    repo: "/mandaloo/mandaloo.github.io",
     sidebar: "auto",
     editLinks: true,
     smoothScroll: true,
