@@ -50,3 +50,18 @@ sidebar: auto
 `\vdots`，$\vdots$
 
 参考文章：[LaTex数学公式语法](http://lixingcong.github.io/2016/04/04/LaTex-intro/)
+
+## Latex 字体大小
+
+```latex
+\tiny
+\scriptsize
+\footnotesize
+\small
+\normalsize
+\large
+\Large
+\LARGE
+\huge
+\Huge
+```
