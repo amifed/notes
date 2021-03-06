@@ -62,3 +62,15 @@ do {
 
 - [最短 Hamilton 路径](https://www.acwing.com/problem/content/93/)
 - [LeetCode 1349. 参加考试的最大学生数](https://leetcode-cn.com/problems/maximum-students-taking-exam/)
+
+
+## $lowbit$ 运算
+
+$\large lowbit(n)$ 定义为非负整数 $n$ 在二进制表示下 “最低位的 $1$ 及其后边所有的 $\large 0$” 构成的数值。例如 $\large n=10$ 的二进制表示为 $\large (1010)_2$，则 $\large lowbit(n)=2=(10)_2$。
+
+设 n > 0，n 的第 k 位是 1，第 0 ～ k - 1 位都是 0。
+
+$$
+\large lowbit(n)=n~\&~(\sim n+1)=n~\&~(-n)
+$$
+
