@@ -1,4 +1,4 @@
-# [第 46 场双周赛题解](https://leetcode-cn.com/contest/biweekly-contest-46/)
+# [第 47 场双周赛题解](https://leetcode-cn.com/contest/biweekly-contest-47/)
 
 ::: details 个人成绩
 $RANK: 191 / 3085$
