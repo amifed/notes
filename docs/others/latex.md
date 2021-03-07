@@ -65,3 +65,14 @@ sidebar: auto
 \huge
 \Huge
 ```
+
+## 位运算
+
+- 移位
+  - `\ll`， $\ll$
+  - `\gg`， $\gg$
+- 与，`\&`， $\&$
+- 或，
+  - `\mid`， $\mid$
+  - `\models`， $\models$
+- 异或，`\text{\^{}}`， $\mathcal{a\;\text{\^{}}\;b}$
