@@ -98,7 +98,7 @@ public:
 - 时间复杂度 $O(2^n)$，根据数据范围，n 最大为 16；
 - 空间复杂度 $O(1)$，存储 $3$ 的次幂的数组 $p$ 可以看作常数空间。
 
-## 3.[所有子字符串美丽值之和](https://leetcode-cn.com/problems/problems/sum-of-beauty-of-all-substrings/)
+## 3.[所有子字符串美丽值之和](https://leetcode-cn.com/problems/sum-of-beauty-of-all-substrings/)
 
 枚举求和
 
