@@ -1,4 +1,4 @@
-# [第 230 场周赛题解](https://leetcode-cn.com/contest/weekly-contest-230/)
+# [第 231 场周赛题解](https://leetcode-cn.com/contest/weekly-contest-231/)
 
 ::: details 个人成绩
 $RANK: 386 / 4667$
