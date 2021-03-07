@@ -58,7 +58,7 @@ void get_primes(int n) {
 
 - 时间复杂度 $O(n\log n)$
 
-调和级数：$\frac{n}{2} + \frac{n}{3} + \dots + \frac{n}{n} = n \left( \frac{1}{2} + \frac{1}{3} + \dots + \frac{1}{n} \right) $
+调和级数：$\frac{n}{2} + \frac{n}{3} + \dots + \frac{n}{n} = n \left( \frac{1}{2} + \frac{1}{3} + \dots + \frac{1}{n} \right)$
 
 算法可做以下优化, 只将 $2 \sim n$ 中的质数的倍数筛除即可, （埃式筛法）
 
