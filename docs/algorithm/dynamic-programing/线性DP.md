@@ -154,6 +154,7 @@ int main() {
 ```
 
 **相关题目：**
+
 - [LeetCode 300. 最长递增子序列](https://leetcode-cn.com/problems/longest-increasing-subsequence/)
 - [LeetCode 354. 俄罗斯套娃信封问题](https://leetcode-cn.com/problems/russian-doll-envelopes/)
 
@@ -185,3 +186,7 @@ int main() {
     return 0;
 }
 ```
+
+**其他线性 DP 题目：**
+
+- [LeetCode 132. 分割回文串 II](https://leetcode-cn.com/problems/palindrome-partitioning-ii/)
