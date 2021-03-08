@@ -1,5 +1,10 @@
 # 数学知识
 
+- [质数](./prime.md)
+- [约数](./factor.md)
+- [快速幂](./power.md)
+- [排列组合](./permutation_combination.md)
+
 ## 欧拉函数
 
 1 ~ N 中与 N 互质的数的个数被称为欧拉函数，记为 $\varphi(N)$。
@@ -12,7 +17,7 @@ $$
 
 ```cpp
 int euler_phi(int x) {
-	int ans = x;
+	  int ans = x;
     for (int i = 2; i <= x / i; ++i) {
         if (x % i == 0) {
             ans = ans / i * (i - 1);
