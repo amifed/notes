@@ -12,6 +12,10 @@
   - `width` 和 `height` 属性可以发挥作用；
   - `padding`、`margin`、`border` 会将其他元素从当前盒子周围 “推开”
 - 内联盒子
+  - 盒子不会换行；
+  - `width` 和 `height` 属性将不起作用
+  - 垂直方向的内边距、外边距以及边框会被应用但是不会把其他处于 `inline` 状态的盒子推开
+  - 水平方向的内边距、外边距以及边框会被应用且会把其他处于 `inline` 状态的盒子推开。
 
 盒模型都是有四个部分组成：margin、border、padding、content；
 
