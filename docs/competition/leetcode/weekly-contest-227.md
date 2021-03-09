@@ -107,7 +107,7 @@ public:
 };
 ```
 
-#### 另一种写法
+### 另一种写法
 
 ```cpp
 class Solution {
@@ -131,3 +131,41 @@ public:
 
 ## 4. [最接近目标值的子序列和](https://leetcode-cn.com/problems/closest-subsequence-sum/)
 
+### 分治
+
+根据数据范围，如果直接枚举子序列，时间复杂度为 $2^n$，题目最大 $n=40$ ，数据量过大；
+
+就是将数组分成 $\lfloor\dfrac{n}{2}\rfloor$ 和 $\lceil\dfrac{n}{2}\rceil$两部分，然后对每个部分求出所有子集的和后再排序，这样就可以用双指针解决两个有序数组之和问题。
+
+```cpp
+using LL = long long;
+class Solution {
+public:
+    vector<int> make(vector<int> a) {
+        int n = a.size();
+        vector<int> ans(1 << n);
+        for (int x = 0; x < 1 << n; ++x) {
+            for (int i = 0; i < n; ++i) {
+                if (x >> i & 1) ans[x] += a[i];
+            }
+        }
+        return ans;
+    }
+    int minAbsDifference(vector<int>& nums, int goal) {
+        int n = nums.size();
+        vector<int> l = make({nums.begin(), nums.begin() + n / 2});
+        vector<int> r = make({nums.begin() + n / 2, nums.end()});
+        sort(l.begin(), l.end());
+        sort(r.begin(), r.end());
+        int ans = 0x3f3f3f3f, i = 0, j = r.size() - 1;
+        while (i < l.size() && j >=0) {
+            int t = l[i] + r[j];
+            ans = min(ans, abs(t - goal));
+            if (t < goal) ++i;
+            else if (t > goal) --j;
+            else return 0;
+        }
+        return ans;
+    }
+};
+```

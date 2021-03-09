@@ -1,16 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="./index.css" />
-  </head>
+
+<html>
   <body>
-    <div class="wrapper">
-      <div class="left"></div>
-      <div class="right"></div>
-    </div>
+    <pre id="main"></pre>
   </body>
+  <script>
+    const main = document.querySelector("#main");
+    const callback = (i, fn) => () => {
+      console.log(i);
+      main.innerText += fn(i);
+    };
+    let i = 1;
+    while (i++ < 5000) {
+      setTimeout(callback(i, (i) => "\n" + i + "<"));
+    }
+
+    while (i++ < 10000) {
+      Promise.resolve().then(callback(i, (i) => i + ","));
+    }
+    console.log(i);
+    main.innerText += "[end " + i + " ]\n";
+  </script>
 </html>

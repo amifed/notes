@@ -63,10 +63,10 @@ module.exports = [
         text: "LeetCode",
         link: "/competition/leetcode/",
       },
-      {
-        text: "AtCoder",
-        link: "/competition/atcoder/",
-      },
+      // {
+      //   text: "AtCoder",
+      //   link: "/competition/atcoder/",
+      // },
     ],
   },
   {
