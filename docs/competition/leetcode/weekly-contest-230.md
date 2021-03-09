@@ -29,6 +29,8 @@ public:
 
 ## 2.[最接近目标价格的甜点成本](https://leetcode-cn.com/problems/closest-dessert-cost/)
 
+### 解法一：递归枚举
+
 递归枚举配料的选择个数
 
 ```cpp
@@ -52,6 +54,36 @@ public:
             dfs(tc, 0, bc[i], tar);
         }
         return ret;
+    }
+};
+```
+
+### 解法二：0-1 背包
+
+将问题转化为 0-1 背包问题求解，参考文章 [转化为 0-1 背包求解](https://leetcode-cn.com/problems/closest-dessert-cost/solution/zhuan-hua-wei-0-1bei-bao-qiu-jie-by-luci-o5yt/)
+
+```cpp
+const int N = 20001;
+int f[N];
+class Solution {
+public:
+    int closestCost(vector<int>& bc, vector<int>& tc, int target) {
+        memset(f, 0, sizeof f);
+        for (auto &x : bc) f[x] = 1;
+        tc.insert(tc.end(), tc.begin(), tc.end());
+        for (auto &t: tc) {
+            for (int j = N - 1; j >= t; --j) {
+                f[j] = f[j] || f[j - t];
+            }
+        }
+        int miGap = 0x3f3f3f3f, ans = 0;
+        for (int i = 0; i < N - 1; ++i) {
+            if (f[i] && abs(i - target) < miGap) {
+                miGap = abs(i - target);
+                ans = i;
+            }
+        }
+        return ans;
     }
 };
 ```
@@ -100,6 +132,7 @@ public:
     }
 };
 ```
+
 </template>
 <template v-slot:js>
 
@@ -110,33 +143,36 @@ public:
  * @return {number}
  */
 var minOperations = function(a, b) {
-    const n = a.length, m = b.length;
-    a.sort((x, y) => x - y);
-    b.sort((x, y) => x - y);
-    let sa = a.reduce((sum, x) => sum += x, 0);
-    let sb = b.reduce((sum, x) => sum += x, 0);
-    if (sa > sb) return minOperations(b, a);
-    let i = 0, j = b.length - 1;
-    let cnt = 0;
-    while (i < n && j >= 0 && sa < sb) {
-        if (6 - a[i] > b[j] - 1) {
-            sa += 6 - a[i++];
-        } else {
-            sb -= b[j--] - 1;
-        }
-        ++cnt;
+  const n = a.length,
+    m = b.length;
+  a.sort((x, y) => x - y);
+  b.sort((x, y) => x - y);
+  let sa = a.reduce((sum, x) => (sum += x), 0);
+  let sb = b.reduce((sum, x) => (sum += x), 0);
+  if (sa > sb) return minOperations(b, a);
+  let i = 0,
+    j = b.length - 1;
+  let cnt = 0;
+  while (i < n && j >= 0 && sa < sb) {
+    if (6 - a[i] > b[j] - 1) {
+      sa += 6 - a[i++];
+    } else {
+      sb -= b[j--] - 1;
     }
-    while (i < n && sa < sb) {
-        sa += 6 - a[i++];
-        ++cnt;
-    }
-    while (j >= 0 && sa < sb) {
-        sb -= b[j--] - 1;
-        ++cnt;
-    }
-    return sa >= sb ? cnt : -1;
+    ++cnt;
+  }
+  while (i < n && sa < sb) {
+    sa += 6 - a[i++];
+    ++cnt;
+  }
+  while (j >= 0 && sa < sb) {
+    sb -= b[j--] - 1;
+    ++cnt;
+  }
+  return sa >= sb ? cnt : -1;
 };
 ```
+
 </template>
 </CodeSwitcher>
 
@@ -151,7 +187,7 @@ var minOperations = function(a, b) {
 
 - 将 $sum(A)$ 增加至 $sum(B)$；
 - 将 $sum(B)$ 减小至 $sum(A)$；
-- 将 $sum(A)$  增大，同时$sum(B)$ 减小，至一个中间值 $sum(C)$；
+- 将 $sum(A)$ 增大，同时$sum(B)$ 减小，至一个中间值 $sum(C)$；
 
 这些增大缩小可以分布到数列中的每项中，但是由于每项中最小最大值限制，所以第三种方案是一种可能可行的方案，否则其他两种都不可行。
 
@@ -168,28 +204,29 @@ var minOperations = function(a, b) {
  * @return {number}
  */
 var minOperations = function(a, b) {
-    const n = a.length, m = b.length;
-    let sa = a.reduce((sum, x) => sum += x, 0);
-    let sb = b.reduce((sum, x) => sum += x, 0);
-    if (sa > sb) return minOperations(b, a);
-    let diff = sb - sa;
-    let freq = new Array(6).fill(0);
-    for (let x of a) ++freq[6 - x];
-    for (let x of b) ++freq[x - 1];
-    let cnt = 0;
-    for (let i = 5; i >= 1 && diff > 0; --i) {
-        while (freq[i] && diff > 0) {
-            --freq[i];
-            diff -= i;
-            ++cnt;
-        }
+  const n = a.length,
+    m = b.length;
+  let sa = a.reduce((sum, x) => (sum += x), 0);
+  let sb = b.reduce((sum, x) => (sum += x), 0);
+  if (sa > sb) return minOperations(b, a);
+  let diff = sb - sa;
+  let freq = new Array(6).fill(0);
+  for (let x of a) ++freq[6 - x];
+  for (let x of b) ++freq[x - 1];
+  let cnt = 0;
+  for (let i = 5; i >= 1 && diff > 0; --i) {
+    while (freq[i] && diff > 0) {
+      --freq[i];
+      diff -= i;
+      ++cnt;
     }
-    return diff > 0 ? -1 : cnt;
+  }
+  return diff > 0 ? -1 : cnt;
 };
 ```
 
 复杂度分析
 
-- 时间复杂度：$O(m+n)$，其中 $m$ 和 $n$ 分别是数组 $\textit{nums}_1$​	和 $\textit{nums}_2$ 的长度。
+- 时间复杂度：$O(m+n)$，其中 $m$ 和 $n$ 分别是数组 $\textit{nums}_1$​ 和 $\textit{nums}_2$ 的长度。
 
 - 空间复杂度：$O(c)$，其中 $c$ 表示数组元素的范围，在本题中 $c=6$。
