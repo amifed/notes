@@ -17,15 +17,15 @@ const getLeetCode = () => {
 };
 
 module.exports = {
-  "/competition/atcoder/": [
-    "",
-    {
-      title: "AtCoder Beginner Contest",
-      collapsable: false,
-      children: getFolderMdFilenames(
-        path.resolve(__dirname, "../../competition/atcoder")).filter(f => f !== "README"),
-      }
-  ],
+  // "/competition/atcoder/": [
+  //   "",
+  //   {
+  //     title: "AtCoder Beginner Contest",
+  //     collapsable: false,
+  //     children: getFolderMdFilenames(
+  //       path.resolve(__dirname, "../../competition/atcoder")).filter(f => f !== "README"),
+  //     }
+  // ],
   "/competition/leetcode/": [
     "",
     {
