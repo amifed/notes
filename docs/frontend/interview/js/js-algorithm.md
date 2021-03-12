@@ -18,6 +18,36 @@
 
 <<< @/docs/frontend/interview/js/src/sort/selectSort.js
 
+## 千分位标注
+
+将数字 `1234567`，转化为 `1,234,567`；
+
+### 解法一：枚举
+
+```js
+const exchange = (str) => {
+  let ans = "";
+  str = String(str);
+  for (let i = 0; i < str.length; ++i) {
+    ans += str[i];
+    if (str[i] === "-") continue;
+    if ((i + 1) % 3 == str.length % 3 && i < str.length - 1) ans += ",";
+  }
+  return ans;
+};
+```
+
+### 解法二：正则
+
+利用正则的「[零宽断言](https://deerchao.net/tutorials/regex/regex.htm#lookaround)」`(?=exp)`，意思是它断言自身出现的位置后面能匹配表达式 exp。
+数字千分位的特点是，第一个逗号后面的数字的个数是 3 的倍数，正则：`/(\d{3})+$/`；第一个逗号前最多可以有 $1\sim3$ 个数字，正则：`/\d{1,3}/`。
+
+```js
+const exchange = (num) => {
+  return String(num).replace(/\d{1,3}(?=(\d{3})+$)/g, (v) => v + ",");
+};
+```
+
 ## URL 拆解
 
 对 URL 中的 query 部分做拆解，返回一个对象
@@ -42,7 +72,7 @@ const getQueryObj = (url) => {
 
 HTTP headers 为文本型字符串，将其转化为 JS 对象
 
-```
+```http
 Accept: */*
 Cache-Control: no-cache
 Connection: keep-alive
