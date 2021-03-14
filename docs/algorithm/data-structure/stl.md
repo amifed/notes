@@ -1,7 +1,5 @@
 # C++ STL 常用函数
 
-
-
 ## 优先队列 （堆）
 
 - 引用
@@ -46,7 +44,7 @@ priority_queue<int, vector<int>, greater<int>> pq;
   priority_queue<int, vector<int>,  decltype(cmp)> queue{cmp};
   ```
 
-* 结构体优先队列
+- 结构体优先队列
 
   - 自定义比较函数
 
@@ -54,14 +52,10 @@ priority_queue<int, vector<int>, greater<int>> pq;
   #include <queue>
   #include <vector>
   using namespace std;
-  struct node {
-    int x, y;
-    node (int _x, int _y): x(_x), y(_y){};
-  };
-
+  using PII = pair<int, int>;
   struct cmp {
-    bool operator()(const node &a, const node &b) {
-  		return a.x > b.x;
+    bool operator()(const PII &a, const PII &b) {
+  		return a.first > b.first;
     }
   };
   priority_queue<int, vector<int>,  cmp> queue;
