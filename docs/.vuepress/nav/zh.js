@@ -75,10 +75,10 @@ module.exports = [
       {
         text: "面试指南",
         items: [
+          { text: "计算机基础", link: "/frontend/interview/cs/os" },
           { text: "HTML", link: "/frontend/interview/html/html" },
           { text: "CSS", link: "/frontend/interview/css/css" },
           { text: "JavaScript", link: "/frontend/interview/js/js" },
-          { text: "计算机网络", link: "/frontend/interview/network/network" },
           { text: "Vue", link: "/frontend/interview/vuejs/vue" },
         ],
       },
