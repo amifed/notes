@@ -1,12 +1,37 @@
-// 需要实现的函数
-function repeat(func, times, wait) {
-  return function warpper(...args) {
-    setTimeout(() => {
-      if (--times) warpper.apply(this, args);
-      func.apply(this, args);
-    }, wait);
+/**
+ * @param {number} n
+ * @return {string[][]}
+ */
+var solveNQueens = function(n) {
+  const ans = [];
+  const row = new Array(n).fill(false);
+  (col = new Array(n).fill(false)),
+    (deg = new Array(n * 2).fill(false)),
+    (udeg = new Array(n * 2).fill(false)),
+    (tmp = new Array(n).fill(0).map(() => new Array(n).fill(0)));
+
+  const dfs = (r, c) => {
+    if (c >= n) {
+      ++r, (c = 0);
+    }
+    if (r >= n) {
+      ans.push(tmp.map((t) => t.join("")));
+      return;
+    }
+    tmp[r][c] = ".";
+    dfs(r, c + 1);
+
+    if (!row[r] && !col[c] && !deg[r + c] && !udeg[r - c + n]) {
+      row[r] = col[c] = deg[r + c] = udeg[r - c + n] = true;
+      tmp[r][c] = "Q";
+      dfs(r, c + 1);
+      tmp[r][c] = ".";
+      row[r] = col[c] = deg[r + c] = udeg[r - c + n] = false;
+    }
   };
-}
-// 使下面调用代码能正常工作
-const repeatFunc = repeat(console.log, 4, 3000);
-repeatFunc("helloworld"); //会输出4次 helloworld, 每次间隔3秒
+
+  dfs(0, 0);
+  return ans;
+};
+
+solveNQueens(4);
