@@ -1,20 +1,18 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <title></title>
-    <style>
-      p:nth-child(3) {
-        background: yellow;
-        position: absolute;
-        top:0;
-        right: 0;
+    <script>
+      function myFunc() {
+        document.write(a); // a已变量提升，但是因为赋值在后面，所以打印undefined
+        document.write(func()); // 执行函数 打印出2
+        var a = 1; // 这里的a已经变量提升了，但是在这一步才赋值
+        function func() {
+          return 2;
+        }
       }
-    </style>
+    </script>
   </head>
   <body>
-    <p>第一段文字</p>
-    <p>第二段文字</p>
-    <p>第三段文字</p>
-    <p>第四段文字</p>
+    <p>1</p>
+    <button onclick="myFunc()">点击</button>
   </body>
 </html>
