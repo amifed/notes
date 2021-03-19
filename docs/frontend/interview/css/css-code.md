@@ -130,18 +130,18 @@ div {
 借助 webkit 的 CSS 扩展属性
 
 ```html
-    <div style="width: 500px; height: 100px;border: 1px solid red;">
-      <p
-        style="
+<div style="width: 500px; height: 100px;border: 1px solid red;">
+  <p
+    style="
           display: -webkit-box;
           -webkit-box-orient: vertical; 
           -webkit-line-clamp: 3;
           overflow: hidden;
         "
-      >
-        这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。
-      </p>
-    </div>
+  >
+    这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。
+  </p>
+</div>
 ```
 
 > 存在跨浏览器兼容性问题
@@ -158,7 +158,7 @@ p {
 }
 
 p::after {
-  content: '...';
+  content: "...";
   position: absolute;
   bottom: 0;
   right: 0;
@@ -167,30 +167,33 @@ p::after {
 ```
 
 **解决方案三**
+
 ```html
-    <div
-      class="text-wrapper"
-      style="width: 500px; height: 100px;border: 1px solid red;"
-    ></div>
-    <script>
-      const text = "这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。"
-      const ele = document.body.querySelector(".text-wrapper");
-      const height = ele.offsetHeight;
-      for (let i = 0; i < text.length; ++i) {
-        ele.innerHTML += text[i];
-        // 文本不断加入ele，当文本出现溢出时，scrollHeight > offsetHeight
-        if (height < ele.scrollHeight) {
-          ele.style.overflow = 'hidden';
-          ele.innerHTML = text.substr(0, i - 3) + '...';
-          break;
-        }
-      }
-    </script>
+<div
+  class="text-wrapper"
+  style="width: 500px; height: 100px;border: 1px solid red;"
+></div>
+<script>
+  const text =
+    "这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。这是一些文本。";
+  const ele = document.body.querySelector(".text-wrapper");
+  const height = ele.offsetHeight;
+  for (let i = 0; i < text.length; ++i) {
+    ele.innerHTML += text[i];
+    // 文本不断加入ele，当文本出现溢出时，scrollHeight > offsetHeight
+    if (height < ele.scrollHeight) {
+      ele.style.overflow = "hidden";
+      ele.innerHTML = text.substr(0, i - 3) + "...";
+      break;
+    }
+  }
+</script>
 ```
 
 ## CSS 上下固定 中间自适应 布局
 
 :::details 绝对定位
+
 ```css
 body {
   padding: 0;
@@ -218,17 +221,19 @@ body {
   background: blue;
 }
 ```
+
 :::
 
-**flex布局**
+**flex 布局**
 
-**grid布局**
+**grid 布局**
 
 ## CSS 两栏布局
 
 两栏布局一般指的是页面中一共两栏，左边固定，右边自适应的布局
 
 :::details Float
+
 ```css
 .wrapper {
   height: 1024px;
@@ -248,9 +253,11 @@ body {
   background: lightgreen;
 }
 ```
+
 :::
 
 :::details Flex
+
 ```css
 .wrapper {
   display: flex;
@@ -265,4 +272,5 @@ body {
   background: lightgreen;
 }
 ```
+
 :::

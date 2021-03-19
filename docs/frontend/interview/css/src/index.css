@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  height: 1000px;
+}
+.wrapper div {
+  /* align-self: center; */
+  height: 200px;
+  background-color: lightcoral;
+}

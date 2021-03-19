@@ -1,25 +1,28 @@
 #include <iostream>
+#include <vector>
+#include <queue>
 using namespace std;
-using LL = long long;
-const int N = 1e4 + 7;
-const int MOD = 998244353;
-int n, m;
-int a[N];
-LL x[N];
+using PII = pair<int, int>;
 
-int main() {    
-    cin >> n;
-    for (int i = 0; i <= n; ++i) cin >> a[i];
-    cin >> m;
-    for (int i = 0; i < m; ++i) cin >> x[i];
+const int N = 1e4 + 7;
+int n, m;
+struct cmp {
+    bool operator()(const PII &a, const PII &b) {
+        return a.first != b.first ? a.first < b.first : a.second > b.second;
+    }
+};
+
+int main() {
+    cin >> n >> m;
+    priority_queue<PII, vector<PII>, cmp> pq;
+    for (int i = 0; i < n; ++i) {
+        int v, w;
+        cin >> v >> w;
+        pq.push({v + w * 2, i});
+    }
     for (int i = 0; i < m; ++i) {
-        LL ans = 1;
-        for (int j = 1; j <= n; ++j) {
-            ans = ans + 1LL * x[i] * a[j] % MOD;
-            x[i] = x[i] * x[i] % MOD;
-        }
-        cout << ans << ' ';
+        auto p = pq.top(); pq.pop();
+        cout << p.second << endl;
     }
     return 0;
 }
-

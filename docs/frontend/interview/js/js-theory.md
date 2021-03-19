@@ -27,7 +27,10 @@ const cloned = Object.assign({}, object);
 4. $Object.create()$
 
 ```js
-let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
+let clone = Object.create(
+  Object.getPrototypeOf(obj),
+  Object.getOwnPropertyDescriptors(obj)
+);
 ```
 
 对 `obj` 进行真正准确地拷贝，包括所有的属性：可枚举和不可枚举的，数据属性和 setters/getters —— 包括所有内容，并带有正确的 `[[Prototype]]`
@@ -120,12 +123,45 @@ function _new(F, ...args) {
 }
 ```
 
+## ES5 实现继承
+
+### `call` 实现继承
+
+```js
+function Animal(name) {
+  this.name = name;
+}
+function Cat(name) {
+  // 调用父类构造函数实现继承
+  Animal.call(this, name);
+}
+
+let p = new Cat("Ragdoll");
+
+p; // Cat {name: "Ragdoll"}
+```
+
+### 原型链继承
+
+```js
+function Animal(name) {
+  this.name = name;
+}
+function Cat() {}
+Cat.prototype = new Animal("Ragdoll");
+
+let p = new Cat();
+
+p.name; // "Ragdoll"
+p.__proto__; // Animal {name: "Ragdoll"}
+```
+
 ## 实现 `instanceof`
 
 **`instanceof`** **运算符**用于检测构造函数的 `prototype` 属性是否出现在某个实例对象的原型链上。
 
 ```js
-function _instanceof (obj, F) {
+function _instanceof(obj, F) {
   let proto = Object.getPrototypeOf(obj);
   const prototype = F.prototype;
   while (proto) {
@@ -138,7 +174,7 @@ function _instanceof (obj, F) {
 
 ## 实现 `Promise`
 
-<<< @/docs/frontend/interview/js/src/promise/_promise.js
+<<< @/docs/frontend/interview/js/src/promise/\_promise.js
 
 参考文章：[如何实现一个简单的 Promise](https://q.shanyue.tech/fe/js/23.html)
 
@@ -161,4 +197,3 @@ function curry(f) {
   };
 }
 ```
-

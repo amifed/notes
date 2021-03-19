@@ -53,20 +53,28 @@ const exchange = (num) => {
 对 URL 中的 query 部分做拆解，返回一个对象
 
 ```js
-// 'http://sample.com/?a=1&b#hash'
-const getQueryObj = (url) => {
-  let arr = url
-    .split("?")[1]
-    .split("#")[0]
-    .split("&");
-  let obj = {};
-  arr.forEach((e) => {
-    const [k, v] = e.split("=");
-    obj[k] = v ? v : "";
-  });
+// 'http://www.domain.com/order?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&enabled#hash'
+const parse = (url) => {
+  url = decodeURI(url); // 对 中文 url 解码
+  const params = url.split("?")[1].split("#").split("&");
+  const obj = {};
+  for (let s of params) {
+    let [k = "", v = true] = s.split("=");
+    if (obj.hasOwnProperty(k)) {
+      if (Array.isArray(obj[k])) {
+        obj[k].push(v);
+      } else {
+        obj[k] = [obj[k], v];
+      }
+    } else {
+      obj[k] = v;
+    }
+  }
   return obj;
 };
 ```
+
+- URI 编码：[encodeURI()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURI)、[encodeURIComponent()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent)
 
 ## 将 HTTP headers 转换为对象
 
