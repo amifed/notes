@@ -2,38 +2,38 @@
   margin: 0;
   padding: 0;
 }
-body {
-  padding: 100px 0 0 200px;
+main {
+  height: 500px;
+  display: grid;
+  grid-template-columns: 100px auto 150px;
+  grid-template-rows: 30px auto 30px;
+  /*设置网格区域分布*/
+  grid-template-areas:
+    "header header header"
+    "left center right"
+    "footer footer footer";
 }
-article {
-  width: 150px;
-  position: relative;
-  color: orange;
-  cursor: pointer;
+main header {
+  grid-area: header; /*指定网格区域*/
+  background-color: #ccc;
 }
-article div {
-  height: 50px;
-  border: solid 1px #ddd;
-  text-align: center;
-  line-height: 3em;
+main .left {
+  grid-area: left; /*指定网格区域*/
+  opacity: 0.5;
+  background-color: lightgoldenrodyellow;
 }
-article div:nth-of-type(1) {
-  background-color: #fff;
-  position: relative;
-  z-index: 2;
+main .center {
+  grid-area: center; /*指定网格区域*/
+  margin: 0 10px; /* 左右间距 */
+  border: 2px solid #000;
+  background-color: lightgreen;
 }
-article div:nth-of-type(2) {
-  width: 300px;
-  position: absolute;
-  top: 50px;
-  right: 0;
-  display: none;
+main .right {
+  grid-area: right; /*指定网格区域*/
+  opacity: 0.5;
+  background-color: lightcoral;
 }
-article:hover div:nth-of-type(1) {
-  border-bottom: none;
-  border-color:  blue;
-}
-article:hover div:nth-of-type(2) {
-  display: block;
-  border-color: blue;
+main footer {
+  grid-area: footer; /*指定网格区域*/
+  background-color: #ccc;
 }

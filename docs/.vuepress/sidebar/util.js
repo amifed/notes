@@ -16,7 +16,7 @@ const generator = (p, parentDirName = "") => {
       const prefix = parentDirName ? parentDirName + "/" : "";
       const name = d.name.substring(0, d.name.lastIndexOf("."));
       t.push(prefix + name);
-    } else if (d.isDirectory() && d.name != "src")
+    } else if (d.isDirectory() && d.name != "src" && d.name != "assets")
       t.push({
         title: d.name,
         collapsable: false,
