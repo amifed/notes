@@ -13,16 +13,6 @@ struct cmp {
 };
 
 int main() {
-    cin >> n >> m;
-    priority_queue<PII, vector<PII>, cmp> pq;
-    for (int i = 0; i < n; ++i) {
-        int v, w;
-        cin >> v >> w;
-        pq.push({v + w * 2, i});
-    }
-    for (int i = 0; i < m; ++i) {
-        auto p = pq.top(); pq.pop();
-        cout << p.second << endl;
-    }
+    cout << 6 / -132 << endl;
     return 0;
 }
