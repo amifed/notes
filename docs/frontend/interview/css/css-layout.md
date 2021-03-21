@@ -382,7 +382,7 @@ main .left {
   float: left;
   margin-left: -100%; /* 使 .left 上去一行 */
   position: relative;
-  left: -110px; /* 相对定位调整 .left，使其居左，正值大于等于自身宽度 */
+  right: 110px; /* 相对定位调整 .left，使其居左，正值大于等于自身宽度 */
   width: 100px;
   height: 100%;
   opacity: 0.5;
