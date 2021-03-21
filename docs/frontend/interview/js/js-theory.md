@@ -174,7 +174,7 @@ function _instanceof(obj, F) {
 
 ## 实现 `Promise`
 
-<<< @/docs/frontend/interview/js/src/promise/\_promise.js
+<<< @/docs/frontend/interview/js/src/promise/promise.js
 
 参考文章：[如何实现一个简单的 Promise](https://q.shanyue.tech/fe/js/23.html)
 
