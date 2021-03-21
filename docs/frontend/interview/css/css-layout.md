@@ -295,7 +295,7 @@ main {
 
 #### 双飞翼布局
 
-<!-- ![双飞翼布局](./assets/3-col-layout-flying.png) -->
+![双飞翼布局](./assets/3-col-layout-flying.png) 
 
 ```html
 <body>
@@ -355,7 +355,7 @@ footer {
 
 #### 圣杯布局
 
-<!-- ![圣杯布局](./assets/3-col-layout-grall.png) -->
+![圣杯布局](./assets/3-col-layout-grall.png)
 
 ```html
 <body>
@@ -413,7 +413,7 @@ footer {
 
 #### Grid 实现三栏布局
 
-<!-- ![Grid三栏布局](./assets/3-col-layout-grid.png) -->
+![Grid三栏布局](./assets/3-col-layout-grid.png)
 
 ```html
 <body>
