@@ -35,7 +35,7 @@ public:
 ### 复杂度分析
 
 - 时间复杂度 $O(n)$
-- 空间复杂度 $O(1)$
+- 空间复杂度 $O(n)$
 
 ## 2.[判断一个数字是否可以表示成三的幂的和](https://leetcode-cn.com/problems/check-if-number-is-a-sum-of-powers-of-three/)
 
