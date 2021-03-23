@@ -27,8 +27,11 @@ $f(i,j)=\min\{f(i\oplus(1 \ll j),k)+weight(k,j)\},\; 0≤k<n,\;((i \gg j) \;\&\;
 $f(2^n-1,n-1)$，即经过所有点（ $i$ 的所有位都是 $1$ ），处于终点 $n-1$ 的最短路。
 
 :::details 参考代码（C++）
-<<< @/docs/solution/acwing/算法竞赛进阶指南/0x00 基本算法/src/位运算/最短 Hamilton 路径.cpp
+
+<<< @/docs/solution/acwing/算法竞赛进阶指南/0x00 基本算法/src/位运算/最短Hamilton路径.cpp
 :::
+
+<!-- markdownlint-disable -->
 
 **复杂度分析**
 
