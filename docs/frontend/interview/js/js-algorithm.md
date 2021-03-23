@@ -56,7 +56,10 @@ const exchange = (num) => {
 // 'http://www.domain.com/order?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&enabled#hash'
 const parse = (url) => {
   url = decodeURI(url); // 对 中文 url 解码
-  const params = url.split("?")[1].split("#").split("&");
+  const params = url
+    .split("?")[1]
+    .split("#")
+    .split("&");
   const obj = {};
   for (let s of params) {
     let [k = "", v = true] = s.split("=");
@@ -144,28 +147,25 @@ const flatten = (arr) => {
 **解法二：es6 扩展运算符**
 
 ```cpp
-const flatten = (arr) => {
-  while(arr.some(e => Array.isArray(e))) {
-    arr = [].concat(...arr);
-  }
-  return arr;
-};
+const flat = (arr) =>
+  Array.isArray(arr) ? arr.reduce((a, b) => [...a, ...flat(b)], []) : [arr];
 ```
 
 **解法三：函数调用**
+
 ```js
-arr.flat(depth) // depth 为嵌套深度
+arr.flat(depth); // depth 为嵌套深度
 ```
 
-## 模拟 lodash 中的 _.get() 函数
+## 模拟 lodash 中的 \_.get() 函数
 
 lodash 中常用的 `get` 函数用于嵌套调用，例如 `obj.a.b.c.d`，为防止对象为空而抛出异常，一般写为 `obj && obj.a && obj.a.b && obj.a.b.c && obj.a.b.c.d`。
 
 可以调用 lodash 函数库的 `get` 函数
 
 ```js
-_.get(obj, 'a.b.c.d');
-_.get(obj, 'a.b[0].c.d[0]'); //也支持数组路径
+_.get(obj, "a.b.c.d");
+_.get(obj, "a.b[0].c.d[0]"); //也支持数组路径
 ```
 
 **实现**
@@ -189,10 +189,10 @@ const get = (obj, ...path) => {
 **语法**
 
 ```js
-obj?.prop
-obj?.[expr]
-arr?.[index]
-func?.(args)
+obj?.prop;
+obj?.[expr];
+arr?.[index];
+func?.(args);
 ```
 
 **You Dont Need Lodash**
@@ -220,7 +220,7 @@ function randomSort(a, b) {
 ```js
 function randomSort(arr) {
   let result = [];
-  
+
   while (arr.length > 0) {
     var randomIndex = Math.floor(Math.random() * arr.length);
     result.push(arr[randomIndex]);
@@ -248,4 +248,3 @@ function randomSort(array) {
   return array;
 }
 ```
-
