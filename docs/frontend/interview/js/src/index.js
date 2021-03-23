@@ -1,4 +1,10 @@
-const flat = (arr) =>
-  Array.isArray(arr) ? arr.reduce((a, b) => [...a, ...flat(b)], []) : [arr];
-
-console.log(flat([1, 2, [3, 4, [5, 6]]]));
+function _instanceof(obj, F) {
+  let proto = obj.__proto__;
+  const prototype = F.prototype;
+  while (proto) {
+    if (proto === prototype) return true;
+    proto = proto.__proto__;
+  }
+  return false;
+}
+console.log(_instanceof([], Object));
