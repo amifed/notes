@@ -8,7 +8,7 @@ JavaScript 中有八种数据类型（前七种为基本数据类型，也称为
 
 ES6 中新增 `Symbol`，用于唯一的标识符，创建后独一无二且不可变，可以解决可能出现的全局变量冲突问题。
 
-ES10 中新增 `BigInt`，可以表示任意长度的整数，可以安全的存储和运算大整数÷
+ES10 中新增 `BigInt`，可以表示任意长度的整数，可以安全的存储和运算大整数 ÷
 
 #### 数据类型及存储
 
@@ -144,6 +144,7 @@ obj.key; // undefined, 但属性存在
 for (let key in object) {
 }
 ```
+
 > 如果只想得到本身（非继承）的属性，可使用 `obj.hasOwnProperty(key)` 来判断，也可通过 `Objcet.keys()` 方法获取对象自身的属性。
 
 ##### 对象比较
@@ -193,11 +194,11 @@ c == d; // false
 
 属性 `[[Prototype]]` 是内部的而且是隐藏的，有很多方式访问并设置它。
 
--  `__proto__`，指向 `[[Prototype]]`
--  [`Object.getPrototypeOf(o)`](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf)，返回对象 `obj` 的 `[[Prototype]]`（与 `__proto__` 的 getter 相同）
+- `__proto__`，指向 `[[Prototype]]`
+- [`Object.getPrototypeOf(o)`](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf)，返回对象 `obj` 的 `[[Prototype]]`（与 `__proto__` 的 getter 相同）
 
 - [`Object.create(proto,[descriptors])`](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/create)，利用给定的 `proto` 作为 `[[Prototype]]`（可以是 `null`）和可选的属性描述来创建一个空对象。
--  [`Object.setPrototypeOf(o, proto)`](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf)，将对象 `obj` 的 `[[Prototype]]` 设置为 `proto`（与 `__proto__` 的 setter 相同）。
+- [`Object.setPrototypeOf(o, proto)`](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf)，将对象 `obj` 的 `[[Prototype]]` 设置为 `proto`（与 `__proto__` 的 setter 相同）。
 
 ##### F.prototype
 
@@ -228,19 +229,28 @@ c == d; // false
 - 以 0、0O、0o 开头的表示为八进制。
 - 以 0B、0b 开头的表示为二进制格式。
 
-####  js 中整数的安全范围是多少？
+#### js 中整数的安全范围是多少？
 
-安全整数指的是，在这个范围内的整数转化为二进制存储的时候不会出现精度丢失，能够被“安全”呈现的整数是 $ \pm 2^{53} - 1$。在 ES6中被定义为 `Number.MAX_SAFE_INTEGER`，最小整数被定义为`Number.MIN_SAFE_INTEGER`。
+  安全整数指的是，在这个范围内的整数转化为二进制存储的时候不会出现精度丢失，能够被“安全”呈现的整数是 $\pm 2^{53} - 1$。在 ES6 中被定义为 `Number.MAX_SAFE_INTEGER`，最小整数被定义为`Number.MIN_SAFE_INTEGER`。
 
-如果某次计算的结果得到一个超过数值范围的值，那么这个值会被自动转换为特殊的 `Infinity` 值，正负 `Infinity `无法参与运算。一个数是否有穷可使用函数 `isFinite()` 来判断。
+如果某次计算的结果得到一个超过数值范围的值，那么这个值会被自动转换为特殊的 `Infinity` 值，正负 `Infinity`无法参与运算。一个数是否有穷可使用函数 `isFinite()` 来判断。
 
-####  typeof NaN 的结果是什么？
+#### typeof NaN 的结果是什么？
 
 `NaN`，意指 Not a Number。`NaN` 是一个“警戒值”（sentinel value，有特殊用途的常规值），用于指出数字类型中的错误情况。`NaN` 是个特殊值，和自身不相等。
 
 ```js
-typeof NaN // "number"
-NaN == NaN // false
+typeof NaN; // "number"
+NaN == NaN; // false
+```
+
+#### 判断数组的方法？
+
+```js
+[] instanceof Array
+[].constructor === Array
+{}.toString.call([]) === '[object Array]'
+Array.isArray([])
 ```
 
 #### 什么是假值对象？
@@ -273,7 +283,7 @@ JavaScript 与 HTML 的交互是通过事件实现的，事件代表文档或浏
 现代浏览器共有三种事件模型：
 
 1. DOM0 级事件模型，事件不会传播，没有事件流的概念，但是现在有的浏览器支持以冒泡的方式实
-现，它可以在网页中直接定义监听函数，也可以通过 js 属性来指定监听函数。这种方式是所有浏览器都兼容的。
+   现，它可以在网页中直接定义监听函数，也可以通过 js 属性来指定监听函数。这种方式是所有浏览器都兼容的。
 2. IE 事件模型，共有事件处理阶段和事件冒泡阶段两个过程。
 3. DOM2 级事件模型，共有事件捕获阶段、事件处理阶段和事件冒泡阶段三个过程。
 
@@ -283,7 +293,7 @@ JavaScript 与 HTML 的交互是通过事件实现的，事件代表文档或浏
 
 #### 闭包
 
-[闭包](https://en.wikipedia.org/wiki/Closure_(computer_programming)) 是指内部函数总是可以访问其所在的外部函数中声明的变量和参数，即使在其外部函数被返回（寿命终结）了之后。在某些编程语言中，这是不可能的，或者应该以特殊的方式编写函数来实现。在 JavaScript 中，所有函数都是天生闭包的（只有一个例外， ["new Function" 语法](https://zh.javascript.info/new-function) ）。
+[闭包](<https://en.wikipedia.org/wiki/Closure_(computer_programming)>) 是指内部函数总是可以访问其所在的外部函数中声明的变量和参数，即使在其外部函数被返回（寿命终结）了之后。在某些编程语言中，这是不可能的，或者应该以特殊的方式编写函数来实现。在 JavaScript 中，所有函数都是天生闭包的（只有一个例外， ["new Function" 语法](https://zh.javascript.info/new-function) ）。
 
 也就是说：JavaScript 中的函数会自动通过隐藏的 `[[Environment]]` 属性记住创建它们的位置，所以它们都可以访问外部变量。
 
@@ -305,9 +315,9 @@ ES5 新增的语言特性，用来激活一些特性，使代码在严格模式�
 
 > 现代 JavaScript 支持 “classes” 和 “modules” ，它们会自动启用 `use strict`
 
-####  js 延迟加载的方式
+#### js 延迟加载的方式
 
-Js 的加载、解析和执行会阻塞页面的渲染，js脚本延迟加载能够提高页面渲染速度。
+Js 的加载、解析和执行会阻塞页面的渲染，js 脚本延迟加载能够提高页面渲染速度。
 
 - 脚本放在文档底部
 - `defer` 属性，`<script src="..." defer/>`。脚本不会阻塞页面，DOM 解析完毕，在 `DOMContentLoaded` 事件前执行脚本。具有 `defer` 属性的脚本保持其相对顺序执行。
@@ -316,7 +326,7 @@ Js 的加载、解析和执行会阻塞页面的渲染，js脚本延迟加载能
 
 #### 同步和异步的区别？
 
-**同步**，可以理解为在执行完一个函数或方法之后，一直等待系统返回值或消息，这时程序是处于阻塞的，只有接收到返回的值或消息后才往下执行其他的命令。  
+**同步**，可以理解为在执行完一个函数或方法之后，一直等待系统返回值或消息，这时程序是处于阻塞的，只有接收到返回的值或消息后才往下执行其他的命令。
 
 **异步**，执行完函数或方法后，不必阻塞性地等待返回值或消息，只需要向系统委托一个异步过程，那么当系统接收到返回值或消息时，系统会自动触发委托的异步过程，从而完成一个完整的流程。
 
@@ -344,7 +354,7 @@ Js 的加载、解析和执行会阻塞页面的渲染，js脚本延迟加载能
 ```js
 Array.prototype.slice.call(obj); // 等价于 [].slice.call(obj)
 Array.prototype.splice.call(obj, 0);
-Array.prototype.concat.apply([], obj)
+Array.prototype.concat.apply([], obj);
 Array.from(obj);
 ```
 
@@ -372,7 +382,7 @@ Polyfill 指的是用于实现浏览器并不支持的原生 API 的代码。
 
 事件循环是 JavaScript 的执行机制。
 
-JS执行时同步任务依次执行，异步任务添加到任务队列中，任务队列分为宏任务队列和微任务队列。
+JS 执行时同步任务依次执行，异步任务添加到任务队列中，任务队列分为宏任务队列和微任务队列。
 
 **每个宏任务之后，引擎会立即执行微任务队列中的所有任务，然后再执行其他的宏任务，或渲染，或进行其他任何操作。**
 
@@ -399,13 +409,12 @@ JS执行时同步任务依次执行，异步任务添加到任务队列中，任
 
 在执行一段代码时，JS 引擎会首先创建一个执行栈
 
-然后JS引擎会创建一个全局执行上下文，并push到执行栈中, 这个过程JS引擎会为这段代码中所有变量分配内存并赋一个初始值（undefined），在创建完成后，JS引擎会进入执行阶段，这个过程JS引擎会逐行的执行代码，即为之前分配好内存的变量逐个赋值(真实值)。
+然后 JS 引擎会创建一个全局执行上下文，并 push 到执行栈中, 这个过程 JS 引擎会为这段代码中所有变量分配内存并赋一个初始值（undefined），在创建完成后，JS 引擎会进入执行阶段，这个过程 JS 引擎会逐行的执行代码，即为之前分配好内存的变量逐个赋值(真实值)。
 
-如果这段代码中存在function的声明和调用，那么JS引擎会创建一个函数执行上下文，并push到执行栈中，其创建和执行过程跟全局执行上下文一样。但有特殊情况，即当函数中存在对其它函数的调用时，JS引擎会在父函数执行的过程中，将子函数的全局执行上下文push到执行栈，这也是为什么子函数能够访问到父函数内所声明的变量。
+如果这段代码中存在 function 的声明和调用，那么 JS 引擎会创建一个函数执行上下文，并 push 到执行栈中，其创建和执行过程跟全局执行上下文一样。但有特殊情况，即当函数中存在对其它函数的调用时，JS 引擎会在父函数执行的过程中，将子函数的全局执行上下文 push 到执行栈，这也是为什么子函数能够访问到父函数内所声明的变量。
 
-还有一种特殊情况是，在子函数执行的过程中，父函数已经return了，这种情况下，JS引擎会将父函数的上下文从执行栈中移除，与此同时，JS引擎会为还在执行的子函数上下文创建一个闭包，这个闭包里保存了父函数内声明的变量及其赋值，子函数仍然能够在其上下文中访问并使用这边变量/常量。当子函数执行完毕，JS引擎才会将子函数的上下文及闭包一并从执行栈中移除。
+还有一种特殊情况是，在子函数执行的过程中，父函数已经 return 了，这种情况下，JS 引擎会将父函数的上下文从执行栈中移除，与此同时，JS 引擎会为还在执行的子函数上下文创建一个闭包，这个闭包里保存了父函数内声明的变量及其赋值，子函数仍然能够在其上下文中访问并使用这边变量/常量。当子函数执行完毕，JS 引擎才会将子函数的上下文及闭包一并从执行栈中移除。
 
-最后，JS引擎是单线程的，那么它是如何处理高并发的呢？即当代码中存在异步调用时JS是如何执行的。比如setTimeout或fetch请求都是non-blocking的，当异步调用代码触发时，JS引擎会将需要异步执行的代码移出调用栈，直到等待到返回结果，JS引擎会立即将与之对应的回调函数push进任务队列中等待被调用，当调用(执行)栈中已经没有需要被执行的代码时，JS引擎会立刻将任务队列中的回调函数逐个push进调用栈并执行。这个过程我们也称之为事件循环。
+最后，JS 引擎是单线程的，那么它是如何处理高并发的呢？即当代码中存在异步调用时 JS 是如何执行的。比如 setTimeout 或 fetch 请求都是 non-blocking 的，当异步调用代码触发时，JS 引擎会将需要异步执行的代码移出调用栈，直到等待到返回结果，JS 引擎会立即将与之对应的回调函数 push 进任务队列中等待被调用，当调用(执行)栈中已经没有需要被执行的代码时，JS 引擎会立刻将任务队列中的回调函数逐个 push 进调用栈并执行。这个过程我们也称之为事件循环。
 
 参考文章：[https://juejin.cn/post/6844904097556987917](https://juejin.cn/post/6844904097556987917)
-
