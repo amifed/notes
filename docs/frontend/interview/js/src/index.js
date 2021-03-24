@@ -1,10 +1,12 @@
-function _instanceof(obj, F) {
-  let proto = obj.__proto__;
-  const prototype = F.prototype;
-  while (proto) {
-    if (proto === prototype) return true;
-    proto = proto.__proto__;
-  }
-  return false;
+Function.prototype._apply = function(context, args) {
+  context = context ?? globalThis
+  context.fn = this
+  const result = args ? context.fn(...args) : context.fn()
+  delete context.fn
+  return result
 }
-console.log(_instanceof([], Object));
+
+function f(a) {
+  console.log(a)
+}
+f._apply(null, [1])

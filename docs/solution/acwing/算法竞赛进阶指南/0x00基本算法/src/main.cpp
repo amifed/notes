@@ -5,7 +5,8 @@ void divide(int x) {
     for (int i = 2; i <= x / i; ++i) {
         if (x % i == 0) {
             int s = 0;
-            while (x % i == 0) x /= i, ++s;
+            while (x % i == 0)
+                x /= i, ++s;
             printf("%d %d\n", i, s);
         }
     }

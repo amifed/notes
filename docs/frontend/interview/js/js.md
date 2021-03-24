@@ -222,6 +222,7 @@ c == d; // false
 ![native-prototypes-classes](https://raw.githubusercontent.com/javascript-tutorial/zh.javascript.info/000e1fd0f5bce342284c128487af79fb21950f79/1-js/08-prototypes/03-native-prototypes/native-prototypes-classes.svg)
 
 > 图片来源：[现代 JavaScript 教程 - 原生的原型](https://zh.javascript.info/native-prototypes)
+> 相关文章：[深度解析原型中的各个难点](https://github.com/KieSun/Dream/issues/2)
 
 #### 在 js 中不同进制数字的表示方式
 
@@ -231,7 +232,7 @@ c == d; // false
 
 #### js 中整数的安全范围是多少？
 
-  安全整数指的是，在这个范围内的整数转化为二进制存储的时候不会出现精度丢失，能够被“安全”呈现的整数是 $\pm 2^{53} - 1$。在 ES6 中被定义为 `Number.MAX_SAFE_INTEGER`，最小整数被定义为`Number.MIN_SAFE_INTEGER`。
+安全整数指的是，在这个范围内的整数转化为二进制存储的时候不会出现精度丢失，能够被“安全”呈现的整数是 $\pm 2^{53} - 1$。在 ES6 中被定义为 `Number.MAX_SAFE_INTEGER`，最小整数被定义为`Number.MIN_SAFE_INTEGER`。
 
 如果某次计算的结果得到一个超过数值范围的值，那么这个值会被自动转换为特殊的 `Infinity` 值，正负 `Infinity`无法参与运算。一个数是否有穷可使用函数 `isFinite()` 来判断。
 
@@ -266,7 +267,7 @@ Array.isArray([])
 - 方法调用模式，一个函数作为对象的方法调用时，`this` 指向该对象；
 - 函数调用模式，函数直接调用时，`this` 指向全局对象
 
-> 箭头函数没有 this，它his 只取决于它外面的第一个不是箭头函数的函数的 this，直到全局对象
+> 箭头函数没有 this，它 his 只取决于它外面的第一个不是箭头函数的函数的 this，直到全局对象
 
 #### DOM，BOM
 
@@ -420,3 +421,10 @@ JS 执行时同步任务依次执行，异步任务添加到任务队列中，�
 最后，JS 引擎是单线程的，那么它是如何处理高并发的呢？即当代码中存在异步调用时 JS 是如何执行的。比如 setTimeout 或 fetch 请求都是 non-blocking 的，当异步调用代码触发时，JS 引擎会将需要异步执行的代码移出调用栈，直到等待到返回结果，JS 引擎会立即将与之对应的回调函数 push 进任务队列中等待被调用，当调用(执行)栈中已经没有需要被执行的代码时，JS 引擎会立刻将任务队列中的回调函数逐个 push 进调用栈并执行。这个过程我们也称之为事件循环。
 
 参考文章：[https://juejin.cn/post/6844904097556987917](https://juejin.cn/post/6844904097556987917)
+
+#### JSON.stringify() 的局限
+
+- 忽略 `undefined`
+- 忽略 `symbol`
+- 不能序列化函数
+- 不能解决循环引用对象

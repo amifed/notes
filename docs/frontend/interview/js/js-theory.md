@@ -7,19 +7,19 @@
 1. spread
 
 ```js
-const cloned = { ...object };
+const cloned = { ...object }
 ```
 
 2. rest
 
 ```js
-const { ...cloned } = object;
+const { ...cloned } = object
 ```
 
 3. $Object.assign()$
 
 ```js
-const cloned = Object.assign({}, object);
+const cloned = Object.assign({}, object)
 ```
 
 > [Object.assign](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) 会同时复制字符串和 symbol 属性
@@ -30,7 +30,7 @@ const cloned = Object.assign({}, object);
 let clone = Object.create(
   Object.getPrototypeOf(obj),
   Object.getOwnPropertyDescriptors(obj)
-);
+)
 ```
 
 对 `obj` 进行真正准确地拷贝，包括所有的属性：可枚举和不可枚举的，数据属性和 setters/getters —— 包括所有内容，并带有正确的 `[[Prototype]]`
@@ -39,20 +39,51 @@ let clone = Object.create(
 
 ```js
 const deepClone = (obj) => {
-  if (!obj || typeof obj !== "object") return obj;
-  let ans = Array.isArray(obj) ? [] : {};
+  if (!obj || typeof obj !== 'object') return obj
+  let ans = Array.isArray(obj) ? [] : {}
   for (let k in obj) {
     if (obj.hasOwnProperty(k)) {
-      ans[k] = deepClone(obj[k]);
+      ans[k] = deepClone(obj[k])
     }
   }
-  return ans;
-};
+  return ans
+}
 ```
 
 ## 实现 call 函数
 
+`call()` 方法使用一个指定的 this 值和单独给出的一个或多个参数来调用一个函数。
+
+> function.call(thisArg, arg1, arg2, ...)
+
+- 如果第一个参数为 `null`，设为为全局变量
+- 改变 `this` 指向，让新对象可以执行该函数，换种思路就是**给新对象添加一个函数，在执行完后删除**
+
+```js
+Function.prototype._call = function(context, ...args) {
+  context = context ?? globalThis
+  context.fn = this
+  const result = context.fn(...args)
+  delete context.fn
+  return result
+}
+```
+
 ## 实现 apply 函数
+
+apply() 方法调用一个具有给定 this 值的函数，以及以一个数组（或类数组对象）的形式提供的参数。
+
+> func.apply(thisArg, [argsArray])
+
+```js
+Function.prototype._apply = function(context, args) {
+  context = context ?? globalThis
+  context.fn = this
+  const result = args ? context.fn(...args) : context.fn()
+  delete context.fn
+  return result
+}
+```
 
 ## 实现 bind 函数
 
@@ -61,7 +92,7 @@ const deepClone = (obj) => {
 基本的语法是：
 
 ```javascript
-let boundFunc = func.bind(context);
+let boundFunc = func.bind(context)
 ```
 
 `func.bind(context)` 的结果是一个特殊的类似于函数的“外来对象（exotic object）”，它可以像函数一样被调用，并且透明地（transparently）将调用传递给 `func` 并设定 `this=context`。
@@ -72,23 +103,23 @@ let boundFunc = func.bind(context);
 
 ```js
 Function.prototype._bind = function() {
-  const args = Array.from(arguments);
-  const t = args.shift();
-  const self = this;
+  const args = Array.from(arguments)
+  const t = args.shift()
+  const self = this
   return function() {
-    return self.apply(t, args);
-  };
-};
+    return self.apply(t, args)
+  }
+}
 
 Function.prototype._bind = function() {
-  const args = Array.from(arguments);
-  const obj = args.shift();
-  return () => this.apply(obj, args);
-};
+  const args = Array.from(arguments)
+  const obj = args.shift()
+  return () => this.apply(obj, args)
+}
 
 Function.prototype._bind = function(obj, ...args) {
-  return () => this.apply(obj, args);
-};
+  return () => this.apply(obj, args)
+}
 ```
 
 > 后两种写法分别使用箭头函数和 Rest 参数对象简化第一种写法
@@ -97,8 +128,8 @@ Function.prototype._bind = function(obj, ...args) {
 
 ```js
 Function.prototype._bind = function(obj, ...args) {
-  return (...params) => this.call(obj, ...args, ...params);
-};
+  return (...params) => this.call(obj, ...args, ...params)
+}
 ```
 
 **参考文章**
@@ -116,10 +147,10 @@ Function.prototype._bind = function(obj, ...args) {
 
 ```js
 function _new(F, ...args) {
-  if (typeof F !== "function") throw new TypeError();
-  let obj = Object.create(F.prototype);
-  const ans = F.apply(obj, args);
-  return typeof ans === "object" || typeof ans === "function" ? ans : obj;
+  if (typeof F !== 'function') throw new TypeError()
+  let obj = Object.create(F.prototype)
+  const ans = F.apply(obj, args)
+  return typeof ans === 'object' || typeof ans === 'function' ? ans : obj
 }
 ```
 
@@ -129,31 +160,31 @@ function _new(F, ...args) {
 
 ```js
 function Animal(name) {
-  this.name = name;
+  this.name = name
 }
 function Cat(name) {
   // 调用父类构造函数实现继承
-  Animal.call(this, name);
+  Animal.call(this, name)
 }
 
-let p = new Cat("Ragdoll");
+let p = new Cat('Ragdoll')
 
-p; // Cat {name: "Ragdoll"}
+p // Cat {name: "Ragdoll"}
 ```
 
 ### 原型链继承
 
 ```js
 function Animal(name) {
-  this.name = name;
+  this.name = name
 }
 function Cat() {}
-Cat.prototype = new Animal("Ragdoll");
+Cat.prototype = new Animal('Ragdoll')
 
-let p = new Cat();
+let p = new Cat()
 
-p.name; // "Ragdoll"
-p.__proto__; // Animal {name: "Ragdoll"}
+p.name // "Ragdoll"
+p.__proto__ // Animal {name: "Ragdoll"}
 ```
 
 ## 实现 `instanceof`
@@ -162,13 +193,13 @@ p.__proto__; // Animal {name: "Ragdoll"}
 
 ```js
 function _instanceof(obj, F) {
-  let proto = Object.getPrototypeOf(obj);
-  const prototype = F.prototype;
+  let proto = Object.getPrototypeOf(obj)
+  const prototype = F.prototype
   while (proto) {
-    if (proto === prototype) return true;
-    proto = Object.getPrototypeOf(proto);
+    if (proto === prototype) return true
+    proto = Object.getPrototypeOf(proto)
   }
-  return false;
+  return false
 }
 ```
 
@@ -188,12 +219,12 @@ function _instanceof(obj, F) {
 function curry(f) {
   return function curried(...args) {
     if (args.length >= f.length) {
-      return f.apply(this, args);
+      return f.apply(this, args)
     } else {
       return function(..._args) {
-        return curried.apply(this, args.concat(_args));
-      };
+        return curried.apply(this, args.concat(_args))
+      }
     }
-  };
+  }
 }
 ```

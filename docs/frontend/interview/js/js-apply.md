@@ -5,12 +5,44 @@
 会在“冷却（cooldown）”期后运行函数一次。即事件被触发 ms 毫秒后才执行回调函数，如果在这 ms 毫秒内事件再次触发则重新计时。
 
 ```js
-function debounce(func, ms) {
-  let timeout;
+function debounce(func, wait) {
+  let timeout
   return function() {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, arguments), ms);
-  };
+    if (timeout) clearTimeout(timeout)
+    timeout = setTimeout(() => func.apply(this, arguments), wait)
+  }
+}
+```
+
+带有立即执行选项的防抖函数
+
+```js
+function debounce(func, wait = 50, immediate = true) {
+  let timeout, context, params
+
+  const later = () =>
+    setTimeout(() => {
+      timeout = null
+      if (!immediate) {
+        func.apply(context, params)
+        context = params = null
+      }
+    }, wait)
+
+  return function(...args) {
+    if (!timeout) {
+      timeout = later()
+      if (immediate) {
+        func.apply(this, args)
+      } else {
+        context = this
+        params = args
+      }
+    } else {
+      clearTimeout(timeout)
+      timeout = later()
+    }
+  }
 }
 ```
 
@@ -22,33 +54,31 @@ function debounce(func, ms) {
 
 ```js
 function throttle(func, ms) {
-
   let isThrottled = false,
     savedArgs,
-    savedThis;
+    savedThis
 
   function wrapper() {
-
     if (isThrottled) {
-      savedArgs = arguments;
-      savedThis = this;
-      return;
+      savedArgs = arguments
+      savedThis = this
+      return
     }
 
-    func.apply(this, arguments);
+    func.apply(this, arguments)
 
-    isThrottled = true;
+    isThrottled = true
 
     setTimeout(function() {
-      isThrottled = false;
+      isThrottled = false
       if (savedArgs) {
-        wrapper.apply(savedThis, savedArgs);
-        savedArgs = savedThis = null;
+        wrapper.apply(savedThis, savedArgs)
+        savedArgs = savedThis = null
       }
-    }, ms);
+    }, ms)
   }
 
-  return wrapper;
+  return wrapper
 }
 ```
 
@@ -84,23 +114,23 @@ function throttle(func, ms) {
 ```js
 function loadScript(src) {
   return new Promise((resolve, reject) => {
-    let script = document.createElement('script');
-    script.src = src;
+    let script = document.createElement('script')
+    script.src = src
 
-    script.onload = () => resolve(script);
+    script.onload = () => resolve(script)
     script.onerror = () => reject(new Error(`脚本加载失败 ${script}`))
 
-    document.head.append(script);
+    document.head.append(script)
   })
 }
 ```
 
 ## AJAX
 
-$\text{Asynchronous JavaScript and XML}$，通过 JavaScript 的异步通信方案，向服务端发送 HTTP  通信，从服务端返回的 XML 文档中提取数据，更新网页的相应部分，而不用刷新整个页面。
+$\text{Asynchronous JavaScript and XML}$，通过 JavaScript 的异步通信方案，向服务端发送 HTTP 通信，从服务端返回的 XML 文档中提取数据，更新网页的相应部分，而不用刷新整个页面。
 
 1. 创建 `XMLHttpRequest` 对象；
-2. 创建一个新的 HTTP 请求，指定请求方法、URL及验证信息；
+2. 创建一个新的 HTTP 请求，指定请求方法、URL 及验证信息；
 3. 设置响应 HTTP 请求的状态变化函数；
 4. 发送 HTTP 请求；
 5. 获取异步调用返回的数据；
@@ -137,16 +167,16 @@ $\text{Asynchronous JavaScript and XML}$，通过 JavaScript 的异步通信方�
 ## 使用 setTimeout 实现 setInterval
 
 ```js
-function _setInterval (f, ms) {
-  let timer = {flag : true};
+function _setInterval(f, ms) {
+  let timer = { flag: true }
   function interval() {
     if (timer.flag) {
-      f();
-      setTimeout(interval, ms);
+      f()
+      setTimeout(interval, ms)
     }
   }
-  setTimeout(interval, ms);
-  return timer;
+  setTimeout(interval, ms)
+  return timer
 }
 ```
 
@@ -157,16 +187,16 @@ setInterval 的作用是每隔一段指定时间执行一个函数，但是这�
 ## 邮箱验证
 
 规则定义：
+
 - 开头 `^` 需要是：大写字母 `[A-Z]`、小写字母 `[a-z]`、数字 `[0-9]`、下划线 `[_]`、减号 `[\-]` 及点号 `[.]` ，重复一次或多次 `+`；
 - 中间必须是 `@` 符号；
 - 接着是 大写字母 `[A-Z]`、小写字母 `[a-z]`、数字 `[0-9]`、下划线 `[_]`、减号 `[\-]` 及点号 `[.]` 开头，重复一次或多次 `+`；
 - 结尾 `$`，点号 `.` 连接 2 至 4 位的大小写字母 `[A-Za-z]{2,4}$`。
 
-
 ```js
 function isAvailableEmail(sEmail) {
-  const reg = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+(.[A-Za-z]{2,4})$/;
-  return reg.test(sEmail);
+  const reg = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+(.[A-Za-z]{2,4})$/
+  return reg.test(sEmail)
 }
 ```
 
