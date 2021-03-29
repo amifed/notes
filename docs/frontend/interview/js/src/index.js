@@ -1,36 +1,23 @@
-function parseText(text) {
-  const tagRE = /\{\{((?:.|\r?\n)+?)\}\}/g
-  if (!tagRE.test(text)) {
-    return
-  }
-  const tokens = []
-  const rawTokens = []
-  let lastIndex = (tagRE.lastIndex = 0)
-  let match, index, tokenValue
-  let i = 1
-  while ((match = tagRE.exec(text))) {
-    ++i
-    console.log(i, match)
-    index = match.index
-    // push text token
-    if (index > lastIndex) {
-      rawTokens.push((tokenValue = text.slice(lastIndex, index)))
-      tokens.push(JSON.stringify(tokenValue))
+// 'http://www.domain.com/order?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&enabled#hash'
+const parse = (url) => {
+  url = decodeURI(url) // 对 中文 url 解码
+  const params = url
+    .split('?')[1]
+    .split('#')[0]
+    .split('&')
+  const obj = {}
+  for (let s of params) {
+    let [k = '', v = true] = s.split('=')
+    if (obj.hasOwnProperty(k)) {
+      ((Array.isArray(obj[k]) ? obj[k] : (obj[k] = [obj[k]])).push(v))
+    } else {
+      obj[k] = v
     }
-    // tag token
-    const exp = match[1].trim()
-    tokens.push(`_s(${exp})`)
-    rawTokens.push({ '@binding': exp })
-    lastIndex = index + match[0].length
   }
-  if (lastIndex < text.length) {
-    rawTokens.push((tokenValue = text.slice(lastIndex)))
-    tokens.push(JSON.stringify(tokenValue))
-  }
-  return {
-    expression: tokens.join('+'),
-    tokens: rawTokens,
-  }
+  return obj
 }
-
-console.log(parseText('你好{{name}},我是{{age}}'))
+console.log(
+  parse(
+    'http://www.domain.com/order?user=anonymous&id=123&id=456&id=789&city=%E5%8C%97%E4%BA%AC&enabled#hash'
+  )
+)

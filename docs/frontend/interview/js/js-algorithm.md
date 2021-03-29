@@ -54,27 +54,23 @@ const exchange = (num) => {
 
 ```js
 // 'http://www.domain.com/order?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&enabled#hash'
-const parse = (url) => {
-  url = decodeURI(url); // 对 中文 url 解码
+const parseUrl = (url) => {
+  url = decodeURI(url) // 对 中文 url 解码
   const params = url
-    .split("?")[1]
-    .split("#")
-    .split("&");
-  const obj = {};
+    .split('?')[1]
+    .split('#')[0]
+    .split('&')
+  const obj = {}
   for (let s of params) {
-    let [k = "", v = true] = s.split("=");
+    let [k = '', v = true] = s.split('=')
     if (obj.hasOwnProperty(k)) {
-      if (Array.isArray(obj[k])) {
-        obj[k].push(v);
-      } else {
-        obj[k] = [obj[k], v];
-      }
+      ((Array.isArray(obj[k]) ? obj[k] : (obj[k] = [obj[k]])).push(v))
     } else {
-      obj[k] = v;
+      obj[k] = v
     }
   }
-  return obj;
-};
+  return obj
+}
 ```
 
 - URI 编码：[encodeURI()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURI)、[encodeURIComponent()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent)
