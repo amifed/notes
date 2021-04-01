@@ -18,31 +18,71 @@ function debounce(func, wait) {
 
 ```js
 function debounce(func, wait = 50, immediate = true) {
-  let timeout, context, params
+  let timeout, context, args
 
   const later = () =>
     setTimeout(() => {
       timeout = null
       if (!immediate) {
-        func.apply(context, params)
-        context = params = null
+        func.apply(context, args)
+        context = args = null
       }
     }, wait)
 
-  return function(...args) {
-    if (!timeout) {
+  return function() {
+    if (timeout) {
+      clearTimeout(timeout)
+      timeout = later()
+    } else {
       timeout = later()
       if (immediate) {
         func.apply(this, args)
       } else {
         context = this
-        params = args
+        args = arguments
       }
-    } else {
-      clearTimeout(timeout)
-      timeout = later()
     }
   }
+}
+```
+
+带有取消功能
+
+```js
+function debounce(fn, wait = 50, immediate = false) {
+  let timeout, context, args, result
+
+  const later = () =>
+    setTimeout(() => {
+      timeout = null
+      if (!immediate) {
+        fn.apply(context, args)
+        context = args = null
+      }
+    }, wait)
+
+  const debounced = function() {
+    if (timeout) {
+      clearTimeout(timeout)
+      timeout = later()
+    } else {
+      if (immediate) {
+        result = fn.apply(this, arguments)
+      } else {
+        context = this
+        args = arguments
+      }
+      timeout = later()
+    }
+    return result
+  }
+
+  debounced.cancel = function() {
+    clearTimeout(timeout)
+    timeout = null
+  }
+
+  return debounced
 }
 ```
 

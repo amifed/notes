@@ -29,8 +29,8 @@ ES10 中新增 `BigInt`，可以表示任意长度的整数，可以安全的存
 所有 `typeof` 返回值为 `object` 的对象都包含一个内部属性 [[Class]]（可以将它看作一个内部分类，而非传统面向对象意义上的类）。这个属相无法直接访问，一般通过 `Object.prototype.toString()` 来查看。
 
 ```js
-Object.prototype.toString([]); // [object Array]
-Object.prototype.toString(null); // [object Null]
+Object.prototype.toString([]) // [object Array]
+Object.prototype.toString(null) // [object Null]
 ```
 
 可以使用特殊的对象属性 `Symbol.toStringTag` 自定义对象的 `toString` 方法的行为。
@@ -89,15 +89,15 @@ JavaScript 有三大对象，分别是 本地对象、内置对象和宿主对�
 `undefined` 在 js 中不是一个保留字，这意味着我们可以使用 undefined 来作为一个变量名，这样的做法是非常危险的，它会影响我们对 undefined 值的判断。但是我们可以通过一些方法获得**安全的 undefined 值**，比如说 void 0。
 
 ```js
-let x;
-x === void 0; //true
+let x
+x === void 0 //true
 ```
 
 当我们对两种类型使用 `typeof` 进行判断的时候，Null 类型化会返回 “object”，这是一个历史遗留的问题。当我们使用标准相等符`==`对两种类型的值进行比较时会返回 true，使用严格相等符`===`时会返回 false。
 
 ```js
-null == undefined; // true
-null === undefined; // false
+null == undefined // true
+null === undefined // false
 ```
 
 参考文章：[JavaScript 深入理解之 undefined 与 null](http://cavszhouyou.top/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E4%B9%8Bundefined%E4%B8%8Enull.html)
@@ -119,23 +119,23 @@ null === undefined; // false
 读取不存在的属性只会得到 `undefined`。所以我们可以很容易地判断一个属性是否存在：
 
 ```js
-let obj = {};
-obj.noProperty === undefined; // true
+let obj = {}
+obj.noProperty === undefined // true
 ```
 
 操作符 `"in"` 也可检查属性是否存在，语法是：
 
 ```js
-"key" in object; // key 为属性名
-key in object; // key 为变量
+'key' in object // key 为属性名
+key in object // key 为变量
 ```
 
 大部分情况下与 `undefined` 进行比较就可判断属性是否存在，但当属性值为 `undefined` 时，`in`运算符的判断仍是对的。
 
 ```js
-let obj = { key: undefined };
-obj.key; // undefined, 但属性存在
-"key" in obj; // true
+let obj = { key: undefined }
+obj.key // undefined, 但属性存在
+'key' in obj // true
 ```
 
 可使用循环：`for ..in` 遍历所有可枚举键，会遍历自己的以及继承的键
@@ -150,14 +150,14 @@ for (let key in object) {
 ##### 对象比较
 
 ```js
-let a = {};
-let b = a; // 复制引用
-a == b; // true
-a === b; // true
+let a = {}
+let b = a // 复制引用
+a == b // true
+a === b // true
 
-let c = {};
-let d = {};
-c == d; // false
+let c = {}
+let d = {}
+c == d // false
 ```
 
 ##### 对象 — 原始值转换
@@ -222,7 +222,8 @@ c == d; // false
 ![native-prototypes-classes](https://raw.githubusercontent.com/javascript-tutorial/zh.javascript.info/000e1fd0f5bce342284c128487af79fb21950f79/1-js/08-prototypes/03-native-prototypes/native-prototypes-classes.svg)
 
 > 图片来源：[现代 JavaScript 教程 - 原生的原型](https://zh.javascript.info/native-prototypes)
-> 相关文章：[深度解析原型中的各个难点](https://github.com/KieSun/Dream/issues/2)
+>
+> 相关文章：[JavaScript 深入之从原型到原型链](https://github.com/mqyqingfeng/Blog/issues/2)、[深度解析原型中的各个难点](https://github.com/KieSun/Dream/issues/2)
 
 #### 在 js 中不同进制数字的表示方式
 
@@ -241,8 +242,8 @@ c == d; // false
 `NaN`，意指 Not a Number。`NaN` 是一个“警戒值”（sentinel value，有特殊用途的常规值），用于指出数字类型中的错误情况。`NaN` 是个特殊值，和自身不相等。
 
 ```js
-typeof NaN; // "number"
-NaN == NaN; // false
+typeof NaN // "number"
+NaN == NaN // false
 ```
 
 #### 判断数组的方法？
@@ -355,10 +356,10 @@ Js 的加载、解析和执行会阻塞页面的渲染，js 脚本延迟加载�
 **类数组对象转换为数组的方法**
 
 ```js
-Array.prototype.slice.call(obj); // 等价于 [].slice.call(obj)
-Array.prototype.splice.call(obj, 0);
-Array.prototype.concat.apply([], obj);
-Array.from(obj);
+Array.prototype.slice.call(obj) // 等价于 [].slice.call(obj)
+Array.prototype.splice.call(obj, 0)
+Array.prototype.concat.apply([], obj)
+Array.from(obj)
 ```
 
 #### 哪些操作会造成内存泄漏

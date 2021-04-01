@@ -124,6 +124,9 @@ Function.prototype._bind = function(obj, ...args) {
 
 > 后两种写法分别使用箭头函数和 Rest 参数对象简化第一种写法
 
+**上述写法仍存在问题**：一个绑定函数也能使用 new 操作符创建对象：这种行为就像把原函数当成构造器。提供的 this 值被忽略，同时调用时的参数被提供给模拟函数。
+相关文章：[JavaScript 深入之 bind 的模拟实现](https://github.com/mqyqingfeng/Blog/issues/12)
+
 **柯里化**
 
 ```js
