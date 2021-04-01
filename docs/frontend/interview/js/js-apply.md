@@ -197,7 +197,33 @@ function throttle(func, ms) {
 
 代码来源： [现代 JavaScript 教程 - 节流装饰器](https://zh.javascript.info/task/throttle)
 
-## 去重
+## 柯里化
+
+柯里化是一种函数的转换，它是指将一个函数从可调用的 `f(a, b, c)` 转换为可调用的 `f(a)(b)(c)`。
+
+通俗来讲，就是将函数调用的参数收集起来，当参数个数满足函数调用的要求时，再执行函数并返回函数值。
+
+```js
+function curry(f) {
+  return function curried(...args) {
+    if (args.length >= f.length) {
+      return f.apply(this, args)
+    } else {
+      return function(..._args) {
+        return curried.apply(this, args.concat(_args))
+      }
+    }
+  }
+}
+// example
+const add = curry((a, b, c) => a + b + c)
+add(1)(2)(3)
+add(1, 2)(3)
+add(1)(2, 3)
+add(1, 2, 3)
+```
+
+## 数组去重
 
 ### Array
 

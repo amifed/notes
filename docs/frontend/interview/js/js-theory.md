@@ -213,21 +213,3 @@ function _instanceof(obj, F) {
 参考文章：[如何实现一个简单的 Promise](https://q.shanyue.tech/fe/js/23.html)
 
 学习文章：[手把手教你实现 Promise](https://segmentfault.com/a/1190000023858504)
-
-## 柯里化
-
-柯里化是一种函数的转换，它是指将一个函数从可调用的 `f(a, b, c)` 转换为可调用的 `f(a)(b)(c)`。
-
-```js
-function curry(f) {
-  return function curried(...args) {
-    if (args.length >= f.length) {
-      return f.apply(this, args)
-    } else {
-      return function(..._args) {
-        return curried.apply(this, args.concat(_args))
-      }
-    }
-  }
-}
-```
