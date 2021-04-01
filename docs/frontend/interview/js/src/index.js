@@ -1,51 +1,16 @@
-let cnt = 1
-const container = document.querySelector('#container')
-
-function getUserAction(e) {
-  console.log(e)
-  container.innerHTML = cnt++
-}
-
-function debounce(fn, wait = 50, immediate = false) {
-  let timeout, context, args, result
-
-  const later = () =>
-    setTimeout(() => {
-      timeout = null
-      if (!immediate) {
-        fn.apply(context, args)
-        context = args = null
-      }
-    }, wait)
-
-  const debounced = function() {
-    if (timeout) {
-      clearTimeout(timeout)
-      timeout = later()
-    } else {
-      if (immediate) {
-        result = fn.apply(this, arguments)
-      } else {
-        context = this
-        args = arguments
-      }
-      timeout = later()
+function curry(f) {
+  return function curried(...args) {
+    if (args.length >= f.length) {
+      return f.apply(this, args)
     }
-    return result
+    return function(..._args) {
+      return curried.apply(this, args.concat(_args))
+    }
   }
-
-  debounced.cancel = function() {
-    clearTimeout(timeout)
-    timeout = null
-  }
-
-  return debounced
+} 
+//实现 add(1)(2)(3)(4)
+function add(a, b, c, d) {
+  return a + b + c + d
 }
-
-const setUserAction = debounce(getUserAction, 10000, true)
-
-container.onmousemove = setUserAction
-
-document.querySelector('#cancel').addEventListener('click', () => {
-  setUserAction.cancel()
-})
+add = curry(add)
+console.log(add(1)(2)(3)(4)) // 1+2+3+4

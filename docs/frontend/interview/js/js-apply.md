@@ -4,6 +4,8 @@
 
 会在“冷却（cooldown）”期后运行函数一次。即事件被触发 ms 毫秒后才执行回调函数，如果在这 ms 毫秒内事件再次触发则重新计时。
 
+### 基本实现
+
 ```js
 function debounce(func, wait) {
   let timeout
@@ -14,27 +16,16 @@ function debounce(func, wait) {
 }
 ```
 
-带有立即执行选项的防抖函数
+### 可立即执行
 
 ```js
 function debounce(func, wait = 50, immediate = true) {
   let timeout, context, args
 
-  const later = () =>
-    setTimeout(() => {
-      timeout = null
-      if (!immediate) {
-        func.apply(context, args)
-        context = args = null
-      }
-    }, wait)
-
   return function() {
     if (timeout) {
       clearTimeout(timeout)
-      timeout = later()
     } else {
-      timeout = later()
       if (immediate) {
         func.apply(this, args)
       } else {
@@ -42,11 +33,18 @@ function debounce(func, wait = 50, immediate = true) {
         args = arguments
       }
     }
+    timeout = setTimeout(() => {
+      timeout = null
+      if (!immediate) {
+        func.apply(context, args)
+        context = args = null
+      }
+    }, wait)
   }
 }
 ```
 
-带有取消功能
+### 可取消
 
 ```js
 function debounce(fn, wait = 50, immediate = false) {
@@ -92,6 +90,81 @@ function debounce(fn, wait = 50, immediate = false) {
 
 当被多次调用时，它会在每 `ms` 毫秒最多将调用传递给 `f` 一次。节流可以使用在 scroll 是事件监听上。
 
+### 时间戳
+
+```js
+function throttle(fn, wait) {
+  let pre, context, args
+  return function() {
+    let now = +new Date()
+    context = this
+    args = arguments
+    if (now - pre > wait) {
+      fn.apply(context, args)
+      pre = now
+    }
+  }
+}
+```
+
+> 事件会立即执行，停止触发后不会再执行函数
+
+### 定时器
+
+```js
+function throttle(fn, wait) {
+  let timeout, context, args
+  return function() {
+    context = this
+    args = arguments
+    if (!timeout) {
+      timeout = setTimeout(() => {
+        timeout = null
+        fn.apply(context, args)
+      }, wait)
+    }
+  }
+}
+```
+
+> 事件再触发后的 `wait` 秒第一次执行，且停止触发后会再执行一次事件
+
+### 时间戳 + 定时器
+
+实现事件立即调用，且最后一次仍调用
+
+```js
+function throttle(fn, wait) {
+  let timeout, context, args
+  let pre = 0
+
+  const later = () => {
+    pre = +new Date()
+    timeout = null
+    fn.apply(context, args)
+  }
+
+  return function() {
+    let now = +new Date()
+    let remaining = wait - (now - pre)
+    context = this
+    args = arguments
+    if (remaining <= 0 || remaining > wait) {
+      if (timeout) {
+        clearTimeout(timeout)
+        timeout = null
+      }
+      pre = now
+      fn.apply(context, args)
+    } else if (!timeout) {
+      timeout = setTimeout(later, remaining)
+    }
+  }
+}
+```
+
+以下代码同样可以实现
+
 ```js
 function throttle(func, ms) {
   let isThrottled = false,
@@ -122,7 +195,54 @@ function throttle(func, ms) {
 }
 ```
 
-[现代 JavaScript 教程 - 节流装饰器](https://zh.javascript.info/task/throttle)
+代码来源： [现代 JavaScript 教程 - 节流装饰器](https://zh.javascript.info/task/throttle)
+
+## 去重
+
+### Array
+
+```js
+// 无序
+function unique(arr) {
+  return arr.filter((e, i, arr) => arr.indexOf(e) === i)
+}
+// 有序
+function unique(arr) {
+  return arr
+    .slice()
+    .sort()
+    .filter((e, i, arr) => !i || arr[i] !== arr[i - 1])
+}
+```
+
+### Object
+
+```js
+function unique(arr) {
+  const mp = {}
+  return arr.filter((e) => (mp.hasOwnProperty(e) ? false : (mp[e] = true)))
+}
+```
+
+> 因为 Object 的 key 只能是字符串，所以上面的方法将 `1` 和 `'1'` 视为相同的
+
+```js
+// 使用 typeof 对数据类型进行区分
+function unique(arr) {
+  const mp = {}
+  return arr.filter((e) =>
+    mp.hasOwnProperty(typeof e + e) ? false : (mp[typeof e + e] = true)
+  )
+}
+```
+
+> 因为 `typeof {} === ‘object’`, 所以上面的方法将 `{}` 和 `{a: 1}` 视为相同，当然可以使用 `JSON.stringify()` 函数解决
+
+### Set
+
+```js
+const unique = (a) => [...new Set(a)]
+```
 
 ## DOM 事件委托
 
