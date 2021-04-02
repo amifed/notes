@@ -26,15 +26,15 @@
 
 ```js
 const exchange = (str) => {
-  let ans = "";
-  str = String(str);
+  let ans = ''
+  str = String(str)
   for (let i = 0; i < str.length; ++i) {
-    ans += str[i];
-    if (str[i] === "-") continue;
-    if ((i + 1) % 3 == str.length % 3 && i < str.length - 1) ans += ",";
+    ans += str[i]
+    if (str[i] === '-') continue
+    if ((i + 1) % 3 == str.length % 3 && i < str.length - 1) ans += ','
   }
-  return ans;
-};
+  return ans
+}
 ```
 
 ### 解法二：正则
@@ -44,8 +44,8 @@ const exchange = (str) => {
 
 ```js
 const exchange = (num) => {
-  return String(num).replace(/\d{1,3}(?=(\d{3})+$)/g, (v) => v + ",");
-};
+  return String(num).replace(/\d{1,3}(?=(\d{3})+$)/g, (v) => v + ',')
+}
 ```
 
 ## URL 拆解
@@ -64,7 +64,7 @@ const parseUrl = (url) => {
   for (let s of params) {
     let [k = '', v = true] = s.split('=')
     if (obj.hasOwnProperty(k)) {
-      ((Array.isArray(obj[k]) ? obj[k] : (obj[k] = [obj[k]])).push(v))
+      ;(Array.isArray(obj[k]) ? obj[k] : (obj[k] = [obj[k]])).push(v)
     } else {
       obj[k] = v
     }
@@ -88,13 +88,13 @@ Content-Type: application/json
 
 ```js
 const headersTrans = (s) => {
-  let obj = {};
-  s.split("\n").forEach((e) => {
-    let t = e.split(": ");
-    obj[t[0]] = t[1];
-  });
-  return obj;
-};
+  let obj = {}
+  s.split('\n').forEach((e) => {
+    let t = e.split(': ')
+    obj[t[0]] = t[1]
+  })
+  return obj
+}
 ```
 
 ## 将数组转化为树形结构
@@ -113,14 +113,14 @@ const headersTrans = (s) => {
 
 ```js
 const buildTree = (arr) => {
-  let root = { id: 0, children: [] };
+  let root = { id: 0, children: [] }
   const build = (parent) => {
-    parent.children = arr.filter((e) => e.parentId === parent.id);
-    parent.children.forEach((e) => build(e));
-  };
-  build(root);
-  return root;
-};
+    parent.children = arr.filter((e) => e.parentId === parent.id)
+    parent.children.forEach((e) => build(e))
+  }
+  build(root)
+  return root
+}
 ```
 
 :::
@@ -130,27 +130,36 @@ const buildTree = (arr) => {
 **解法一：递归**
 
 ```js
-const flatten = (arr) => {
-  let ans = [];
+function flatten(arr) {
+  let ans = [];s
   arr.forEach((e) => {
     if (Array.isArray(e)) ans = ans.concat(flatten(e));
     else ans.push(e);
   });
   return ans;
 };
+// reduce
+function flatten(arr) {
+  return arr.reduce(
+    (prev, next) => prev.concat(Array.isArray(next) ? flatten(next) : next),
+    []
+  )
+}
 ```
 
 **解法二：es6 扩展运算符**
 
 ```cpp
-const flat = (arr) =>
-  Array.isArray(arr) ? arr.reduce((a, b) => [...a, ...flat(b)], []) : [arr];
+const flatten = (arr) =>
+  Array.isArray(arr)
+    ? arr.reduce((prev, next) => [...prev, ...flat(next)], [])
+    : [arr]
 ```
 
 **解法三：函数调用**
 
 ```js
-arr.flat(depth); // depth 为嵌套深度
+arr.flat(depth) // depth 为嵌套深度
 ```
 
 ## 模拟 lodash 中的 \_.get() 函数
@@ -160,8 +169,8 @@ lodash 中常用的 `get` 函数用于嵌套调用，例如 `obj.a.b.c.d`，为�
 可以调用 lodash 函数库的 `get` 函数
 
 ```js
-_.get(obj, "a.b.c.d");
-_.get(obj, "a.b[0].c.d[0]"); //也支持数组路径
+_.get(obj, 'a.b.c.d')
+_.get(obj, 'a.b[0].c.d[0]') //也支持数组路径
 ```
 
 **实现**
@@ -169,13 +178,13 @@ _.get(obj, "a.b[0].c.d[0]"); //也支持数组路径
 ```js
 const get = (obj, ...path) => {
   return path.map((e) => {
-    let ans = obj;
-    e.replace(/\[(\d+)\]/g, ".$1")
-      .split(".")
-      .map((p) => (ans = ans && ans[p]));
-    return ans;
-  });
-};
+    let ans = obj
+    e.replace(/\[(\d+)\]/g, '.$1')
+      .split('.')
+      .map((p) => (ans = ans && ans[p]))
+    return ans
+  })
+}
 ```
 
 #### 可选连
@@ -185,18 +194,18 @@ const get = (obj, ...path) => {
 **语法**
 
 ```js
-obj?.prop;
-obj?.[expr];
-arr?.[index];
-func?.(args);
+obj?.prop
+obj?.[expr]
+arr?.[index]
+func?.(args)
 ```
 
 **You Dont Need Lodash**
 
 ```js
-const obj = {};
-obj?.a?.b?.c?.d;
-obj.a?.b?.[0]?.c.d?.[0];
+const obj = {}
+obj?.a?.b?.c?.d
+obj.a?.b?.[0]?.c.d?.[0]
 ```
 
 ## 随机排序
@@ -205,7 +214,7 @@ obj.a?.b?.[0]?.c.d?.[0];
 
 ```js
 function randomSort(a, b) {
-  return Math.random() > 0.5 ? -1 : 1;
+  return Math.random() > 0.5 ? -1 : 1
 }
 ```
 
@@ -215,15 +224,15 @@ function randomSort(a, b) {
 
 ```js
 function randomSort(arr) {
-  let result = [];
+  let result = []
 
   while (arr.length > 0) {
-    var randomIndex = Math.floor(Math.random() * arr.length);
-    result.push(arr[randomIndex]);
-    arr.splice(randomIndex, 1);
+    var randomIndex = Math.floor(Math.random() * arr.length)
+    result.push(arr[randomIndex])
+    arr.splice(randomIndex, 1)
   }
 
-  return result;
+  return result
 }
 ```
 
@@ -231,16 +240,16 @@ function randomSort(arr) {
 
 ```js
 function randomSort(array) {
-  let length = array.length;
+  let length = array.length
 
-  if (!Array.isArray(array) || length <= 1) return;
+  if (!Array.isArray(array) || length <= 1) return
 
   for (let index = 0; index < length - 1; index++) {
-    let randomIndex = Math.floor(Math.random() * (length - index)) + index;
+    let randomIndex = Math.floor(Math.random() * (length - index)) + index
 
-    [array[index], array[randomIndex]] = [array[randomIndex], array[index]];
+    ;[array[index], array[randomIndex]] = [array[randomIndex], array[index]]
   }
 
-  return array;
+  return array
 }
 ```
