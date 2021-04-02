@@ -115,9 +115,7 @@ flex 布局是 CSS3 新增的一种布局方式，我们可以通过将一个元
 我们可以使用 justify-content 来指定元素在主轴上的排列方式，使用 align-items 来指定元素在交叉轴上的排列方式。还
 可以使用 flex-wrap 来规定当一行排列不下时的换行方式。
 
-对于容器中的项目，我们可以使用 order 属性来指定项目的排列顺序，还可以使用 flex-grow 来指定当排列空间有剩余的时候，
-项目的放大比例。还可以使用 flex-shrink 来指定当排列空间不足时，项目的缩小比例。
-
+对于容器中的项目，我们可以使用 order 属性来指定项目的排列顺序，还可以使用 flex-grow 来指定当排列空间有剩余的时候，项目的放大比例。还可以使用 flex-shrink 来指定当排列空间不足时，项目的缩小比例。
 
 ## CSS 初始化样式
 
@@ -229,12 +227,9 @@ margin 重叠指的是垂直方向上，两个相邻元素的 margin 发生重�
 
 一般来说可以分为四种情形：
 
-第一种是相邻兄弟元素的 marin-bottom 和 margin-top 的值发生重叠。这种情况下我们可以通过设置其中一个元素为 BFC
-来解决。
+第一种是相邻兄弟元素的 marin-bottom 和 margin-top 的值发生重叠。这种情况下我们可以通过设置其中一个元素为 BFC 来解决。
 
-第二种是父元素的 margin-top 和子元素的 margin-top 发生重叠。它们发生重叠是因为它们是相邻的，所以我们可以通过这
-一点来解决这个问题。我们可以为父元素设置 border-top、padding-top 值来分隔它们，当然我们也可以将父元素设置为 BFC
-来解决。
+第二种是父元素的 margin-top 和子元素的 margin-top 发生重叠。它们发生重叠是因为它们是相邻的，所以我们可以通过这一点来解决这个问题。我们可以为父元素设置 border-top、padding-top 值来分隔它们，当然我们也可以将父元素设置为 BFC 来解决。
 
 第三种是高度为 auto 的父元素的 margin-bottom 和子元素的 margin-bottom 发生重叠。它们发生重叠一个是因为它们相
 邻，一个是因为父元素的高度不固定。因此我们可以为父元素设置 border-bottom、padding-bottom 来分隔它们，也可以为
@@ -245,7 +240,7 @@ dding 或者高度来解决这个问题。
 
 ## BFC 规范
 
-块级格式化上下文（Block Formatting Context，BFC）是 Web 页面的可视化 CSS 渲染的一部分，是布局过程中生成块级盒子的区域，也是浮动元素与其他元素的交互限定区域。
+块级格式化上下文（Block Formatting Context，BFC）是 Web 页面中盒模型布局的 CSS 渲染模式，指一个独立的渲染区域或者说是一个隔离的独立容器。
 
 通俗来讲：
 
@@ -255,10 +250,20 @@ dding 或者高度来解决这个问题。
 创建 BFC：
 
 1. 根元素或包含根元素的元素
-2. 浮动元素 float ＝ left|right 或 inherit（≠none）
-3. 绝对定位元素 `position: absolute | fixed`
+2. 浮动元素 float ＝ left|right|inherit（≠none）
+3. 定位元素 `position: absolute | fixed`
 4. `display: inline-block|flex|inline-flex|table-cell|table-caption`
-5. overflow ＝ hidden|auto 或 scroll(≠visible)
+5. overflow ＝ hidden|auto|scroll(≠visible)
+
+BFC 特性：
+
+1. 内部的 Box 会在垂直方向上一个接一个放置；
+2. 垂直方向上的距离有 margin 决定；
+3. BFC 的区域不会与 float 的元素区域重叠
+4. 计算 BFC 的高度时，浮动元素也参与计算（父元素设置 overflow: hidden, 子元素浮动不会导致高度塌陷）
+5. BFC 是页面上的一个独立容器，容器里面的子元素不会影响外面元素
+
+> 参考文章：[CSS 中 BFC 详解](https://www.cnblogs.com/chen-cong/p/7862832.html)
 
 ## IFC
 
@@ -307,7 +312,6 @@ ppi 指的是每英寸的物理像素的密度，ppi 越大，屏幕的分辨率
 
 ## rem
 
-
 ## 画一条 0.5 px 的曲线
 
 采用 meta viewport 的方式
@@ -316,7 +320,7 @@ ppi 指的是每英寸的物理像素的密度，ppi 越大，屏幕的分辨率
 
 采用 transform:scale()
 
-[怎么画一条0.5px的边（更新）](https://juejin.cn/post/6844903582370643975)
+[怎么画一条 0.5px 的边（更新）](https://juejin.cn/post/6844903582370643975)
 
 ## transition 和 animation 的区别
 
@@ -333,17 +337,16 @@ animation 作用于元素本身而不是样式属性，可以使用关键帧的�
 
 使用绝对定位的元素会有计算值，即使祖先元素的 height 计算为 auto 也是如此。
 
+## margin:auto
 
-## margin:auto 
+margin 的'auto'用来计算元素对应方向应该获得的剩余间距大小。但是触发 margin:auto 计算有一个前提条件，就是 width 或 height 为 auto 时，元素是具有对应方向的自动填充特性的。
 
-margin的'auto'用来计算元素对应方向应该获得的剩余间距大小。但是触发margin:auto计算有一个前提条件，就是width或height为auto时，元素是具有对应方向的自动填充特性的。
-
-1. 如果一侧定值，一侧auto，则auto为剩余空间大小。
-2. 如果两侧均是auto，则平分剩余空间。
+1. 如果一侧定值，一侧 auto，则 auto 为剩余空间大小。
+2. 如果两侧均是 auto，则平分剩余空间。
 
 ## 层叠上下文
 
-层叠上下文，英文称作stacking context，是HTML中的一个三维的概念。如果一个元素含有层叠上下文，我们可以理解为这个元素在z轴上就“高人一等”。
+层叠上下文，英文称作 stacking context，是 HTML 中的一个三维的概念。如果一个元素含有层叠上下文，我们可以理解为这个元素在 z 轴上就“高人一等”。
 
 ## 隐藏元素的方式
 
@@ -355,3 +358,5 @@ margin的'auto'用来计算元素对应方向应该获得的剩余间距大小�
 - `transform: scale(0, 0)`
 
 参考文章：[《CSS 隐藏元素的八种方法》](https://juejin.im/post/584b645a128fe10058a0d625#heading-2)
+
+> 学习文章：[1.5 万字 CSS 基础拾遗（核心知识、常见需求）](https://mp.weixin.qq.com/s/DipD_4gTQGc8286tG7Oxng)

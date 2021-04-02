@@ -24,15 +24,15 @@ main {
   height: 500px;
 }
 .left {
-  background-color: lightblue;
   float: left;
   width: 100px;
   height: 100%;
+  background-color: lightblue;
 }
 .right {
   height: 100%;
-  background-color: lightcoral;
   margin-left: 100px; /* 大于等于 .left 的宽度 */
+  background-color: lightcoral;
 }
 ```
 

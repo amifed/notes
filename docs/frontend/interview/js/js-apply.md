@@ -237,7 +237,7 @@ function unique(arr) {
   return arr
     .slice()
     .sort()
-    .filter((e, i, arr) => !i || arr[i] !== arr[i - 1])
+    .filter((e, i, arr) => !i || e !== arr[i - 1])
 }
 ```
 
@@ -253,7 +253,7 @@ function unique(arr) {
 > 因为 Object 的 key 只能是字符串，所以上面的方法将 `1` 和 `'1'` 视为相同的
 
 ```js
-// 使用 typeof 对数据类型进行区分
+// 使用 typeof 对数据类型进行区分，可对 NaN 去重
 function unique(arr) {
   const mp = {}
   return arr.filter((e) =>
