@@ -311,6 +311,85 @@ function loadScript(src) {
 }
 ```
 
+## 使用 `Promise` 实现红绿灯
+
+红灯三秒亮一次，绿灯一秒亮一次，黄灯2秒亮一次；如何让三个灯不断交替重复亮灯？（用 Promse 实现）
+
+:::details Promise
+
+```js
+function red() {
+  console.log('red')
+}
+function green() {
+  console.log('green')
+}
+function yellow() {
+  console.log('yellow')
+}
+
+const light = (wait, cb) =>
+  new Promise((resolve) =>
+    setTimeout(() => {
+      cb()
+      resolve()
+    }, wait)
+  )
+
+function step() {
+  Promise.resolve()
+    .then(() => light(3000, red))
+    .then(() => light(1000, green))
+    .then(() => light(2000, yellow))
+    .then(() => step())
+}
+
+step()
+```
+
+:::
+
+:::details Generator
+
+```js
+function red() {
+  console.log('red')
+}
+function green() {
+  console.log('green')
+}
+function yellow() {
+  console.log('yellow')
+}
+
+const light = (wait, cb) =>
+  new Promise((resolve) =>
+    setTimeout(() => {
+      cb()
+      resolve()
+    }, wait)
+  )
+
+function *gen() {
+  yield light(3000, red)
+  yield light(1000, green)
+  yield light(2000, yellow)
+}
+
+function step(iterator) {
+  const result = iterator.next()
+  if (result.done) {
+    step(gen())
+  } else {
+    result.value.then(() => step(iterator))
+  }
+}
+
+step(gen()) 
+```
+
+:::
+
 ## AJAX
 
 $\text{Asynchronous JavaScript and XML}$，通过 JavaScript 的异步通信方案，向服务端发送 HTTP 通信，从服务端返回的 XML 文档中提取数据，更新网页的相应部分，而不用刷新整个页面。

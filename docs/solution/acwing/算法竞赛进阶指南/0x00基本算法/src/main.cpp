@@ -1,20 +1,34 @@
-#include <iostream>
-using namespace std;
-
-void divide(int x) {
-    for (int i = 2; i <= x / i; ++i) {
-        if (x % i == 0) {
-            int s = 0;
-            while (x % i == 0)
-                x /= i, ++s;
-            printf("%d %d\n", i, s);
+#include <stdio.h>
+int main() {
+    int y;
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t");
+    for (y = 0; y <= 47; y++) {
+        Sleep(60);
+        int a, b;
+        a = 0;
+        while (a <= 70) {
+            system("cls");
+            b = 1;
+            printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            while (b <= a) {
+                printf(" ");
+                b++;
+            }
+            printf("┌════════┐...┌════════┐...┌.═════════┐   ╭═════╮\n");
+            b = 1;
+            while (b <= a) {
+                printf(" ");
+                b++;
+                ;
+            }
+            printf("║        ║ ═ ║        ║ ═ ║          ║═  ║ 　  ║\n");
+            b = 1;
+            while (b <= a) {
+                printf(" ");
+                b++;
+            }
+            printf("└⊙═⊙═⊙═⊙ ⊙═⊙═⊙═⊙  └⊙═⊙═⊙═⊙~~ ╰⊙═⊙╯\n");
+            Sleep(1);
+            a = a + 1;
         }
     }
-    if (x > 1) printf("%d %d\n", x, 1); // 判断是否存在大于 sqrt(x) 的质因子
-    printf("\n");
-}
-
-int main() {
-    divide(18);
-    return 0;
-}

@@ -1,16 +1,34 @@
-function curry(f) {
-  return function curried(...args) {
-    if (args.length >= f.length) {
-      return f.apply(this, args)
-    }
-    return function(..._args) {
-      return curried.apply(this, args.concat(_args))
-    }
-  }
-} 
-//实现 add(1)(2)(3)(4)
-function add(a, b, c, d) {
-  return a + b + c + d
+function red() {
+  console.log('red')
 }
-add = curry(add)
-console.log(add(1)(2)(3)(4)) // 1+2+3+4
+function green() {
+  console.log('green')
+}
+function yellow() {
+  console.log('yellow')
+}
+
+const light = (wait, cb) =>
+  new Promise((resolve) =>
+    setTimeout(() => {
+      cb()
+      resolve()
+    }, wait)
+  )
+
+function *gen() {
+  yield light(3000, red)
+  yield light(1000, green)
+  yield light(2000, yellow)
+}
+
+function step(iterator) {
+  const result = iterator.next()
+  if (result.done) {
+    step(gen())
+  } else {
+    result.value.then(() => step(iterator))
+  }
+}
+
+step(gen()) 
