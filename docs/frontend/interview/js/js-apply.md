@@ -388,6 +388,8 @@ function step(iterator) {
 step(gen()) 
 ```
 
+参考文章：[一道关于Promise应用的面试题](https://www.cnblogs.com/dojo-lzz/p/5495671.html)
+
 :::
 
 ## AJAX
