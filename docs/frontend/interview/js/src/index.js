@@ -1,11 +1,16 @@
-// 方法3
-var arr = [1, [2, [3, 4]]]
-
-function flatten(arr) {
-  return arr.reduce(
-    (prev, next) => prev.concat(Array.isArray(next) ? flatten(next) : next),
-    []
-  )
+function promiseAll(arr) {
+  return new Promise((resolve, reject) => {
+    let ans = []
+    let cnt = 0
+    for (let i = 0; i < arr.length; ++i) {
+      Promise.resolve(arr[i])
+        .then((res) => {
+          ans[i] = res
+          if (++cnt === arr.length) {
+            resolve(ans)
+          }
+        })
+        .catch((err) => reject(err))
+    }
+  })
 }
-
-console.log(flatten([[1]]))

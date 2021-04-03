@@ -213,3 +213,24 @@ function _instanceof(obj, F) {
 参考文章：[如何实现一个简单的 Promise](https://q.shanyue.tech/fe/js/23.html)
 
 学习文章：[手把手教你实现 Promise](https://segmentfault.com/a/1190000023858504)
+
+## 实现 `Promise.all()`
+
+```js
+function promiseAll(arr) {
+  return new Promise((resolve, reject) => {
+    let ans = []
+    let cnt = 0
+    for (let i = 0; i < arr.length; ++i) {
+      Promise.resolve(arr[i])
+        .then((res) => {
+          ans[i] = res
+          if (++cnt === arr.length) {
+            resolve(ans)
+          }
+        })
+        .catch((err) => reject(err))
+    }
+  })
+}
+```
