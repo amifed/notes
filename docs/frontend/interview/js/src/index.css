@@ -1,15 +1,39 @@
-.wrapper {
+header {
+  height: 30px;
+  background-color: #ccc;
+}
+main {
+  height: 500px;
+  padding: 0 160px 0 110px; /* 使 center 摆正，左右 padding = 左右栏宽度 + 间距*/
+}
+main .left {
+  float: left;
+  margin-left: -100%; /* 使 .left 上去一行 */
   position: relative;
-  height: 100px;
+  right: 110px; /* 相对定位调整 .left，使其居左，正值大于等于自身宽度 */
+  width: 100px;
+  height: 100%;
+  opacity: 0.5;
+  background-color: lightgoldenrodyellow;
 }
-.left {
-  position: absolute;
-  width: 200px;
-  height: 100px;
-  background: tomato;
+main .center {
+  float: left;
+  width: 100%; /* 由于父元素的 padding，达到自适应 */
+  height: 99%;
+  border: 2px solid #000;
+  background-color: lightgreen;
 }
-.right {
-  /* margin-left: 200px; */
-  height: 100px;
-  background: lightgreen;
+main .right {
+  float: left;
+  margin-left: -150px; /* 使 .right 上去一行 */
+  position: relative;
+  left: 160px; /* 相对定位调整 .right，使其居右，正值大于等于自身宽度 */
+  width: 150px;
+  height: 100%;
+  opacity: 0.5;
+  background-color: lightcoral;
+}
+footer {
+  height: 30px;
+  background-color: #ccc;
 }

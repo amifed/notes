@@ -295,18 +295,18 @@ main {
 
 #### 双飞翼布局
 
-![双飞翼布局](./assets/3-col-layout-flying.png) 
+![双飞翼布局](./assets/3-col-layout-flying.png)
 
 ```html
 <body>
   <header></header>
-  <main>
-    <div class="center">
+  <div class="layout">
+    <main>
       <div class="inner">中间自适应</div>
-    </div>
-    <div class="left">左列定宽</div>
-    <div class="right">右列定宽</div>
-  </main>
+    </main>
+    <aside class="left">左列定宽</aside>
+    <aside class="right">右列定宽</aside>
+  </div>
   <footer></footer>
 </body>
 ```
@@ -316,34 +316,31 @@ header {
   height: 30px;
   background-color: #ccc;
 }
-main {
+.layout {
+  width: 100%;
   height: 500px;
 }
-main .left {
-  float: left;
-  width: 100px;
-  height: 100%;
-  margin-left: -100%;
-  opacity: 0.5;
-  background-color: lightgoldenrodyellow;
-}
-main .center {
+main {
   float: left;
   width: 100%;
   height: 100%;
   background-color: lightgreen;
 }
-main .center .inner {
-  height: 99%;
-  border: 2px solid #000;
-  margin: 0 160px 0 110px;
+.inner {
+  margin: 0 160px 0 110px; /* 使用 margin 隔开左右 */
 }
-main .right {
+aside {
   float: left;
-  width: 150px;
   height: 100%;
+}
+.left {
+  width: 100px;
+  margin-left: -100%;
+  background-color: lightgoldenrodyellow;
+}
+.right {
+  width: 150px;
   margin-left: -150px;
-  opacity: 0.5;
   background-color: lightcoral;
 }
 footer {
@@ -360,11 +357,11 @@ footer {
 ```html
 <body>
   <header></header>
-  <main>
-    <div class="center">中间自适应</div>
-    <div class="left">左列定宽</div>
-    <div class="right">右列定宽</div>
-  </main>
+  <div class="layout">
+    <main>中间自适应</main>
+    <aside class="left">左列定宽</aside>
+    <aside class="right">右列定宽</aside>
+  </div>
   <footer></footer>
 </body>
 ```
@@ -374,40 +371,104 @@ header {
   height: 30px;
   background-color: #ccc;
 }
-main {
+.layout {
   height: 500px;
-  padding: 0 160px 0 110px; /* 使 center 摆正，左右 padding = 左右栏宽度 + 间距*/
+  padding: 0 160px 0 110px; /* 使 main 摆正，左右 padding = 左右栏宽度 + 间距*/
 }
-main .left {
+main {
   float: left;
+  width: 100%; /* 由于父元素的 padding，达到自适应 */
+  height: 100%;
+  background-color: lightgreen;
+}
+aside {
+  float: left;
+  height: 100%;
+}
+.left {
+  width: 100px;
   margin-left: -100%; /* 使 .left 上去一行 */
   position: relative;
   right: 110px; /* 相对定位调整 .left，使其居左，正值大于等于自身宽度 */
-  width: 100px;
-  height: 100%;
-  opacity: 0.5;
   background-color: lightgoldenrodyellow;
 }
-main .center {
-  float: left;
-  width: 100%; /* 由于父元素的 padding，达到自适应 */
-  height: 99%;
-  border: 2px solid #000;
-  background-color: lightgreen;
-}
-main .right {
-  float: left;
+.right {
+  width: 150px;
   margin-left: -150px; /* 使 .right 上去一行 */
   position: relative;
   left: 160px; /* 相对定位调整 .right，使其居右，正值大于等于自身宽度 */
-  width: 150px;
-  height: 100%;
-  opacity: 0.5;
   background-color: lightcoral;
 }
 footer {
+  clear: both;
   height: 30px;
   background-color: #ccc;
+}
+```
+
+#### float + overflow (BFC)
+
+```html
+<div class="layout">
+  <aside class="left">左列定宽</aside>
+  <aside class="right">右列定宽</aside>
+  <main>中间自适应</main>
+</div>
+```
+
+```css
+.layout {
+  height: 500px;
+}
+.left {
+  float: left;
+  width: 100px;
+  height: 100%;
+  background-color: lightgoldenrodyellow;
+}
+.right {
+  float: right;
+  width: 150px;
+  height: 100%;
+  background-color: lightcoral;
+}
+main {
+  overflow: hidden;
+  height: 100%;
+  background-color: lightgreen;
+}
+```
+
+#### Flex 实现三栏布局
+
+```html
+<div class="layout">
+  <aside class="left">左列定宽</aside>
+  <main>中间自适应</main>
+  <aside class="right">右列定宽</aside>
+</div>
+```
+
+```css
+.layout {
+  height: 500px;
+  display: flex;
+}
+aside {
+  height: 100%;
+}
+.left {
+  width: 100px;
+  background-color: lightgoldenrodyellow;
+}
+.right {
+  width: 150px;
+  background-color: lightcoral;
+}
+main {
+  height: 100%;
+  flex: 1;
+  background-color: lightgreen;
 }
 ```
 
@@ -436,9 +497,9 @@ main {
   grid-template-rows: 30px auto 30px;
   /*设置网格区域分布*/
   grid-template-areas:
-    "header header header"
-    "left center right"
-    "footer footer footer";
+    'header header header'
+    'left center right'
+    'footer footer footer';
 }
 main header {
   grid-area: header; /*指定网格区域*/

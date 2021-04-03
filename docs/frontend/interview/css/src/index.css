@@ -2,13 +2,23 @@
   margin: 0;
   padding: 0;
 }
-.contain {
-    background-color: lightgray;
-    overflow: hidden;
+html,
+body,
+.layout {
+  height: 100%;
 }
-.inner {
-    height: 100px;
-    width: 100px;
-    background-color: lightblue;
-    float: left;
+body {
+  margin: 0;
+}
+header,
+footer {
+  height: 50px;
+  background-color: lightgreen;
+}
+main {
+  overflow-y: auto;
+}
+
+main {
+  height: calc(100% -100px);
 }
