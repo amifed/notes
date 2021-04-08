@@ -313,7 +313,7 @@ function loadScript(src) {
 
 ## 使用 `Promise` 实现红绿灯
 
-红灯三秒亮一次，绿灯一秒亮一次，黄灯2秒亮一次；如何让三个灯不断交替重复亮灯？（用 Promse 实现）
+红灯三秒亮一次，绿灯一秒亮一次，黄灯 2 秒亮一次；如何让三个灯不断交替重复亮灯？（用 Promse 实现）
 
 :::details Promise
 
@@ -370,7 +370,7 @@ const light = (wait, cb) =>
     }, wait)
   )
 
-function *gen() {
+function* gen() {
   yield light(3000, red)
   yield light(1000, green)
   yield light(2000, yellow)
@@ -385,10 +385,10 @@ function step(iterator) {
   }
 }
 
-step(gen()) 
+step(gen())
 ```
 
-参考文章：[一道关于Promise应用的面试题](https://www.cnblogs.com/dojo-lzz/p/5495671.html)
+参考文章：[一道关于 Promise 应用的面试题](https://www.cnblogs.com/dojo-lzz/p/5495671.html)
 
 :::
 
@@ -416,6 +416,39 @@ $\text{Asynchronous JavaScript and XML}$，通过 JavaScript 的异步通信方�
 :::details 参考代码
 
 <<< @/docs/frontend/interview/js/src/ajax/ajax_post.js
+
+## JSONP
+
+JSONP 的原理很简单，就是利用 `<script>` 标签没有跨域限制的漏洞。通过 `<script>` 标签指向一个需要访问的地址并提供一个回调函数来接收数据当需要通讯时。
+
+```js
+<script src="http://domain/api?param1=a&param2=b&callback=jsonp"></script>
+<script>
+function jsonp(data) {
+  console.log(data)
+}
+</script>
+```
+
+JSONP 仅限 `get` 请求
+
+简易封装 JSONP 的实现
+
+```js
+function jsonp(url, cbName, success, failed) {
+  let script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.type = 'text/javascript'
+  window[cbName] = function(data) {
+    success && success(data)
+  }
+  document.body.appendChild(script)
+}
+jsonp('http://xxx', 'getSomeResource', function(value) {
+  console.log(value)
+})
+```
 
 :::
 

@@ -50,6 +50,26 @@ const deepClone = (obj) => {
 }
 ```
 
+:::details 基于 Reflect 的实现
+
+```js
+function deepClone(obj) {
+  function isObject(o) {
+    return o !== null && (typeof o !== 'object' || typeof o !== 'function')
+  }
+  if (!isObject(obj)) {
+    throw new Error('not an object')
+  }
+  const cloned = Array.isArray(obj) ? [...obj] : { ...obj }
+  Reflect.ownKeys(cloned).forEach((k) => {
+    cloned[k] = isObject(obj[k]) ? deepClone(obj[k]) : obj[k]
+  })
+  return cloned
+}
+```
+
+:::
+
 ## 实现 call 函数
 
 `call()` 方法使用一个指定的 this 值和单独给出的一个或多个参数来调用一个函数。
@@ -212,7 +232,10 @@ function _instanceof(obj, F) {
 
 参考文章：[如何实现一个简单的 Promise](https://q.shanyue.tech/fe/js/23.html)
 
-学习文章：[手把手教你实现 Promise](https://segmentfault.com/a/1190000023858504)
+学习文章：
+
+- [手把手教你实现 Promise](https://segmentfault.com/a/1190000023858504)
+- [100 行代码实现 Promises/A+ 规范](https://mp.weixin.qq.com/s/qdJ0Xd8zTgtetFdlJL3P1g)
 
 ## 实现 `Promise.all()`
 

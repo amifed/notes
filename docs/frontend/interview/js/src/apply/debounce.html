@@ -18,15 +18,14 @@
     </style>
   </head>
   <body>
-    <div id="num">0</div>
+    <div id="testDiv" onclick="testClick()">
+      点击
+    </div>
     <script>
-      let cnt = 0
-      const num = document.querySelector('#num')
-      function userAction() {
-        num.innerHTML = cnt++
-      }
       function debounce(func, wait = 50, immediate = true) {
-        let timeout, context, args
+        let timeout = null,
+          context,
+          args
 
         return function() {
           if (timeout) {
@@ -48,7 +47,31 @@
           }, wait)
         }
       }
-      num.onmousemove = debounce(userAction, 1000, true)
+      function throttle(fn, wait) {
+        let timeout = null,
+          context,
+          args
+        return function wrapper() {
+          if (timeout) {
+            context = this
+            args = arguments
+            return
+          }
+          fn.apply(this, arguments)
+          timeout = setTimeout(() => {
+            timeout = null
+            if (args) {
+              wrapper.apply(context, args)
+              context = args = null
+            }
+          }, wait)
+        }
+      }
+      function print() {
+        console.log('hello world!')
+      }
+
+      var testClick = throttle(print, 1000, true)
     </script>
   </body>
 </html>
