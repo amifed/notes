@@ -501,3 +501,54 @@ function isAvailableEmail(sEmail) {
 ```
 
 参考文章：[邮箱/邮件地址的正则表达式及分析(JavaScript，email，regex)](https://juejin.cn/post/6844903574778937358)
+
+## 事件总线
+
+```js
+class EventBus {
+  constructor() {
+    this.events = {}
+  }
+  on(name, fn) {
+    if (this.events.hasOwnProperty(name)) {
+      this.events[name].push(fn)
+    } else {
+      this.events[name] = [fn]
+    }
+  }
+  off(name, fn) {
+    let tasks = this.events[name]
+    if (tasks) {
+      const idx = tasks.indexOf(fn)
+      if (idx > -1) {
+        tasks.splice(idx, 1)
+      }
+    }
+  }
+  emit(name, once = false, ...args) {
+    if (this.events[name]) {
+      let tasks = this.events[name].slice()
+      tasks.forEach((fn) => {
+        fn(...args)
+      })
+      if (once) {
+        delete this.events[name]
+      }
+    }
+  }
+}
+
+const eb = new EventBus()
+let f1 = function(name, age) {
+  console.log(name, age)
+}
+function f2(name, age) {
+  console.log('hello', name, age)
+}
+eb.on('a', f1)
+eb.on('a', f2)
+eb.emit('a', false, 'ding', 21)
+```
+
+## 图片懒加载
+

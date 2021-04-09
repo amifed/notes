@@ -70,6 +70,18 @@ function deepClone(obj) {
 
 :::
 
+## 实现数组原型方法
+
+### `forEach`
+
+### `map`
+
+### `filter`
+
+### `some`
+
+### `reduce`
+
 ## 实现 call 函数
 
 `call()` 方法使用一个指定的 this 值和单独给出的一个或多个参数来调用一个函数。
@@ -257,3 +269,18 @@ function promiseAll(arr) {
   })
 }
 ```
+
+## 实现 `Promise.race()`
+
+```js
+function PromiseRace(arr) {
+  return new Promise((resolve, reject) => {
+    for (let i = 0; i < arr.length; ++i) {
+      Promise.resolve(arr[i])
+        .then((res) => resolve(res))
+        .catch((err) => reject(err))
+    }
+  })
+}
+```
+

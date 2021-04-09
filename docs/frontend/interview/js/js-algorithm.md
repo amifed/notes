@@ -52,10 +52,9 @@ const exchange = (num) => {
 
 对 URL 中的 query 部分做拆解，返回一个对象
 
-```js
+````js
 // 'http://www.domain.com/order?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&enabled#hash'
 const parseUrl = (url) => {
-  url = decodeURI(url) // 对 中文 url 解码
   const params = url
     .split('?')[1]
     .split('#')[0]
@@ -63,15 +62,16 @@ const parseUrl = (url) => {
   const obj = {}
   for (let s of params) {
     let [k = '', v = true] = s.split('=')
+    v = decodeURIComponent(v) //解码
+    v = /^\d+$/.test(v) ? parseFloat(v) : v // 转换数字
     if (obj.hasOwnProperty(k)) {
-      ;(Array.isArray(obj[k]) ? obj[k] : (obj[k] = [obj[k]])).push(v)
+      (Array.isArray(obj[k]) ? obj[k] : (obj[k] = [obj[k]])).push(v)
     } else {
       obj[k] = v
     }
   }
   return obj
 }
-```
 
 - URI 编码：[encodeURI()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURI)、[encodeURIComponent()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent)
 
@@ -84,7 +84,7 @@ Accept: */*
 Cache-Control: no-cache
 Connection: keep-alive
 Content-Type: application/json
-```
+````
 
 ```js
 const headersTrans = (s) => {
@@ -95,6 +95,21 @@ const headersTrans = (s) => {
   })
   return obj
 }
+```
+
+## 模版字符串
+
+```js
+var evaluate = function(s, knowledge) {
+  const mp = knowledge
+  return s.replace(/\{\{(\w+)\}\}/g, (input, $1) => mp[$1] ?? '?')
+}
+console.log(
+  evaluate('{{name}} is {{age}} yearsold, is a {{sex}}', {
+    name: 'bob',
+    age: 12,
+  })
+)
 ```
 
 ## 将数组转化为树形结构
@@ -131,13 +146,14 @@ const buildTree = (arr) => {
 
 ```js
 function flatten(arr) {
-  let ans = [];s
+  let ans = []
+  s
   arr.forEach((e) => {
-    if (Array.isArray(e)) ans = ans.concat(flatten(e));
-    else ans.push(e);
-  });
-  return ans;
-};
+    if (Array.isArray(e)) ans = ans.concat(flatten(e))
+    else ans.push(e)
+  })
+  return ans
+}
 // reduce
 function flatten(arr) {
   return arr.reduce(
