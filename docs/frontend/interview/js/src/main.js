@@ -1,7 +1,7 @@
-function unique(array) {
-  var obj = {};
-  return array.filter(function(item, index, array){
-      return obj.hasOwnProperty(typeof item + item) ? false : (obj[typeof item + item] = true)
-  })
+function* gen() {
+  var result = yield Promise.resolve(true)
+  console.log(result)
+  return result
 }
-console.log(unique([1, 2, 1, 1, NaN, NaN]));
+let g = gen()
+console.log(g.next(g.next().value))

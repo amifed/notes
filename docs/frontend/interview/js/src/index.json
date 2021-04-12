@@ -1,33 +1,14 @@
 {
-  "1": {
-    "id": "1",
-    "parent_id": 0,
-    "children": {
-      "1-1": {
-        "id": "1-1",
-        "parent_id": "1",
-        "children": {
-          "1-1-1": { "id": "1-1-1", "parent_id": "1-1" },
-          "1-1-2": { "id": "1-1-2", "parent_id": "1-1" },
-          "1-1-3": { "id": "1-1-3", "parent_id": "1-1" }
-        }
-      },
-      "1-2": {
-        "id": "1-2",
-        "parent_id": "1",
-        "children": {
-          "1-2-1": { "id": "1-2-1", "parent_id": "1-2" },
-          "1-2-2": { "id": "1-2-2", "parent_id": "1-2" }
-        }
-      }
-    }
+  "./src/index.js": {
+    "deps": { "./add.js": "./src/add.js", "./minus.js": "./src/minus.js" },
+    "code": "\"use strict\";\n\nvar _add = _interopRequireDefault(require(\"./add.js\"));\n\nvar _minus = require(\"./minus.js\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { \"default\": obj }; }\n\nvar sum = (0, _add[\"default\"])(1, 2);\nvar div = (0, _minus.minus)(2, 1);\nconsole.log('sum: ', sum);\nconsole.log('div: ', div);"
   },
-  "2": {
-    "id": "2",
-    "parent_id": 0,
-    "children": {
-      "2-1": { "id": "2-1", "parent_id": "2" },
-      "2-2": { "id": "2-2", "parent_id": "2" }
-    }
+  "./src/add.js": {
+    "deps": {},
+    "code": "\"use strict\";\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports[\"default\"] = _default;\n\nfunction _default(a, b) {\n  return a + b;\n}"
+  },
+  "./src/minus.js": {
+    "deps": {},
+    "code": "\"use strict\";\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.minus = void 0;\n\nvar minus = function minus(a, b) {\n  return a - b;\n};\n\nexports.minus = minus;"
   }
 }
