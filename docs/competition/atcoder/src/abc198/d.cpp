@@ -33,68 +33,48 @@ using PLL = pair<LL, LL>;
 const double EPS = 1e-6;
 const int MOD = 1e9 + 7;
 const int INF = 0x3f3f3f3f;
-const int N = 1e5 + 7;
+const int N = 17;
 
-string a, b, c;
+char a[N], b[N], c[N];
+int num[10] = {0,1,2,3,4,5,6,7,8,9};
+int pos[26];
+set<char> st;
 
-bool work(int x, int y, int z) {
-    string sx = to_string(x);
-    string sy = to_string(y);
-    string sz = to_string(z);
-    if (sz.size() != c.size()) return 0;
-    unordered_map<char, char> c2n, n2c;
-    for (int i = 0; i < sx.size(); ++i) {
-        if (c2n.count(a[i])) {
-            if (c2n[a[i]] != sx[i]) return 0;
-        } else if (n2c.count(sx[i])) {
-            if (n2c[sx[i]] != a[i]) return 0;
-        } else {
-            c2n[a[i]] = sx[i];
-            n2c[sx[i]] = a[i];
-        }
-    }
-    for (int i = 0; i < sy.size(); ++i) {
-        if (c2n.count(b[i])) {
-            if (c2n[b[i]] != sy[i]) return 0;
-        } else if (n2c.count(sy[i])) {
-            if (n2c[sy[i]] != b[i]) return 0;
-        } else {
-            c2n[b[i]] = sy[i];
-            n2c[sy[i]] = b[i];
-        }
-    }
-    for (int i = 0; i < sz.size(); ++i) {
-        if (c2n.count(c[i])) {
-            if (c2n[c[i]] != sz[i]) return 0;
-        } else if (n2c.count(sz[i])) {
-            if (n2c[sz[i]] != c[i]) return 0;
-        } else {
-            c2n[c[i]] = sz[i];
-            n2c[sz[i]] = c[i];
-        }
-    }
-    return 1;
+void add(char s[]) {
+	for (int i = 0; s[i]; ++i) st.insert(s[i]);
 }
-
-void run() {
-    int na = a.size(), nb = b.size();
-    for (int i = (int)pow(10, na - 1); i < (int)pow(10, na); ++i) {
-        for (int j = (int)pow(10, nb - 1); j < (int)pow(10, nb); ++j) {
-            // cout << i << ' ' << j << ' ' << i + j << endl;
-            if (work(i, j, i + j)) {
-                cout << i << endl;
-                cout << j << endl;
-                cout << i + j << endl;
-                return;
-            }
-        }
-    }
-    cout << "UNSOLVABLE";
+bool check(char s[]) {
+	return num[pos[s[0] - 'a']] != 0;
+}
+LL parse(char s[]) {
+	LL ans = 0;
+	for (int i = 0; s[i]; ++i) ans = ans * 10 + (num[pos[s[i] - 'a']]);
+	return ans;
+}
+void print(char s[]) {
+	for (int i = 0; s[i]; ++i) {
+		printf("%d", num[pos[s[i] - 'a']]);
+	}
+	puts("");
 }
 
 int main() {
-    cin >> a >> b >> c;
-    run();
-
+    scanf("%s%s%s", a, b, c);
+    add(a), add(b), add(c);
+    if (st.size() >= 11) {
+    	puts("UNSOLVABLE");
+    	return 0;
+    }
+	int i = 0;
+	for (auto &c: st) {
+    	pos[c - 'a'] = i++;
+    }
+	do {
+		if (check(a)&&check(b)&&check(c)&&(parse(a)+parse(b)==parse(c))) {
+			print(a);print(b);print(c);
+			return 0;
+		}
+	} while (next_permutation(num, num + 10));
+	puts("UNSOLVABLE");
     return 0;
 }
