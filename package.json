@@ -10,7 +10,8 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "encrypt": "encrypt encrypt --source-dir docs --key-file keys.json --temp .temp-encrypt",
-    "decrypt": "encrypt decrypt --source-dir docs --key-file keys.json --temp .temp-encrypt"
+    "decrypt": "encrypt decrypt --source-dir docs --key-file keys.json --temp .temp-encrypt",
+    "deploy": "bash deploy.sh"
   },
   "devDependencies": {
     "@iktakahiro/markdown-it-katex": "^4.0.1",
