@@ -1,61 +1,21 @@
-'use strict'
+const e = React.createElement
 
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object)
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object)
-    if (enumerableOnly)
-      symbols = symbols.filter(function(sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable
-      })
-    keys.push.apply(keys, symbols)
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { liked: false }
   }
-  return keys
-}
-
-function _objectSpread(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {}
-    if (i % 2) {
-      ownKeys(Object(source), true).forEach(function(key) {
-        _defineProperty(target, key, source[key])
-      })
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source))
-    } else {
-      ownKeys(Object(source)).forEach(function(key) {
-        Object.defineProperty(
-          target,
-          key,
-          Object.getOwnPropertyDescriptor(source, key)
-        )
-      })
+  render() {
+    if (this.state.liked) {
+      return 'You Liked this.'
     }
+    return e(
+      'button',
+      {
+        onClick: () => this.setState({ liked: true }),
+      },
+      'Like'
+    )
   }
-  return target
 }
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true,
-    })
-  } else {
-    obj[key] = value
-  }
-  return obj
-}
-
-var arr = [1, 2, 3]
-var obj = {
-  name: 'hello',
-}
-
-// 如果是数组，会直接使用数据方法处理
-console.log([].concat(arr))
-
-// 如果是object，使用内置的工具函数把属性拷贝出来
-console.log(_objectSpread({}, obj))
+ReactDOM.render(e(App), document.querySelector('#app'))

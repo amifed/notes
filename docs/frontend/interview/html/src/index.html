@@ -1,18 +1,17 @@
 <html>
   <head>
-    <script>
-      function myFunc() {
-        document.write(a); // a已变量提升，但是因为赋值在后面，所以打印undefined
-        document.write(func()); // 执行函数 打印出2
-        var a = 1; // 这里的a已经变量提升了，但是在这一步才赋值
-        function func() {
-          return 2;
-        }
-      }
-    </script>
+    <title>React Demo</title>
   </head>
   <body>
-    <p>1</p>
-    <button onclick="myFunc()">点击</button>
+    <div id="app"></div>
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    
   </body>
 </html>

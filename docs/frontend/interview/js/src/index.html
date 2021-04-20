@@ -5,44 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <!-- <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script> -->
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <!-- <header></header>
-    <main>
-      <div class="center">中间自适应</div>
-      <div class="left">左列定宽</div>
-      <div class="right">右列定宽</div>
-    </main>
-    <footer></footer> -->
-    <div id="div">begin</div>
-    <script type="text/javascript">
-      setTimeout(function() {
-          alert(' ui 已经渲染完毕了吗？ ');
-          console.log('timeout1');
-          new Promise(function(resolve) {
-              console.log('promise3');
-              resolve();
-              console.log('promise4');
-          }).then(function() {
-              alert(' 为什么这里ui已经渲染成finally了 ');
-              console.log('then2');
-          })
-          document.getElementById('div').innerHTML = 'finally';
-        })
-        new Promise(function(resolve) {
-            console.log('promise1');
-            resolve();
-            console.log('promise2');
-        }).then(function() {
-            console.log('then1');
-            alert(' ui 开始渲染? ');
-            console.log(document.getElementById('div').innerHTML)
-            alert(' ui 开始渲染 ');
-        })
-        console.log('global1');
-        document.getElementById('div').innerHTML = 'end';
-        console.log(document.getElementById('div').innerHTML)
-    </script>
+    <div id="app"></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="./index.js"></script>
   </body>
 </html>
