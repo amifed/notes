@@ -552,3 +552,8 @@ eb.emit('a', false, 'ding', 21)
 
 ## 图片懒加载
 
+## 实现一个大文件上传和断点续传
+
+切片 md5 计算 hash 值 promise.all 一起上传 最后验证 合并
+
+> 参考文章：[实现一个大文件上传和断点续传](https://www.cnblogs.com/cangqinglang/p/12204478.html)

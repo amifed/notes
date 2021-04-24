@@ -429,3 +429,13 @@ JS 执行时同步任务依次执行，异步任务添加到任务队列中，�
 - 忽略 `symbol`
 - 不能序列化函数
 - 不能解决循环引用对象
+
+#### JS 之 阻止事件冒泡，阻止默认事件，event.stopPropagation()和 event.preventDefault()，return false 的区别
+
+- event.stopPropagation()
+  　　阻止事件的冒泡，不让事件向 documen 上蔓延，但是默认事件任然会执行，当调用这个方法的时候，如果点击一个连接，这个连接仍然会被打开。
+- event.preventDefault()
+  　　阻止默认事件的方法，调用此方法时，连接不会被打开，但是会发生冒泡，冒泡会传递到上一层的父元素；
+- return false；
+  　　这个方法比较暴力，会同时阻止事件冒泡也会阻止默认事件；写上此代码，连接不会被打开，事件也不会传递到上一层的父元素；可以理解为 return
+  false 就等于同时调用了 event.stopPropagation()和 event.preventDefault()。

@@ -1,21 +1,25 @@
-const e = React.createElement
+function light(color, wait) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log(color)
+      resolve()
+    }, wait)
+  })
+}
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { liked: false }
-  }
-  render() {
-    if (this.state.liked) {
-      return 'You Liked this.'
-    }
-    return e(
-      'button',
-      {
-        onClick: () => this.setState({ liked: true }),
-      },
-      'Like'
-    )
+function* gen() {
+  yield light('green', 1000)
+  yield light('red', 2000)
+  yield light('yellow', 3000)
+}
+
+function run(iter) {
+  const result = iter.next()
+  if (result.done) {
+    run(gen())
+  } else {
+    result.value.then(() => run(iter))
   }
 }
-ReactDOM.render(e(App), document.querySelector('#app'))
+
+run(gen())
