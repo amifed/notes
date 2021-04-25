@@ -7,14 +7,43 @@
     <title>Document</title>
   </head>
   <body>
-    <script src="./index.js"></script>
+    <script src="../src/promise/promise_class.js"></script>
     <script>
-      const p1 = new _Promise((resolve, reject) => resolve('OK'))
-      const p2 = _Promise.resolve('success')
-      const p3 = _Promise.resolve('yeah')
+      console.log(1)
+      log()
+      setTimeout(() => {
+        console.log(2)
+      }, 0)
 
-      let result = _Promise.all([p1, p2, p3])
-      console.log(result)
+      function log() {
+        setTimeout(() => {
+          console.log(3)
+          setTimeout(() => {
+            console.log(4)
+          }, 0)
+        }, 0)
+
+        let p = new _Promise((resolve) => {
+          setTimeout(() => {
+            console.log(5)
+          }, 0)
+          resolve(() => {
+            setTimeout(() => {
+              console.log(6)
+              setTimeout(() => {
+                console.log(7)
+              }, 0)
+            }, 0)
+          })
+        })
+
+        p.then((success) => {
+          setTimeout(() => {
+            console.log(8)
+          }, 0)
+          success()
+        })
+      }
     </script>
   </body>
 </html>

@@ -10,9 +10,11 @@ function _Promise(executor) {
     this.PromiseState = 'fulfilled'
     // 2 设置结果值 （PromiseResult）
     this.PromiseResult = data
-    this.callbacks.forEach(({ onResolved }) => {
-      onResolved(data)
-    })
+    setTimeout(() =>
+      this.callbacks.forEach(({ onResolved }) => {
+        onResolved(data)
+      })
+    )
   }
 
   // reject
@@ -20,9 +22,11 @@ function _Promise(executor) {
     if (this.PromiseState !== 'pending') return
     this.PromiseState = 'rejected'
     this.PromiseResult = data
-    this.callbacks.forEach(({ onRejected }) => {
-      onRejected(data)
-    })
+    setTimeout(() =>
+      this.callbacks.forEach(({ onRejected }) => {
+        onRejected(data)
+      })
+    )
   }
 
   try {
@@ -60,10 +64,10 @@ _Promise.prototype.then = function(onResolved, onRejected) {
     }
     // 调用回调函数
     if (this.PromiseState === 'fulfilled') {
-      callback(onResolved)
+      setTimeout(() => callback(onResolved))
     }
     if (this.PromiseState === 'rejected') {
-      callback(onRejected)
+      setTimeout(() => callback(onRejected))
     }
     // pending 保存回调函数
     if (this.PromiseState === 'pending') {
@@ -118,5 +122,12 @@ _Promise.all = function(promises) {
 }
 
 _Promise.race = function(promises) {
-  
+  return new _Promise((resolve, reject) => {
+    for (let i = 0; i < promises.length; ++i) {
+      promises[i].then(
+        (val) => resolve(val),
+        (err) => reject(err)
+      )
+    }
+  })
 }

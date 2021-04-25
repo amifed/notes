@@ -1,77 +1,133 @@
-const STATUS = {
-  PENDING: "pending",
-  RESOLVE: "fulfilled",
-  REJECT: "rejected",
-};
-class _Promise {
-  static resolve(value) {
-    if (value && value.then) {
-      return value;
-    }
-    return new _Promise((resolve) => resolve(value));
-  }
-  constructor(fn) {
-    this.value = undefined;
-    this.error = undefined;
-    this.stauts = STATUS.PENDING;
+function _Promise(executor) {
+  this.PromiseState = 'pending'
+  this.PromiseResult = null
+  this.callbacks = []
 
-    this.resolveFns = [];
-    this.rejectFns = [];
-
-    const resolve = (val) => {
-      // console.log("resolveFns: ", this.resolveFns);
-
-      setTimeout(() => {
-        this.stauts = STATUS.RESOLVE;
-        this.value = val;
-        this.resolveFns.forEach(({ fn, resolve, reject }) => resolve(fn(val)));
-      });
-    };
-
-    const reject = (err) => {
-      setTimeout(() => {
-        this.stauts = STATUS.REJECT;
-        this.error = err;
-        this.rejectFns.forEach(({ fn, resolve, reject }) => reject(err));
-      });
-    };
-
-    fn(resolve, reject);
+  // resolve
+  const resolve = (data) => {
+    if (this.PromiseState !== 'pending') return
+    // 1 修改状态 （PromiseState）
+    this.PromiseState = 'fulfilled'
+    // 2 设置结果值 （PromiseResult）
+    this.PromiseResult = data
+    setTimeout(() =>
+      this.callbacks.forEach(({ onResolved }) => {
+        onResolved(data)
+      })
+    )
   }
 
-  then(fn) {
-    if (this.stauts === STATUS.PENDING) {
-      return new _Promise((resolve, reject) => {
-        this.resolveFns.push({ fn, resolve, reject });
-      });
-    }
-    if (this.stauts === STATUS.RESOLVE) {
-      return _Promise.resolve(fn(this.value));
-    }
+  // reject
+  const reject = (data) => {
+    if (this.PromiseState !== 'pending') return
+    this.PromiseState = 'rejected'
+    this.PromiseResult = data
+    setTimeout(() =>
+      this.callbacks.forEach(({ onRejected }) => {
+        onRejected(data)
+      })
+    )
   }
 
-  catch(fn) {
-    if (this.stauts === STATUS.PENDING) {
-      return new _Promise((resolve, reject) => {
-        this.rejectFns.push({ fn, resolve, reject });
-      });
-    }
-    if (this.stauts === STATUS.REJECT) {
-      return _Promise.resolve(fn(this.value));
-    }
+  try {
+    // 「同步」调用执行器函数
+    executor(resolve, reject)
+  } catch (e) {
+    reject(e)
   }
 }
 
-const p = new _Promise((resolve, reject) => {
-  setTimeout(() => resolve(1), 2000);
-});
-
-p.then((v) => {
-  console.log(v);
-  return 2;
-})
-  .then((v) => {
-    setTimeout(() => console.log(v));
-    return 3;
+_Promise.prototype.then = function(onResolved, onRejected) {
+  if (typeof onResolved !== 'function') {
+    onResolved = (val) => val
+  }
+  if (typeof onRejected !== 'function') {
+    onRejected = (err) => {
+      throw err
+    }
+  }
+  return new _Promise((resolve, reject) => {
+    const callback = (fn) => {
+      try {
+        let result = fn(this.PromiseResult)
+        if (result instanceof _Promise) {
+          result.then(
+            (val) => resolve(val),
+            (err) => reject(err)
+          )
+        } else {
+          resolve(result)
+        }
+      } catch (e) {
+        reject(e)
+      }
+    }
+    // 调用回调函数
+    if (this.PromiseState === 'fulfilled') {
+      setTimeout(() => callback(onResolved))
+    }
+    if (this.PromiseState === 'rejected') {
+      setTimeout(() => callback(onRejected))
+    }
+    // pending 保存回调函数
+    if (this.PromiseState === 'pending') {
+      this.callbacks.push({
+        onResolved: () => callback(onResolved),
+        onRejected: () => callback(onRejected),
+      })
+    }
   })
-  .then((v) => console.log(v));
+}
+
+_Promise.prototype.catch = function(onRejected) {
+  return this.then(undefined, onRejected)
+}
+
+_Promise.resolve = function(result) {
+  return new _Promise((resolve, reject) => {
+    if (result instanceof _Promise) {
+      result.then(
+        (val) => resolve(val),
+        (err) => reject(err)
+      )
+    } else {
+      resolve(result)
+    }
+  })
+}
+
+_Promise.reject = function(result) {
+  return new _Promise((resolve, reject) => {
+    reject(result)
+  })
+}
+
+_Promise.all = function(promises) {
+  return new _Promise((resolve, reject) => {
+    let cnt = 0
+    const ans = []
+    for (let i = 0; i < promises.length; ++i) {
+      promises[i].then(
+        (val) => {
+          ++cnt
+          ans[i] = val
+          if (cnt === promises.length) {
+            resolve(ans)
+          }
+        },
+        (err) => reject(err)
+      )
+    }
+  })
+}
+
+_Promise.race = function(promises) {
+  return new _Promise((resolve, reject) => {
+    for (let i = 0; i < promises.length; ++i) {
+      promises[i].then(
+        (val) => resolve(val),
+        (err) => reject(err)
+      )
+    }
+  })
+}

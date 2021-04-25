@@ -240,12 +240,11 @@ function _instanceof(obj, F) {
 
 ## 实现 `Promise`
 
-<<< @/docs/frontend/interview/js/src/promise/promise.js
-
-参考文章：[如何实现一个简单的 Promise](https://q.shanyue.tech/fe/js/23.html)
+<<< @/docs/frontend/interview/js/src/promise/promise_class.js
 
 学习文章：
 
+- [尚硅谷 Web 前端 Promise 教程从入门到精通](https://www.bilibili.com/video/BV1GA411x7z1?p=46&spm_id_from=pageDriver)
 - [手把手教你实现 Promise](https://segmentfault.com/a/1190000023858504)
 - [100 行代码实现 Promises/A+ 规范](https://mp.weixin.qq.com/s/qdJ0Xd8zTgtetFdlJL3P1g)
 
@@ -283,4 +282,3 @@ function PromiseRace(arr) {
   })
 }
 ```
-
