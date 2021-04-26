@@ -2,23 +2,40 @@
   margin: 0;
   padding: 0;
 }
-html,
-body,
+header {
+  height: 30px;
+  background-color: #ccc;
+}
 .layout {
+  width: 100%;
+  height: 500px;
+}
+main {
+  float: left;
+  width: 100%;
   height: 100%;
-}
-body {
-  margin: 0;
-}
-header,
-footer {
-  height: 50px;
   background-color: lightgreen;
 }
-main {
-  overflow-y: auto;
+.inner {
+  margin: 0 160px 0 110px; /* 使用 margin 隔开左右 */
 }
-
-main {
-  height: calc(100% -100px);
+aside {
+  float: left;
+  height: 100%;
+}
+.left {
+  width: 100px;
+  margin-left: -100%;
+  background-color: lightgoldenrodyellow;
+}
+.right {
+  float: left;
+  width: 150px;
+  margin-left: -150px;
+  background-color: lightcoral;
+}
+footer {
+  clear: both;
+  height: 30px;
+  background-color: #ccc;
 }

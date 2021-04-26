@@ -1,5 +1,7 @@
 # CSS 常见面试问题
 
+> 学习文章：[1.5 万字 CSS 基础拾遗（核心知识、常见需求）](https://mp.weixin.qq.com/s/DipD_4gTQGc8286tG7Oxng)
+
 ## 盒模型
 
 在 CSS 中，所有的元素都被一个个的“盒子（box）”包围着。
@@ -358,5 +360,3 @@ margin 的'auto'用来计算元素对应方向应该获得的剩余间距大小�
 - `transform: scale(0, 0)`
 
 参考文章：[《CSS 隐藏元素的八种方法》](https://juejin.im/post/584b645a128fe10058a0d625#heading-2)
-
-> 学习文章：[1.5 万字 CSS 基础拾遗（核心知识、常见需求）](https://mp.weixin.qq.com/s/DipD_4gTQGc8286tG7Oxng)
