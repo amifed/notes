@@ -10,7 +10,9 @@
 function debounce(func, wait) {
   let timeout
   return function() {
-    if (timeout) clearTimeout(timeout)
+    if (timeout) {
+      clearTimeout(timeout)
+    }
     timeout = setTimeout(() => func.apply(this, arguments), wait)
   }
 }
@@ -19,8 +21,8 @@ function debounce(func, wait) {
 ### 可立即执行
 
 ```js
-function debounce(func, wait = 50, immediate = true) {
-  let timeout, context, args
+function debounce(func, wait = 1000, immediate = true) {
+  let timeout = (context = args = null)
 
   return function() {
     if (timeout) {
@@ -47,32 +49,27 @@ function debounce(func, wait = 50, immediate = true) {
 ### 可取消
 
 ```js
-function debounce(fn, wait = 50, immediate = false) {
-  let timeout, context, args, result
+function debounce(fn, wait = 1000, immediate = true) {
+  let timeout = (context = args = null)
 
-  const later = () =>
-    setTimeout(() => {
-      timeout = null
-      if (!immediate) {
-        fn.apply(context, args)
-        context = args = null
-      }
-    }, wait)
-
-  const debounced = function() {
+  function debounced() {
     if (timeout) {
       clearTimeout(timeout)
-      timeout = later()
     } else {
       if (immediate) {
-        result = fn.apply(this, arguments)
+        fn.apply(this, arguments)
       } else {
         context = this
         args = arguments
       }
-      timeout = later()
     }
-    return result
+    timeout = setTimeout(() => {
+      timeout = null
+      if (!immediate) {
+        func.apply(context, args)
+        context = args = null
+      }
+    }, wait)
   }
 
   debounced.cancel = function() {

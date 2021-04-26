@@ -1,49 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <script src="../src/promise/promise_class_micro.js"></script>
-    <script>
-      console.log(1)
-      log()
-      setTimeout(() => {
-        console.log(2)
-      }, 0)
+<html lang="zh-cmn-Hans">
 
-      function log() {
-        setTimeout(() => {
-          console.log(3)
-          setTimeout(() => {
-            console.log(4)
-          }, 0)
-        }, 0)
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge, chrome=1">
+    <title>debounce</title>
+    <style>
+        #container{
+            width: 100%; height: 200px; line-height: 200px; text-align: center; color: #fff; background-color: #444; font-size: 30px;
+        }
+    </style>
+</head>
 
-        let p = new _Promise((resolve) => {
-          setTimeout(() => {
-            console.log(5)
-          }, 0)
-          resolve(() => {
-            setTimeout(() => {
-              console.log(6)
-              setTimeout(() => {
-                console.log(7)
-              }, 0)
-            }, 0)
-          })
-        })
+<body>
+    <div id="container"></div>
+    <script src="index.js"></script>
+</body>
 
-        p.then((success) => {
-          setTimeout(() => {
-            console.log(8)
-          }, 0)
-          success()
-        })
-      }
-    </script>
-  </body>
 </html>
