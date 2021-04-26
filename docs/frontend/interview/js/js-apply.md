@@ -52,7 +52,7 @@ function debounce(func, wait = 1000, immediate = true) {
 function debounce(fn, wait = 1000, immediate = true) {
   let timeout = (context = args = null)
 
-  function debounced() {
+  function wrapper() {
     if (timeout) {
       clearTimeout(timeout)
     } else {
@@ -72,12 +72,12 @@ function debounce(fn, wait = 1000, immediate = true) {
     }, wait)
   }
 
-  debounced.cancel = function() {
+  wrapper.cancel = function() {
     clearTimeout(timeout)
     timeout = null
   }
 
-  return debounced
+  return wrapper
 }
 ```
 
@@ -87,7 +87,27 @@ function debounce(fn, wait = 1000, immediate = true) {
 
 当被多次调用时，它会在每 `ms` 毫秒最多将调用传递给 `f` 一次。节流可以使用在 scroll 是事件监听上。
 
-### 时间戳
+### 基本实现
+
+```js
+function throttle(fn, wait) {
+  let timeout = (context = args = null)
+  return function() {
+    context = this
+    args = arguments
+    if (!timeout) {
+      timeout = setTimeout(() => {
+        timeout = null
+        fn.apply(context, args)
+      }, wait)
+    }
+  }
+}
+```
+
+> 事件再触发后的 `wait` 秒第一次执行，且停止触发后会再执行一次事件
+
+:::details 时间戳写法
 
 ```js
 function throttle(fn, wait) {
@@ -106,29 +126,34 @@ function throttle(fn, wait) {
 
 > 事件会立即执行，停止触发后不会再执行函数
 
-### 定时器
+:::
+
+### 可立即执行
+
+实现事件立即调用，且最后一次仍调用，一种基于递归的写法
 
 ```js
 function throttle(fn, wait) {
-  let timeout, context, args
-  return function() {
-    context = this
-    args = arguments
-    if (!timeout) {
-      timeout = setTimeout(() => {
-        timeout = null
-        fn.apply(context, args)
-      }, wait)
+  let timeout = (context = args = null)
+  return function wrapper() {
+    if (timeout) {
+      context = this
+      args = arguments
+      return
     }
+    fn.apply(this, arguments)
+    timeout = setTimeout(() => {
+      timeout = null
+      if (args) wrapper.apply(context, args)
+      context = args = null
+    }, wait)
   }
 }
 ```
 
-> 事件再触发后的 `wait` 秒第一次执行，且停止触发后会再执行一次事件
+代码来源： [现代 JavaScript 教程 - 节流装饰器](https://zh.javascript.info/task/throttle)
 
-### 时间戳 + 定时器
-
-实现事件立即调用，且最后一次仍调用
+:::details 时间戳写法
 
 ```js
 function throttle(fn, wait) {
@@ -160,39 +185,7 @@ function throttle(fn, wait) {
 }
 ```
 
-以下代码同样可以实现
-
-```js
-function throttle(func, ms) {
-  let isThrottled = false,
-    savedArgs,
-    savedThis
-
-  function wrapper() {
-    if (isThrottled) {
-      savedArgs = arguments
-      savedThis = this
-      return
-    }
-
-    func.apply(this, arguments)
-
-    isThrottled = true
-
-    setTimeout(function() {
-      isThrottled = false
-      if (savedArgs) {
-        wrapper.apply(savedThis, savedArgs)
-        savedArgs = savedThis = null
-      }
-    }, ms)
-  }
-
-  return wrapper
-}
-```
-
-代码来源： [现代 JavaScript 教程 - 节流装饰器](https://zh.javascript.info/task/throttle)
+:::
 
 ## 柯里化
 
