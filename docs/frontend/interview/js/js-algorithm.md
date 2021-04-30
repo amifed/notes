@@ -178,6 +178,35 @@ const flatten = (arr) =>
 arr.flat(depth) // depth 为嵌套深度
 ```
 
+### 嵌套数组求深度
+
+编写一个函数，求数组的嵌套深度，例如 `[1, [2, [3, [4]], 1, 2], 3, 4]` 的嵌套深度为 4;
+
+```js
+function getDepth(arr) {
+  if (!Array.isArray(arr)) {
+    return 0
+  }
+  let ans = 0
+  arr.forEach((e) => {
+    ans = Math.max(ans, getDepth(e) + 1)
+  })
+  return ans
+}
+```
+
+```js
+function getDepth(arr) {
+  let ans = 0
+  for (let i = 0; i < arr.length; ++i) {
+    if (Array.isArray(arr[i])) {
+      ans = Math.max(ans, getDepth(arr[i]) + 1)
+    }
+  }
+  return ans
+}
+```
+
 ## 模拟 lodash 中的 \_.get() 函数
 
 lodash 中常用的 `get` 函数用于嵌套调用，例如 `obj.a.b.c.d`，为防止对象为空而抛出异常，一般写为 `obj && obj.a && obj.a.b && obj.a.b.c && obj.a.b.c.d`。
@@ -269,3 +298,63 @@ function randomSort(array) {
   return array
 }
 ```
+
+## 对象元素序列化
+
+```js
+const chapterTree = {
+  name: '总章节',
+  children: [
+    { name: '章节一', children: [{ name: '第一节', children: [{ name: '第一小节' }, { name: '第二小节' }] }, { name: '第二节' }] },
+    { name: '章节二', children: [{ name: '第三节' }, { name: '第四节' }] }]
+};
+// 测试
+const result = serialize(chapterTree);
+console.log(result);
+// ["总章节", "章节一", "第一节", "第一小节", "第二小节", "第二节", "章节二", "第三节", "第四节"]
+```
+
+:::details 参考代码
+
+```js
+function serialize(tree) {
+  let ans = [tree.name]
+  if (!tree.children || !tree.children.length) return ans
+  tree.children.forEach((e) => {
+    ans = ans.concat(serialize(e))
+  })
+  return ans
+}
+```
+
+:::
+
+```js
+const chapterTree = {
+  name: '总章节',
+  children: [
+    { name: '章节一', children: [{ name: '第一节', children: [{ name: '第一小节' }, { name: '第二小节' }] }, { name: '第二节' }] },
+    { name: '章节二', children: [{ name: '第三节' }, { name: '第四节' }] }]
+};
+// 测试
+const result = serialize(chapterTree);
+console.log(result);
+// ["总章节", "(1)章节一", "(1.1)第一节", "(1.1.1)第一小节", "(1.1.2)第二小节", "(1.2)第二节", "(2)章节二", "(2.1)第三节", "(2.2)第四节"]
+```
+
+:::details 参考代码
+
+```js
+function serialize(tree, locate = []) {
+  let ans = [(locate.length ? `(${locate.join('.')})` : '') + tree.name]
+  if (!tree.children || !tree.children) return ans
+  tree.children.forEach((e, i) => {
+    locate.push(i + 1)
+    ans = ans.concat(serialize(e, locate))
+    locate.pop()
+  })
+  return ans
+}
+```
+
+:::

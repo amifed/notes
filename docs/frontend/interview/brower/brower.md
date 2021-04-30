@@ -94,3 +94,20 @@ web 资源的缓存策略一般由服务器来指定，可以分为两种，分�
 Cookie 是服务器提供的一种用户维护会话状态信息的数据，通过服务器发送到浏览器，浏览器保存在本地，当下一次有同源请求时，将保存的 Cookie 值添加到请求头部，发送给服务端。这可以用来实现用户登录状态等功能。Cookie 一般可以存储 4k 大小的数据，并且只能被同源的网页共享访问。
 
 服务器端可以使用 Set-Cookie 的响应头部来配置 cookie 信息。
+
+## Content-Type
+
+`Content-Type` 实体头部用于指示资源的 MIME 类型 media type。
+
+在响应中，Content-Type 标头告诉客户端实际返回的内容的内容类型。
+
+在请求中 (如 POST 或 PUT)，客户端告诉服务器实际发送的数据类型。
+
+### 几种常见的类型
+
+- `text/html`、`text/plain`、`text/xml`；
+- `image/gif`、`image/jpeg`、`image/png`；
+- `application/x-www-form-urlencoded` 浏览器的原生 form 表单、`application/json` JSON 字符串、`application/pdf`；
+- `multipart/form-data` 常见的 POST 数据提交方式，使用表单上传文件时；
+- `audio/x-wav` : wav 文件、`audio/x-ms-wma` : wma 文件、`audio/mp3` : mp3 文件；
+- `video/x-ms-wmv` : wmv 文件、`video/mpeg4` : mp4 文件、`video/avi` : avi 文件；

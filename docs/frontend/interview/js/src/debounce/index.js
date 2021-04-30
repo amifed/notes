@@ -17,10 +17,10 @@ document.getElementById('button').addEventListener('click', function() {
 
 // 防抖
 
-function debounce(fn, wait = 1000, immediate = true) {
-  let timeout = (context = args = null)
-
-  function debounced() {
+function debounce(fn, wait, immediate) {
+  let timeout = context = args = null
+  
+  function wrapper() {
     if (timeout) {
       clearTimeout(timeout)
     } else {
@@ -34,16 +34,15 @@ function debounce(fn, wait = 1000, immediate = true) {
     timeout = setTimeout(() => {
       timeout = null
       if (!immediate) {
-        func.apply(context, args)
+        fn.apply(context, args)
         context = args = null
       }
     }, wait)
   }
-
-  debounced.cancel = function() {
+  wrapper.cancel = function() {
     clearTimeout(timeout)
     timeout = null
   }
-
-  return debounced
+  return wrapper
 }
+
