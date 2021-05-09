@@ -6,6 +6,29 @@ DOCTYPE 标签是一种标准通用标记语言的文档类型声明，它的目
 
 HTML5：使用方式 <!DOCTYPE html>
 
+## HTML、XHTML、HTML5 的关系
+
+XHTML 是更严格化的 HTML
+HTML5 是独立的 HTML 规范
+
+## HTML5 有什么变化
+
+新的语义化元素
+表单增强
+新的 API（离线、音视频、图像、实时通信、本地存储、设备能力）
+
+## 语义化的意义
+
+开发者更容易理解
+机器更容易理解结构
+SEO
+
+## property 和 attribute 的区别
+
+- attribute 是定义在 html 元素上的属性，可通过 `getAttribute()`,`setAttribute()` 读写，但修改后的值不会更新到页面上；
+- property 在解析时由 attribute 赋值，可以通过 DOM 对象的属性读写，并且会导致页面更新；
+- attribute 和 property 两者互不相通。
+
 ## 浏览器渲染原理
 
 （1）首先解析收到的文档，根据文档定义构建一棵 DOM 树，DOM 树是由 DOM 元素及属性节点组成的。

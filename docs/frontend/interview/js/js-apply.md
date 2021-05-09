@@ -542,9 +542,10 @@ eb.emit('a', false, 'ding', 21)
 
 ## 图片懒加载
 
+- 判断元素是否出现在浏览器视口
+- IntersectionObserver
+
 ## 无限下拉刷新
-
-
 
 ## 实现一个大文件上传和断点续传
 
