@@ -8,13 +8,13 @@
 
 ```js
 function debounce(func, wait) {
-  let timeout
+  let timeout;
   return function() {
     if (timeout) {
-      clearTimeout(timeout)
+      clearTimeout(timeout);
     }
-    timeout = setTimeout(() => func.apply(this, arguments), wait)
-  }
+    timeout = setTimeout(() => func.apply(this, arguments), wait);
+  };
 }
 ```
 
@@ -22,27 +22,27 @@ function debounce(func, wait) {
 
 ```js
 function debounce(func, wait = 1000, immediate = true) {
-  let timeout = (context = args = null)
+  let timeout = (context = args = null);
 
   return function() {
     if (timeout) {
-      clearTimeout(timeout)
+      clearTimeout(timeout);
     } else {
       if (immediate) {
-        func.apply(this, args)
+        func.apply(this, args);
       } else {
-        context = this
-        args = arguments
+        context = this;
+        args = arguments;
       }
     }
     timeout = setTimeout(() => {
-      timeout = null
+      timeout = null;
       if (!immediate) {
-        func.apply(context, args)
-        context = args = null
+        func.apply(context, args);
+        context = args = null;
       }
-    }, wait)
-  }
+    }, wait);
+  };
 }
 ```
 
@@ -50,34 +50,34 @@ function debounce(func, wait = 1000, immediate = true) {
 
 ```js
 function debounce(fn, wait = 1000, immediate = true) {
-  let timeout = (context = args = null)
+  let timeout = (context = args = null);
 
   function wrapper() {
     if (timeout) {
-      clearTimeout(timeout)
+      clearTimeout(timeout);
     } else {
       if (immediate) {
-        fn.apply(this, arguments)
+        fn.apply(this, arguments);
       } else {
-        context = this
-        args = arguments
+        context = this;
+        args = arguments;
       }
     }
     timeout = setTimeout(() => {
-      timeout = null
+      timeout = null;
       if (!immediate) {
-        func.apply(context, args)
-        context = args = null
+        func.apply(context, args);
+        context = args = null;
       }
-    }, wait)
+    }, wait);
   }
 
   wrapper.cancel = function() {
-    clearTimeout(timeout)
-    timeout = null
-  }
+    clearTimeout(timeout);
+    timeout = null;
+  };
 
-  return wrapper
+  return wrapper;
 }
 ```
 
@@ -91,17 +91,17 @@ function debounce(fn, wait = 1000, immediate = true) {
 
 ```js
 function throttle(fn, wait) {
-  let timeout = (context = args = null)
+  let timeout = (context = args = null);
   return function() {
-    context = this
-    args = arguments
+    context = this;
+    args = arguments;
     if (!timeout) {
       timeout = setTimeout(() => {
-        timeout = null
-        fn.apply(context, args)
-      }, wait)
+        timeout = null;
+        fn.apply(context, args);
+      }, wait);
     }
-  }
+  };
 }
 ```
 
@@ -111,16 +111,16 @@ function throttle(fn, wait) {
 
 ```js
 function throttle(fn, wait) {
-  let pre, context, args
+  let pre, context, args;
   return function() {
-    let now = +new Date()
-    context = this
-    args = arguments
+    let now = +new Date();
+    context = this;
+    args = arguments;
     if (now - pre > wait) {
-      fn.apply(context, args)
-      pre = now
+      fn.apply(context, args);
+      pre = now;
     }
-  }
+  };
 }
 ```
 
@@ -134,20 +134,20 @@ function throttle(fn, wait) {
 
 ```js
 function throttle(fn, wait) {
-  let timeout = (context = args = null)
+  let timeout = (context = args = null);
   return function wrapper() {
     if (timeout) {
-      context = this
-      args = arguments
-      return
+      context = this;
+      args = arguments;
+      return;
     }
-    fn.apply(this, arguments)
+    fn.apply(this, arguments);
     timeout = setTimeout(() => {
-      timeout = null
-      if (args) wrapper.apply(context, args)
-      context = args = null
-    }, wait)
-  }
+      timeout = null;
+      if (args) wrapper.apply(context, args);
+      context = args = null;
+    }, wait);
+  };
 }
 ```
 
@@ -157,31 +157,31 @@ function throttle(fn, wait) {
 
 ```js
 function throttle(fn, wait) {
-  let timeout, context, args
-  let pre = 0
+  let timeout, context, args;
+  let pre = 0;
 
   const later = () => {
-    pre = +new Date()
-    timeout = null
-    fn.apply(context, args)
-  }
+    pre = +new Date();
+    timeout = null;
+    fn.apply(context, args);
+  };
 
   return function() {
-    let now = +new Date()
-    let remaining = wait - (now - pre)
-    context = this
-    args = arguments
+    let now = +new Date();
+    let remaining = wait - (now - pre);
+    context = this;
+    args = arguments;
     if (remaining <= 0 || remaining > wait) {
       if (timeout) {
-        clearTimeout(timeout)
-        timeout = null
+        clearTimeout(timeout);
+        timeout = null;
       }
-      pre = now
-      fn.apply(context, args)
+      pre = now;
+      fn.apply(context, args);
     } else if (!timeout) {
-      timeout = setTimeout(later, remaining)
+      timeout = setTimeout(later, remaining);
     }
-  }
+  };
 }
 ```
 
@@ -197,20 +197,20 @@ function throttle(fn, wait) {
 function curry(f) {
   return function curried(...args) {
     if (args.length >= f.length) {
-      return f.apply(this, args)
+      return f.apply(this, args);
     } else {
       return function(..._args) {
-        return curried.apply(this, args.concat(_args))
-      }
+        return curried.apply(this, args.concat(_args));
+      };
     }
-  }
+  };
 }
 // example
-const add = curry((a, b, c) => a + b + c)
-add(1)(2)(3)
-add(1, 2)(3)
-add(1)(2, 3)
-add(1, 2, 3)
+const add = curry((a, b, c) => a + b + c);
+add(1)(2)(3);
+add(1, 2)(3);
+add(1)(2, 3);
+add(1, 2, 3);
 ```
 
 ## 数组去重
@@ -220,14 +220,14 @@ add(1, 2, 3)
 ```js
 // 无序
 function unique(arr) {
-  return arr.filter((e, i, arr) => arr.indexOf(e) === i)
+  return arr.filter((e, i, arr) => arr.indexOf(e) === i);
 }
 // 有序
 function unique(arr) {
   return arr
     .slice()
     .sort()
-    .filter((e, i, arr) => !i || e !== arr[i - 1])
+    .filter((e, i, arr) => !i || e !== arr[i - 1]);
 }
 ```
 
@@ -235,8 +235,8 @@ function unique(arr) {
 
 ```js
 function unique(arr) {
-  const mp = {}
-  return arr.filter((e) => (mp.hasOwnProperty(e) ? false : (mp[e] = true)))
+  const mp = {};
+  return arr.filter((e) => (mp.hasOwnProperty(e) ? false : (mp[e] = true)));
 }
 ```
 
@@ -245,10 +245,10 @@ function unique(arr) {
 ```js
 // 使用 typeof 对数据类型进行区分，可对 NaN 去重
 function unique(arr) {
-  const mp = {}
+  const mp = {};
   return arr.filter((e) =>
     mp.hasOwnProperty(typeof e + e) ? false : (mp[typeof e + e] = true)
-  )
+  );
 }
 ```
 
@@ -257,7 +257,7 @@ function unique(arr) {
 ### Set
 
 ```js
-const unique = (a) => [...new Set(a)]
+const unique = (a) => [...new Set(a)];
 ```
 
 ## DOM 事件委托
@@ -290,14 +290,14 @@ const unique = (a) => [...new Set(a)]
 ```js
 function loadScript(src) {
   return new Promise((resolve, reject) => {
-    let script = document.createElement('script')
-    script.src = src
+    let script = document.createElement('script');
+    script.src = src;
 
-    script.onload = () => resolve(script)
-    script.onerror = () => reject(new Error(`脚本加载失败 ${script}`))
+    script.onload = () => resolve(script);
+    script.onerror = () => reject(new Error(`脚本加载失败 ${script}`));
 
-    document.head.append(script)
-  })
+    document.head.append(script);
+  });
 }
 ```
 
@@ -309,32 +309,32 @@ function loadScript(src) {
 
 ```js
 function red() {
-  console.log('red')
+  console.log('red');
 }
 function green() {
-  console.log('green')
+  console.log('green');
 }
 function yellow() {
-  console.log('yellow')
+  console.log('yellow');
 }
 
 const light = (wait, cb) =>
   new Promise((resolve) =>
     setTimeout(() => {
-      cb()
-      resolve()
+      cb();
+      resolve();
     }, wait)
-  )
+  );
 
 function step() {
   Promise.resolve()
     .then(() => light(3000, red))
     .then(() => light(1000, green))
     .then(() => light(2000, yellow))
-    .then(() => step())
+    .then(() => step());
 }
 
-step()
+step();
 ```
 
 :::
@@ -343,44 +343,65 @@ step()
 
 ```js
 function red() {
-  console.log('red')
+  console.log('red');
 }
 function green() {
-  console.log('green')
+  console.log('green');
 }
 function yellow() {
-  console.log('yellow')
+  console.log('yellow');
 }
 
 const light = (wait, cb) =>
   new Promise((resolve) =>
     setTimeout(() => {
-      cb()
-      resolve()
+      cb();
+      resolve();
     }, wait)
-  )
+  );
 
 function* gen() {
-  yield light(3000, red)
-  yield light(1000, green)
-  yield light(2000, yellow)
+  yield light(3000, red);
+  yield light(1000, green);
+  yield light(2000, yellow);
 }
 
 function step(iterator) {
-  const result = iterator.next()
+  const result = iterator.next();
   if (result.done) {
-    step(gen())
+    step(gen());
   } else {
-    result.value.then(() => step(iterator))
+    result.value.then(() => step(iterator));
   }
 }
 
-step(gen())
+step(gen());
 ```
 
 参考文章：[一道关于 Promise 应用的面试题](https://www.cnblogs.com/dojo-lzz/p/5495671.html)
 
 :::
+
+## Promise 超时
+
+定义一个 setTimeout 的 Promise
+
+```js
+function promiseTimeout(promise, time) {
+  const timeout = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject(new Error('timeout'));
+    }, time);
+  });
+  return Promise.race([promise, timeout]);
+}
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('ok');
+  }, 1000);
+});
+promiseTimeout(promise, 500);
+```
 
 ## AJAX
 
@@ -426,18 +447,18 @@ JSONP 仅限 `get` 请求
 
 ```js
 function jsonp(url, cbName, success, failed) {
-  let script = document.createElement('script')
-  script.src = url
-  script.async = true
-  script.type = 'text/javascript'
+  let script = document.createElement('script');
+  script.src = url;
+  script.async = true;
+  script.type = 'text/javascript';
   window[cbName] = function(data) {
-    success && success(data)
-  }
-  document.body.appendChild(script)
+    success && success(data);
+  };
+  document.body.appendChild(script);
 }
 jsonp('http://xxx', 'getSomeResource', function(value) {
-  console.log(value)
-})
+  console.log(value);
+});
 ```
 
 :::
@@ -458,15 +479,15 @@ jsonp('http://xxx', 'getSomeResource', function(value) {
 
 ```js
 function _setInterval(f, ms) {
-  let timer = { flag: true }
+  let timer = { flag: true };
   function interval() {
     if (timer.flag) {
-      f()
-      setTimeout(interval, ms)
+      f();
+      setTimeout(interval, ms);
     }
   }
-  setTimeout(interval, ms)
-  return timer
+  setTimeout(interval, ms);
+  return timer;
 }
 ```
 
@@ -485,8 +506,8 @@ setInterval 的作用是每隔一段指定时间执行一个函数，但是这�
 
 ```js
 function isAvailableEmail(sEmail) {
-  const reg = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+(.[A-Za-z]{2,4})$/
-  return reg.test(sEmail)
+  const reg = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+(.[A-Za-z]{2,4})$/;
+  return reg.test(sEmail);
 }
 ```
 
@@ -497,47 +518,47 @@ function isAvailableEmail(sEmail) {
 ```js
 class EventBus {
   constructor() {
-    this.events = {}
+    this.events = {};
   }
   on(name, fn) {
     if (this.events.hasOwnProperty(name)) {
-      this.events[name].push(fn)
+      this.events[name].push(fn);
     } else {
-      this.events[name] = [fn]
+      this.events[name] = [fn];
     }
   }
   off(name, fn) {
-    let tasks = this.events[name]
+    let tasks = this.events[name];
     if (tasks) {
-      const idx = tasks.indexOf(fn)
+      const idx = tasks.indexOf(fn);
       if (idx > -1) {
-        tasks.splice(idx, 1)
+        tasks.splice(idx, 1);
       }
     }
   }
   emit(name, once = false, ...args) {
     if (this.events[name]) {
-      let tasks = this.events[name].slice()
+      let tasks = this.events[name].slice();
       tasks.forEach((fn) => {
-        fn(...args)
-      })
+        fn(...args);
+      });
       if (once) {
-        delete this.events[name]
+        delete this.events[name];
       }
     }
   }
 }
 
-const eb = new EventBus()
+const eb = new EventBus();
 let f1 = function(name, age) {
-  console.log(name, age)
-}
+  console.log(name, age);
+};
 function f2(name, age) {
-  console.log('hello', name, age)
+  console.log('hello', name, age);
 }
-eb.on('a', f1)
-eb.on('a', f2)
-eb.emit('a', false, 'ding', 21)
+eb.on('a', f1);
+eb.on('a', f2);
+eb.emit('a', false, 'ding', 21);
 ```
 
 ## 图片懒加载
