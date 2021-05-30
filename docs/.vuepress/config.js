@@ -1,4 +1,5 @@
 module.exports = {
+  base: '/notes',
   title: "Manlo's Notes",
   description: "Just Be Yourself",
   head: [
