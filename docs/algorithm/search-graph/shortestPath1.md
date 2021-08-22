@@ -130,6 +130,61 @@ void dijkstra(int s) {
 }
 ```
 
+### 最短路方案数
+
+动态规划，当寻找最短路径的时候，当搜索下一个节点（u -> v）时，若路径长度更小，则 `f[v] = f[u]`，若路径长度相同则 `f[v] += f[u]`;
+
+```cpp
+#include <algorithm>
+#include <cstring>
+using namespace std;
+
+const int INF = 0x3f3f3f3f;
+const int MOD = 1e9 + 7;
+
+const int N = 507;
+const int M = 1e5 + 7;
+int g[N][N];
+int n, m, d[N], vt[N];
+int dijkstra(int s, int e) {
+    memset(vt, 0, sizeof vt);
+    memset(d, 0x3f, sizeof d);
+    d[s] = 0;
+    for (int i = 0; i < n; i++) {
+        int u, minn = INF; //寻找当前未访问的最小节点
+        for (int j = 1; j <= n; j++) {
+            if (!vt[j] && d[j] < minn) {
+                u = j, minn = d[j];
+            }
+        }
+        vt[u] = 1; // u为中介点，优化结点 u 能到达的结点 v 之间的最短距离
+        for (int v = 1; v <= n; v++) {
+            d[v] = min(d[v], d[u] + g[u][v]);
+            if (d[v] > d[u] + g[u][v]) {
+              d[v] = d[u] + g[u][v];
+              f[v] = f[u];
+            } else if (d[v] == d[u] + g[u][v]) {
+              f[v] = (f[v] + f[u]) % MOD;
+            }
+        }
+    }
+    return f[e];
+}
+
+int main() {
+    scanf("%d %d", &n, &m);
+    memset(g, 0x3f, sizeof g);
+    int u, v, w;
+    for (int i = 0; i < m; i++) {
+        scanf("%d %d %d", &u, &v, &w);
+        g[u][v] = min(g[u][v], w); //防止重边
+    }
+    dijkstra(1, n);
+    printf("%d\n", d[n] == INF ? -1 : d[n]);
+    return 0;
+}
+```
+
 ### 最短路径记录
 
 定义 `pre` 记录前驱结点，最后 dfs 回溯；
